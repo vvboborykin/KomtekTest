@@ -17,10 +17,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.Title := 'Тестовая задача КОМТЕК';
-  Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(TLayoutForm, LayoutForm);
   Application.CreateForm(TDevExpressOptions, DevExpressOptions);
-  Application.CreateForm(TArmTypeSelectorForm, ArmTypeSelectorForm);
-  Application.CreateForm(TBaseArmForm, BaseArmForm);
+  Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.

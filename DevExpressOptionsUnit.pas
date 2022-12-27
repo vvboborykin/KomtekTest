@@ -1,4 +1,12 @@
-﻿unit DevExpressOptionsUnit;
+﻿{*******************************************************
+* Project: KomtekTest
+* Unit: DevExpressOptionsUnit.pas
+* Description: Модуль глобальных параметров работы компонентов DevExpress
+*
+* Created: 27.12.2022 22:12:19
+* Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
+*******************************************************}
+unit DevExpressOptionsUnit;
 
 interface
 
@@ -7,13 +15,19 @@ uses
   dxLayoutLookAndFeels;
 
 type
+  /// <summary>TDevExpressOptions
+  /// Модуль глобальных параметров работы компонентов DevExpress
+  /// </summary>
   TDevExpressOptions = class(TDataModule)
     locRus: TcxLocalizer;
     llfMain: TdxLayoutLookAndFeelList;
     dxLayoutSkinLookAndFeel1: TdxLayoutSkinLookAndFeel;
     procedure DataModuleCreate(Sender: TObject);
   strict private
-    procedure LoadRusLocalization;
+    /// <summary>TDevExpressOptions.LoadRusLocalizationFromRCData
+    /// Загрузить локализацию компонентов Devexpress из встроенного ресурса приложения
+    /// </summary>
+    procedure LoadRusLocalizationFromRCData;
   public
   end;
 
@@ -31,11 +45,12 @@ const
 
 procedure TDevExpressOptions.DataModuleCreate(Sender: TObject);
 begin
-  LoadRusLocalization;
+  LoadRusLocalizationFromRCData;
   locRus.Active := True;
+  locRus.LanguageIndex := $419;
 end;
 
-procedure TDevExpressOptions.LoadRusLocalization;
+procedure TDevExpressOptions.LoadRusLocalizationFromRCData;
 var
   RS: TResourceStream;
 begin

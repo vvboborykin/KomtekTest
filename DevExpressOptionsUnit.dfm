@@ -3,6 +3,9 @@ object DevExpressOptions: TDevExpressOptions
   Height = 480
   Width = 640
   object locRus: TcxLocalizer
+    FileName = 
+      'C:\Users\bpost\Documents\Embarcadero\Studio\Projects\KomtekTest\' +
+      'Resources\DevExpress_ru.ini'
     Left = 24
     Top = 16
   end
