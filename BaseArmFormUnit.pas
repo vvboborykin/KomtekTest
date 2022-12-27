@@ -1,10 +1,10 @@
-{*******************************************************
+п»ї{*******************************************************
 * Project: KomtekTest
 * Unit: Unit1.pas
-* Description: Базовая форма АРМ
+* Description: Р‘Р°Р·РѕРІР°СЏ С„РѕСЂРјР° РђР Рњ
 *
 * Created: 27.12.2022 21:43:02
-* Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
+* Copyright (C) 2022 Р‘РѕР±РѕСЂС‹РєРёРЅ Р’.Р’. (bpost@yandex.ru)
 *******************************************************}
 unit BaseArmFormUnit;
 
@@ -19,7 +19,7 @@ uses
 
 type
   /// <summary>TBaseArmForm
-  /// Базовая форма АРМ
+  /// Р‘Р°Р·РѕРІР°СЏ С„РѕСЂРјР° РђР Рњ
   /// </summary>
   TBaseArmForm = class abstract(TLayoutForm)
   private

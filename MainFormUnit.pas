@@ -1,4 +1,4 @@
-unit MainFormUnit;
+﻿unit MainFormUnit;
 
 interface
 

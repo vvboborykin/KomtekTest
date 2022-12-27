@@ -1,10 +1,10 @@
-{*******************************************************
+п»ї{*******************************************************
 * Project: KomtekTest
 * Unit: Unit1.pas
-* Description: Базовая форма с авторазмещением элементов на основе Devexpress Layout control
+* Description: Р‘Р°Р·РѕРІР°СЏ С„РѕСЂРјР° СЃ Р°РІС‚РѕСЂР°Р·РјРµС‰РµРЅРёРµРј СЌР»РµРјРµРЅС‚РѕРІ РЅР° РѕСЃРЅРѕРІРµ Devexpress Layout control
 *
 * Created: 27.12.2022 21:15:41
-* Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
+* Copyright (C) 2022 Р‘РѕР±РѕСЂС‹РєРёРЅ Р’.Р’. (bpost@yandex.ru)
 *******************************************************}
 unit LayoutFormUnit;
 
@@ -18,7 +18,7 @@ uses
 
 type
   /// <summary>TLayoutForm
-  /// Базовая форма с авторазмещением элементов на основе Devexpress Layout control
+  /// Р‘Р°Р·РѕРІР°СЏ С„РѕСЂРјР° СЃ Р°РІС‚РѕСЂР°Р·РјРµС‰РµРЅРёРµРј СЌР»РµРјРµРЅС‚РѕРІ РЅР° РѕСЃРЅРѕРІРµ Devexpress Layout control
   /// </summary>
   TLayoutForm = class abstract(TBaseForm)
     lgrRoot: TdxLayoutGroup;

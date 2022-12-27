@@ -1,10 +1,10 @@
-{*******************************************************
+п»ї{*******************************************************
 * Project: KomtekTest
 * Unit: BaseFormUnit.pas
-* Description: Базовая форма
+* Description: Р‘Р°Р·РѕРІР°СЏ С„РѕСЂРјР°
 *
 * Created: 27.12.2022 18:58:11
-* Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
+* Copyright (C) 2022 Р‘РѕР±РѕСЂС‹РєРёРЅ Р’.Р’. (bpost@yandex.ru)
 *******************************************************}
 unit BaseFormUnit;
 
@@ -16,7 +16,7 @@ uses
 
 type
   /// <summary>TBaseForm
-  /// Базовая форма
+  /// Р‘Р°Р·РѕРІР°СЏ С„РѕСЂРјР°
   /// </summary>
   TBaseForm = class abstract(TForm)
   private

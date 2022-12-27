@@ -1,10 +1,10 @@
-{*******************************************************
+п»ї{*******************************************************
 * Project: KomtekTest
 * Unit: ArmTypeSelectorFormUnit.pas
-* Description: Форма выбора типа АРМ
+* Description: Р¤РѕСЂРјР° РІС‹Р±РѕСЂР° С‚РёРїР° РђР Рњ
 *
 * Created: 27.12.2022 21:45:16
-* Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
+* Copyright (C) 2022 Р‘РѕР±РѕСЂС‹РєРёРЅ Р’.Р’. (bpost@yandex.ru)
 *******************************************************}
 unit ArmTypeSelectorFormUnit;
 
@@ -21,7 +21,7 @@ uses
 
 type
   /// <summary>TArmTypeSelectorForm
-  /// Форма выбора типа АРМ
+  /// Р¤РѕСЂРјР° РІС‹Р±РѕСЂР° С‚РёРїР° РђР Рњ
   /// </summary>
   TArmTypeSelectorForm = class(TLayoutForm)
     btnArmOper: TcxButton;
@@ -43,10 +43,10 @@ type
     FBaseArmFormClass: TBaseArmFormClass;
   public
     /// <summary>TArmTypeSelectorForm.SelectArmClass
-    /// Запросить у пользователя выбор типа создаваемого АРМ
+    /// Р—Р°РїСЂРѕСЃРёС‚СЊ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІС‹Р±РѕСЂ С‚РёРїР° СЃРѕР·РґР°РІР°РµРјРѕРіРѕ РђР Рњ
     /// </summary>
     /// <returns> TBaseArmFormClass
-    /// Класс выбранного типа АРМ или nil при отказе от создания
+    /// РљР»Р°СЃСЃ РІС‹Р±СЂР°РЅРЅРѕРіРѕ С‚РёРїР° РђР Рњ РёР»Рё nil РїСЂРё РѕС‚РєР°Р·Рµ РѕС‚ СЃРѕР·РґР°РЅРёСЏ
     /// </returns>
     class function SelectArmClass: TBaseArmFormClass;
   end;
