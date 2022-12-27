@@ -129,6 +129,16 @@
             <Form>BaseArmForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="OperArmFormUnit.pas">
+            <Form>OperArmForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="StatistArmFormUnit.pas">
+            <Form>StatistArmForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="CreateArmCommandUnit.pas"/>
+        <DCCReference Include="CommandUnit.pas"/>
         <RcItem Include="..\..\Components\DevExpress20.6\DevExpress_ru.ini">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>

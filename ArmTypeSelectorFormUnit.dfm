@@ -2,6 +2,7 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
   Caption = #1042#1099#1073#1077#1088#1080#1090#1077' '#1090#1080#1087' '#1040#1056#1052' '#1076#1083#1103' '#1089#1086#1079#1076#1072#1085#1080#1103
   ClientHeight = 270
   ClientWidth = 520
+  Position = poOwnerFormCenter
   ExplicitWidth = 536
   ExplicitHeight = 309
   TextHeight = 21
@@ -10,14 +11,15 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
     Height = 270
     ExplicitLeft = 0
     ExplicitTop = 0
-    ExplicitWidth = 615
-    ExplicitHeight = 419
+    ExplicitWidth = 520
+    ExplicitHeight = 270
     object btnArmOper: TcxButton [0]
       Left = 17
       Top = 17
       Width = 486
       Height = 56
       Action = actArmOper
+      ModalResult = 1
       TabOrder = 0
     end
     object btnArmStatist: TcxButton [1]
@@ -26,6 +28,7 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
       Width = 486
       Height = 62
       Action = actArmStatist
+      ModalResult = 1
       TabOrder = 1
     end
     object btnExit: TcxButton [2]
@@ -34,6 +37,8 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
       Width = 486
       Height = 70
       Action = actExit
+      Cancel = True
+      ModalResult = 2
       TabOrder = 2
     end
     inherited lgrRoot: TdxLayoutGroup
@@ -85,17 +90,17 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
     Left = 432
     Top = 40
     object actArmOper: TAction
-      Caption = #1040#1056#1052' '#1086#1087#1077#1088#1072#1090#1086#1088#1072
+      Caption = #1040#1056#1052' &'#1086#1087#1077#1088#1072#1090#1086#1088#1072
       ImageIndex = 0
       OnExecute = actArmOperExecute
     end
     object actArmStatist: TAction
-      Caption = #1040#1056#1052' '#1089#1090#1072#1090#1080#1089#1090#1072
+      Caption = #1040#1056#1052' &'#1089#1090#1072#1090#1080#1089#1090#1072
       ImageIndex = 1
       OnExecute = actArmStatistExecute
     end
     object actExit: TAction
-      Caption = #1054#1090#1084#1077#1085#1072
+      Caption = #1054'&'#1090#1084#1077#1085#1072
       OnExecute = actExitExecute
     end
   end

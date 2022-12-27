@@ -9,7 +9,11 @@ uses
   LayoutFormUnit in 'LayoutFormUnit.pas' {LayoutForm},
   DevExpressOptionsUnit in 'DevExpressOptionsUnit.pas' {DevExpressOptions: TDataModule},
   ArmTypeSelectorFormUnit in 'ArmTypeSelectorFormUnit.pas' {ArmTypeSelectorForm},
-  BaseArmFormUnit in 'BaseArmFormUnit.pas' {BaseArmForm};
+  BaseArmFormUnit in 'BaseArmFormUnit.pas' {BaseArmForm},
+  OperArmFormUnit in 'OperArmFormUnit.pas' {OperArmForm},
+  StatistArmFormUnit in 'StatistArmFormUnit.pas' {StatistArmForm},
+  CreateArmCommandUnit in 'CreateArmCommandUnit.pas',
+  CommandUnit in 'CommandUnit.pas';
 
 {$R *.res}
 

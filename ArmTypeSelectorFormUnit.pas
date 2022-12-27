@@ -53,18 +53,21 @@ type
 
 implementation
 
+uses
+  OperArmFormUnit, StatistArmFormUnit;
+
 {$R *.dfm}
 
 procedure TArmTypeSelectorForm.actArmOperExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := nil;
+  FBaseArmFormClass := TOperArmForm;
 end;
 
 procedure TArmTypeSelectorForm.actArmStatistExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := nil;
+  FBaseArmFormClass := TStatistArmForm;
 end;
 
 procedure TArmTypeSelectorForm.actExitExecute(Sender: TObject);

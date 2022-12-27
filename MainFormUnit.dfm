@@ -4,6 +4,8 @@ inherited MainForm: TMainForm
   ClientWidth = 967
   FormStyle = fsMDIForm
   Position = poScreenCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
   ExplicitWidth = 983
   ExplicitHeight = 790
   TextHeight = 21
@@ -11,13 +13,12 @@ inherited MainForm: TMainForm
     Left = 0
     Top = 0
     Width = 967
-    Height = 145
+    Height = 121
     BarManager = manMain
     ColorSchemeName = 'Office2019Colorful'
     Contexts = <>
     TabOrder = 0
     TabStop = False
-    ExplicitWidth = 888
     object rbMainTab1: TdxRibbonTab
       Active = True
       Caption = #1043#1083#1072#1074#1085#1086#1077
@@ -69,8 +70,8 @@ inherited MainForm: TMainForm
           Visible = True
           ItemName = 'btnStatistArm'
         end>
-      OneOnRow = True
-      Row = 1
+      OneOnRow = False
+      Row = 0
       UseOwnFont = False
       Visible = True
       WholeRow = False
@@ -109,7 +110,7 @@ inherited MainForm: TMainForm
           Visible = True
           ItemName = 'dxBarLargeButton6'
         end>
-      OneOnRow = True
+      OneOnRow = False
       Row = 0
       UseOwnFont = False
       Visible = True
@@ -176,7 +177,7 @@ inherited MainForm: TMainForm
     Left = 752
     Top = 160
     Bitmap = {
-      494C010108001800040020002000FFFFFFFF2100FFFFFFFFFFFFFFFF424D3600
+      494C010108001800040020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1764,7 +1765,8 @@ inherited MainForm: TMainForm
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000}
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000}
     DesignInfo = 10486512
     ImageInfo = <
       item
@@ -2215,10 +2217,12 @@ inherited MainForm: TMainForm
     object actCreateOperArm: TAction
       Caption = #1040#1056#1052' '#1086#1087#1077#1088#1072#1090#1086#1088#1072
       ImageIndex = 0
+      OnExecute = actCreateOperArmExecute
     end
     object actCreateStatistArm: TAction
       Caption = #1040#1056#1052' '#1089#1090#1072#1090#1080#1089#1090#1072
       ImageIndex = 1
+      OnExecute = actCreateStatistArmExecute
     end
     object WindowClose1: TWindowClose
       Category = 'Window'

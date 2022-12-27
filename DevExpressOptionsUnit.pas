@@ -28,6 +28,8 @@ type
     /// Загрузить локализацию компонентов Devexpress из встроенного ресурса приложения
     /// </summary>
     procedure LoadRusLocalizationFromRCData;
+  private
+    procedure SetRusLocalization;
   public
   end;
 
@@ -45,9 +47,7 @@ const
 
 procedure TDevExpressOptions.DataModuleCreate(Sender: TObject);
 begin
-  LoadRusLocalizationFromRCData;
-  locRus.Active := True;
-  locRus.LanguageIndex := $419;
+  SetRusLocalization;
 end;
 
 procedure TDevExpressOptions.LoadRusLocalizationFromRCData;
@@ -60,6 +60,13 @@ begin
   finally
     RS.Free;
   end;
+end;
+
+procedure TDevExpressOptions.SetRusLocalization;
+begin
+  LoadRusLocalizationFromRCData;
+  locRus.Active := True;
+  locRus.LanguageIndex := $419;
 end;
 
 end.
