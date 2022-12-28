@@ -12,7 +12,8 @@ uses
   BaseArmFormUnit in 'BaseArmFormUnit.pas' {BaseArmForm},
   OperArmFormUnit in 'OperArmFormUnit.pas' {FrmOperator},
   StatistArmFormUnit in 'StatistArmFormUnit.pas' {FrmStatist},
-  ArmFormFactoryUnit in 'ArmFormFactoryUnit.pas';
+  ArmFormFactoryUnit in 'ArmFormFactoryUnit.pas',
+  FindFormUnit in 'FindFormUnit.pas' {FrmFind};
 
 {$R *.res}
 
@@ -22,5 +23,6 @@ begin
   Application.Title := 'Тестовая задача КОМТЕК';
   Application.CreateForm(TDevExpressOptions, DevExpressOptions);
   Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TFrmFind, FrmFind);
   Application.Run;
 end.

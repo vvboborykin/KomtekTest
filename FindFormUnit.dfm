@@ -19,12 +19,12 @@ inherited FrmFind: TFrmFind
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 0
-      Width = 323
+      Width = 319
     end
     object btnFind: TcxButton [1]
-      Left = 464
+      Left = 460
       Top = 17
-      Width = 93
+      Width = 97
       Height = 25
       Action = actFind
       TabOrder = 1
@@ -50,7 +50,7 @@ inherited FrmFind: TFrmFind
       CaptionOptions.Visible = False
       Control = btnFind
       ControlOptions.OriginalHeight = 25
-      ControlOptions.OriginalWidth = 93
+      ControlOptions.OriginalWidth = 97
       ControlOptions.ShowBorder = False
       Index = 1
     end

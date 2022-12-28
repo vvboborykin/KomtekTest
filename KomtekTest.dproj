@@ -138,6 +138,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ArmFormFactoryUnit.pas"/>
+        <DCCReference Include="FindFormUnit.pas">
+            <Form>FrmFind</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\..\Components\DevExpress20.6\DevExpress_ru.ini">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>
