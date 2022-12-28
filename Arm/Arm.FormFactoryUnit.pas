@@ -6,32 +6,32 @@
 * Created: 28.12.2022 8:38:48
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit ArmFormFactoryUnit;
+unit Arm.FormFactoryUnit;
 
 interface
 uses
   System.SysUtils, System.Classes, System.Variants, VCL.Forms,
-  BaseArmFormUnit, OperArmFormUnit, StatistArmFormUnit;
+  Arm.BaseFormUnit, Arm.OperFormUnit, Arm.StatistFormUnit;
 
 type
-  /// <summary>TArmFormFactory
+  /// <summary>TFormFactory
   /// Фабрика для создания форм АРМ
   /// </summary>
-  TArmFormFactory = class
+  TFormFactory = class
   public
-    /// <summary>TArmFormFactory.CreateOperArm
+    /// <summary>TFormFactory.CreateOperArm
     /// Созадть АРМ оператора
     /// </summary>
     /// <returns> TOperArmForm
     /// </returns>
     function CreateOperArm: TFrmOperator;
-    /// <summary>TArmFormFactory.CreateStatistArm
+    /// <summary>TFormFactory.CreateStatistArm
     /// Создать АРМ статиста
     /// </summary>
     /// <returns> TStatistArmForm
     /// </returns>
     function CreateStatistArm: TFrmStatist;
-    /// <summary>TArmFormFactory.CreateArmForm<>
+    /// <summary>TFormFactory.CreateArmForm<>
     /// Создать АРМ заданного класса
     /// </summary>
     /// <returns> T
@@ -43,9 +43,9 @@ type
   /// <summary>procedure ArmFormFactory
   /// Синглтон фабрики АРМ
   /// </summary>
-  /// <returns> TArmFormFactory
+  /// <returns> TFormFactory
   /// </returns>
-  function ArmFormFactory: TArmFormFactory;
+  function ArmFormFactory: TFormFactory;
 
 implementation
 
@@ -53,34 +53,34 @@ uses
   TypInfo;
 
 var
-  FArmFormFactory: TArmFormFactory;
+  FArmFormFactory: TFormFactory;
 
-  function ArmFormFactory: TArmFormFactory;
+  function ArmFormFactory: TFormFactory;
   begin
     if FArmFormFactory = nil then
-      FArmFormFactory := TArmFormFactory.Create;
+      FArmFormFactory := TFormFactory.Create;
     Result := FArmFormFactory;
   end;
 
-function TArmFormFactory.CreateArmForm(AClass: TBaseArmFormClass): TBaseArmForm;
+function TFormFactory.CreateArmForm(AClass: TBaseArmFormClass): TBaseArmForm;
 begin
   Result := AClass.Create(Application);
   Application.ProcessMessages();
 end;
 
-function TArmFormFactory.CreateOperArm: TFrmOperator;
+function TFormFactory.CreateOperArm: TFrmOperator;
 begin
   Result := CreateArmForm<TFrmOperator>();
 end;
 
-function TArmFormFactory.CreateArmForm<T>: T;
+function TFormFactory.CreateArmForm<T>: T;
 begin
   // выводим класс запрошенного АРМ использыя старый RTTI
   var vClass := TBaseArmFormClass(PTypeInfo(TypeInfo(T)).TypeData.ClassType);
   Result := CreateArmForm(vClass) as T;
 end;
 
-function TArmFormFactory.CreateStatistArm: TFrmStatist;
+function TFormFactory.CreateStatistArm: TFrmStatist;
 begin
   Result := CreateArmForm<TFrmStatist>();
 end;

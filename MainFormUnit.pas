@@ -17,7 +17,7 @@ uses
   dxSkinsCore, dxSkinOffice2019Colorful, dxCore, dxRibbonSkins,
   dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, cxImageList, cxClasses, dxRibbon, Vcl.StdActns,
-  System.Threading, ArmFormFactoryUnit, dxRibbonGallery, dxSkinChooserGallery,
+  System.Threading, dxRibbonGallery, dxSkinChooserGallery,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
   dxSkinOffice2019Black, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
@@ -75,7 +75,7 @@ var
 implementation
 
 uses
-  ArmTypeSelectorFormUnit, DevExpressOptionsUnit;
+  Arm.TypeSelectorFormUnit, Arm.FormFactoryUnit, DevExpressOptionsUnit;
 
 const
   cSelectorFormDelay = 100;

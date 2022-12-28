@@ -9,8 +9,6 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
   inherited lacMain: TdxLayoutControl
     Width = 520
     Height = 270
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 520
     ExplicitHeight = 270
     object btnArmOper: TcxButton [0]
@@ -42,8 +40,6 @@ inherited ArmTypeSelectorForm: TArmTypeSelectorForm
       TabOrder = 2
     end
     inherited lgrRoot: TdxLayoutGroup
-      AlignHorz = ahClient
-      AlignVert = avClient
       ItemIndex = 2
     end
     object lit: TdxLayoutItem

@@ -6,7 +6,7 @@
 * Created: 27.12.2022 21:45:16
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit ArmTypeSelectorFormUnit;
+unit Arm.TypeSelectorFormUnit;
 
 interface
 
@@ -15,9 +15,11 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinOffice2019Colorful, cxClasses, dxLayoutContainer,
-  dxLayoutControl, BaseArmFormUnit, dxLayoutControlAdapters, Vcl.Menus,
+  dxLayoutControl, Arm.BaseFormUnit, dxLayoutControlAdapters, Vcl.Menus,
   System.ImageList, Vcl.ImgList, cxImageList, System.Actions, Vcl.ActnList,
-  Vcl.StdCtrls, cxButtons;
+  Vcl.StdCtrls, cxButtons, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White;
 
 type
   /// <summary>TArmTypeSelectorForm
@@ -54,7 +56,7 @@ type
 implementation
 
 uses
-  OperArmFormUnit, StatistArmFormUnit;
+  Arm.OperFormUnit, Arm.StatistFormUnit;
 
 {$R *.dfm}
 

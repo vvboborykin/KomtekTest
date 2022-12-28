@@ -1,27 +1,30 @@
 ﻿{*******************************************************
 * Project: KomtekTest
-* Unit: Unit1.pas
-* Description: Форма АРМ оператора
+* Unit: StatistArmFormUnit.pas
+* Description: Форма АРМ статиста
 *
-* Created: 27.12.2022 22:26:59
+* Created: 27.12.2022 22:28:43
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit OperArmFormUnit;
+unit Arm.StatistFormUnit;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  BaseArmFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinOffice2019Colorful, cxClasses, dxLayoutContainer,
-  dxLayoutControl;
+  dxLayoutControl, Arm.BaseFormUnit, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
+  dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxLayoutControlAdapters,
+  Vcl.ExtCtrls;
 
 type
-  /// <summary>TOperArmForm
-  /// Форма АРМ оператора
+  /// <summary>TStatistArmForm
+  /// Форма АРМ статиста
   /// </summary>
-  TFrmOperator = class(TBaseArmForm)
+  TFrmStatist = class(TBaseArmForm)
   private
     { Private declarations }
   public

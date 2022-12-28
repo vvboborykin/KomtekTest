@@ -4,10 +4,10 @@ object AppData: TAppData
   object conMain: TUniConnection
     ProviderName = 'Oracle'
     SpecificOptions.Strings = (
-      'Oracle.Direct=True'
-      'Oracle.ConnectMode=cmSysDBA')
-    Username = 'SYS'
-    Server = '192.168.200.231:1521/XE'
+      'Oracle.Direct=True')
+    Username = 'KOMTEKTEST'
+    Server = 'DESKTOP-EDMFGCP:1521:XE'
+    Connected = True
     ConnectDialog = dlgOra
     Left = 40
     Top = 8

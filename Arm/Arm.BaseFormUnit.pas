@@ -6,7 +6,7 @@
 * Created: 27.12.2022 21:43:02
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit BaseArmFormUnit;
+unit Arm.BaseFormUnit;
 
 interface
 
