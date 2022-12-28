@@ -17,11 +17,13 @@ uses
   dxSkinsCore, dxSkinOffice2019Colorful, dxCore, dxRibbonSkins,
   dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, cxImageList, cxClasses, dxRibbon, Vcl.StdActns,
-  System.Threading, ArmFormFactoryUnit;
+  System.Threading, ArmFormFactoryUnit, dxRibbonGallery, dxSkinChooserGallery,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinOffice2019Black, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
 type
   TMainForm = class(TBaseForm)
-    rbMainTab1: TdxRibbonTab;
+    tabMain: TdxRibbonTab;
     rbMain: TdxRibbon;
     manMain: TdxBarManager;
     iml32: TcxImageList;
@@ -49,8 +51,13 @@ type
     dxBarLargeButton4: TdxBarLargeButton;
     dxBarLargeButton5: TdxBarLargeButton;
     dxBarLargeButton6: TdxBarLargeButton;
+    tabWindows: TdxRibbonTab;
+    barStyle: TdxBar;
+    dxSkinChooserGalleryItem1: TdxSkinChooserGalleryItem;
     procedure actCreateOperArmExecute(Sender: TObject);
     procedure actCreateStatistArmExecute(Sender: TObject);
+    procedure dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
+        ASkinName: string);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   strict private
@@ -68,7 +75,7 @@ var
 implementation
 
 uses
-  ArmTypeSelectorFormUnit;
+  ArmTypeSelectorFormUnit, DevExpressOptionsUnit;
 
 const
   cSelectorFormDelay = 100;
@@ -85,6 +92,14 @@ procedure TMainForm.actCreateStatistArmExecute(Sender: TObject);
 begin
   inherited;
   ArmFormFactory.CreateStatistArm();
+end;
+
+procedure TMainForm.dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
+    ASkinName: string);
+begin
+  inherited;
+  rbMain.ColorSchemeName := ASkinName;
+  DevExpressOptions.dxLayoutSkinLookAndFeel1.LookAndFeel.SkinName := ASkinName;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);

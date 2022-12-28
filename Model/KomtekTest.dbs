@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="KomtekTest" id="Project_1d63" database="Oracle" >
+	<schema name="KOMTEKTEST" >
+		<table name="HUMAN" >
+			<column name="ID" type="integer" jt="4" mandatory="y" />
+			<column name="LASTNAME" type="nvarchar2" length="100" jt="12" mandatory="y" />
+			<column name="FIRSTNAME" type="nvarchar2" length="100" jt="12" mandatory="y" />
+			<column name="PATRNAME" type="nvarchar2" length="100" jt="12" mandatory="y" />
+			<column name="BIRTHDATE" type="date" jt="91" mandatory="y" />
+			<column name="CREATEDATETIME" type="timestamp" jt="93" >
+				<defo>systimestamp</defo>
+			</column>
+			<index name="PK_HUMAN_ID" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout_240" show_column_type="y" show_relation="columns" >
+		<entity schema="KOMTEKTEST" name="HUMAN" color="C1D8EE" x="48" y="48" />
+		<script name="HUMAN" id="Editor_1be9" language="SQL" >
+			<string><![CDATA[SELECT ID, LASTNAME, FIRSTNAME, PATRNAME, BIRTHDATE, CREATEDATETIME
+FROM
+	KOMTEKTEST.HUMAN N;]]></string>
+		</script>
+		<script name="HUMAN_001" id="Editor_101b" language="SQL" >
+			<string><![CDATA[CREATE TABLE KOMTEKTEST.HUMAN ( 
+	ID                   integer  NOT NULL,
+	LASTNAME             varchar2(100)  NOT NULL,
+	FIRSTNAME            varchar2(100)  NOT NULL,
+	PATRNAME             varchar2(100)  NOT NULL,
+	BIRTHDATE            date  NOT NULL,
+	CREATEDATETIME       timestamp DEFAULT systimestamp ,
+	CONSTRAINT PK_HUMAN_ID PRIMARY KEY ( ID ) 
+ );
+]]></string>
+		</script>
+	</layout>
+</project>

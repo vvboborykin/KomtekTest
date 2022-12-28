@@ -13,13 +13,9 @@ inherited LayoutForm: TLayoutForm
     Align = alClient
     TabOrder = 0
     LayoutLookAndFeel = DevExpressOptions.dxLayoutSkinLookAndFeel1
-    ExplicitLeft = 168
-    ExplicitTop = 112
-    ExplicitWidth = 300
-    ExplicitHeight = 250
     object lgrRoot: TdxLayoutGroup
-      AlignHorz = ahLeft
-      AlignVert = avTop
+      AlignHorz = ahClient
+      AlignVert = avClient
       ButtonOptions.Buttons = <>
       Hidden = True
       ShowBorder = False

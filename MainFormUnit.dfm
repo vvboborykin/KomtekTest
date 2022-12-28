@@ -19,7 +19,7 @@ inherited MainForm: TMainForm
     Contexts = <>
     TabOrder = 0
     TabStop = False
-    object rbMainTab1: TdxRibbonTab
+    object tabMain: TdxRibbonTab
       Active = True
       Caption = #1043#1083#1072#1074#1085#1086#1077
       Groups = <
@@ -27,9 +27,17 @@ inherited MainForm: TMainForm
           ToolbarName = 'dxbrArm'
         end
         item
-          ToolbarName = 'dxbrWindows'
+          ToolbarName = 'barStyle'
         end>
       Index = 0
+    end
+    object tabWindows: TdxRibbonTab
+      Caption = #1054#1082#1085#1072
+      Groups = <
+        item
+          ToolbarName = 'dxbrWindows'
+        end>
+      Index = 1
     end
   end
   object manMain: TdxBarManager
@@ -46,6 +54,8 @@ inherited MainForm: TMainForm
       True)
     ImageOptions.Images = iml32
     ImageOptions.LargeImages = iml32
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Office2019Colorful'
     PopupMenuLinks = <>
     UseSystemFont = True
     Left = 752
@@ -70,21 +80,21 @@ inherited MainForm: TMainForm
           Visible = True
           ItemName = 'btnStatistArm'
         end>
-      OneOnRow = False
-      Row = 0
+      OneOnRow = True
+      Row = 1
       UseOwnFont = False
       Visible = True
       WholeRow = False
     end
     object dxbrWindows: TdxBar
-      Caption = #1054#1082#1085#1072
+      Caption = #1056#1072#1089#1087#1086#1083#1086#1078#1077#1085#1080#1077
       CaptionButtons = <>
-      DockedLeft = 151
+      DockedLeft = 0
       DockedTop = 0
-      FloatLeft = 995
-      FloatTop = 2
-      FloatClientWidth = 0
-      FloatClientHeight = 0
+      FloatLeft = 488
+      FloatTop = 197
+      FloatClientWidth = 105
+      FloatClientHeight = 324
       ItemLinks = <
         item
           Visible = True
@@ -110,7 +120,27 @@ inherited MainForm: TMainForm
           Visible = True
           ItemName = 'dxBarLargeButton6'
         end>
-      OneOnRow = False
+      OneOnRow = True
+      Row = 0
+      UseOwnFont = False
+      Visible = True
+      WholeRow = False
+    end
+    object barStyle: TdxBar
+      Caption = #1054#1092#1086#1088#1084#1083#1077#1085#1080#1077
+      CaptionButtons = <>
+      DockedLeft = 151
+      DockedTop = 0
+      FloatLeft = 995
+      FloatTop = 2
+      FloatClientWidth = 0
+      FloatClientHeight = 0
+      ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'dxSkinChooserGalleryItem1'
+        end>
+      OneOnRow = True
       Row = 0
       UseOwnFont = False
       Visible = True
@@ -167,6 +197,13 @@ inherited MainForm: TMainForm
     object dxBarLargeButton6: TdxBarLargeButton
       Action = WindowArrange1
       Category = 0
+    end
+    object dxSkinChooserGalleryItem1: TdxSkinChooserGalleryItem
+      Caption = 'New Skin Chooser'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+      OnSkinChanged = dxSkinChooserGalleryItem1SkinChanged
     end
   end
   object iml32: TcxImageList

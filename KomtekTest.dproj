@@ -89,6 +89,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.1;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -138,9 +140,18 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ArmFormFactoryUnit.pas"/>
-        <DCCReference Include="FindFormUnit.pas">
+        <DCCReference Include="Search\Search.FindFormUnit.pas">
             <Form>FrmFind</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search\Search.EngineUnit.pas"/>
+        <DCCReference Include="Lib\Lib.CommandLineService.pas"/>
+        <DCCReference Include="Lib\Lib.Nullable.pas"/>
+        <DCCReference Include="Search\Search.FDQueryEngineUnit.pas"/>
+        <DCCReference Include="AppDataUnit.pas">
+            <Form>AppData</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <RcItem Include="..\..\Components\DevExpress20.6\DevExpress_ru.ini">
             <ContainerId>ResourceItem</ContainerId>

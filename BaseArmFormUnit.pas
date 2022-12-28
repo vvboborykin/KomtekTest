@@ -15,16 +15,21 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinOffice2019Colorful, cxClasses, dxLayoutContainer,
-  dxLayoutControl;
+  dxLayoutControl, dxLayoutControlAdapters, Vcl.ExtCtrls, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
+  dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
 type
   /// <summary>TBaseArmForm
   /// Базовая форма АРМ
   /// </summary>
   TBaseArmForm = class abstract(TLayoutForm)
+    pnlFind: TPanel;
+    layFind: TdxLayoutItem;
+    procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-  private
-    { Private declarations }
+  strict private
+    procedure CreateFindForm;
   public
     { Public declarations }
   end;
@@ -33,7 +38,27 @@ type
 
 implementation
 
+uses
+  Search.FindFormUnit;
+
 {$R *.dfm}
+
+procedure TBaseArmForm.FormCreate(Sender: TObject);
+begin
+  inherited;
+  CreateFindForm;
+end;
+
+procedure TBaseArmForm.CreateFindForm;
+begin
+  var vFindForm := TFrmFind.Create(pnlFind);
+  vFindForm.Parent := pnlFind;
+  vFindForm.Visible := True;
+  vFindForm.Align := alTop;
+  Application.ProcessMessages;
+  pnlFind.Height := vFindForm.Height;
+  Application.ProcessMessages;
+end;
 
 procedure TBaseArmForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

@@ -9,35 +9,31 @@ inherited FrmFind: TFrmFind
   inherited lacMain: TdxLayoutControl
     Width = 574
     Height = 62
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 574
-    ExplicitHeight = 57
+    ExplicitHeight = 62
     object edFind: TcxTextEdit [0]
-      Left = 131
+      Left = 160
       Top = 17
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 0
-      Width = 319
+      Width = 290
     end
     object btnFind: TcxButton [1]
       Left = 460
       Top = 17
       Width = 97
-      Height = 25
+      Height = 27
       Action = actFind
       TabOrder = 1
     end
     inherited lgrRoot: TdxLayoutGroup
-      AlignHorz = ahClient
-      AlignVert = avClient
       LayoutDirection = ldHorizontal
     end
     object litFind: TdxLayoutItem
       Parent = lgrRoot
       AlignHorz = ahClient
-      CaptionOptions.Text = #1055#1086#1080#1089#1082' '#1087#1086' '#1060#1048#1054
+      CaptionOptions.Text = #1055#1086#1080#1089#1082' '#1087#1086' '#1092#1072#1084#1080#1083#1080#1080
       Control = edFind
       ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 121
@@ -49,7 +45,7 @@ inherited FrmFind: TFrmFind
       CaptionOptions.Text = 'cxButton1'
       CaptionOptions.Visible = False
       Control = btnFind
-      ControlOptions.OriginalHeight = 25
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 97
       ControlOptions.ShowBorder = False
       Index = 1
@@ -62,6 +58,7 @@ inherited FrmFind: TFrmFind
     object actFind: TAction
       Caption = #1053#1072#1081#1090#1080
       ImageIndex = 0
+      OnExecute = actFindExecute
     end
   end
   object iml24: TcxImageList
@@ -72,7 +69,7 @@ inherited FrmFind: TFrmFind
     Left = 328
     Top = 8
     Bitmap = {
-      494C010101000800040018001800FFFFFFFF2100FFFFFFFFFFFFFFFF424D3600
+      494C010101000800040018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000001800000001002000000000000024
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -373,7 +370,8 @@ inherited FrmFind: TFrmFind
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000}
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000}
     DesignInfo = 524616
     ImageInfo = <
       item
