@@ -1,4 +1,12 @@
-﻿unit MainFormUnit;
+﻿{*******************************************************
+* Project: KomtekTest
+* Unit: MainFormUnit.pas
+* Description: Главная форма приложения
+*
+* Created: 28.12.2022 8:25:49
+* Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
+*******************************************************}
+unit MainFormUnit;
 
 interface
 
@@ -9,7 +17,7 @@ uses
   dxSkinsCore, dxSkinOffice2019Colorful, dxCore, dxRibbonSkins,
   dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, cxImageList, cxClasses, dxRibbon, Vcl.StdActns,
-  System.Threading;
+  System.Threading, ArmFormFactoryUnit;
 
 type
   TMainForm = class(TBaseForm)
@@ -47,6 +55,7 @@ type
     procedure FormShow(Sender: TObject);
   strict private
     FShowFirstTime: Boolean;
+    procedure ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
   private
     { Private declarations }
   public
@@ -59,20 +68,23 @@ var
 implementation
 
 uses
-  ArmTypeSelectorFormUnit, CommandUnit, CreateArmCommandUnit, OperArmFormUnit, StatistArmFormUnit;
+  ArmTypeSelectorFormUnit;
+
+const
+  cSelectorFormDelay = 100;
 
 {$R *.dfm}
 
 procedure TMainForm.actCreateOperArmExecute(Sender: TObject);
 begin
   inherited;
-  (TCreateArmCommand.Create(TOperArmForm) as ICommand).Execute;
+  ArmFormFactory.CreateOperArm();
 end;
 
 procedure TMainForm.actCreateStatistArmExecute(Sender: TObject);
 begin
   inherited;
-  (TCreateArmCommand.Create(TStatistArmForm) as ICommand).Execute;
+  ArmFormFactory.CreateStatistArm();
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -88,21 +100,24 @@ begin
   begin
     FShowFirstTime := False;
     Application.ProcessMessages;
-
-    TTask.Run(
-      procedure
-      begin
-        Sleep(100);
-        TThread.Synchronize(nil,
-          procedure
-          begin
-            var vClass := TArmTypeSelectorForm.SelectArmClass;
-            if vClass <> nil then
-              (TCreateArmCommand.Create(vClass) as ICommand).Execute;
-          end);
-      end);
-
+    ShowArmSelectorAfterDelay(cSelectorFormDelay);
   end;
+end;
+
+procedure TMainForm.ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
+begin
+  TTask.Run(
+    procedure
+    begin
+      Sleep(ADelayTimeMs);
+      TThread.Synchronize(nil,
+        procedure
+        begin
+          var vClass := TArmTypeSelectorForm.SelectArmClass;
+          if vClass <> nil then
+            ArmFormFactory.CreateArmForm(vClass);
+        end);
+    end);
 end;
 
 end.

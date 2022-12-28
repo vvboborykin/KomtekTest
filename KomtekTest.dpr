@@ -12,8 +12,7 @@ uses
   BaseArmFormUnit in 'BaseArmFormUnit.pas' {BaseArmForm},
   OperArmFormUnit in 'OperArmFormUnit.pas' {OperArmForm},
   StatistArmFormUnit in 'StatistArmFormUnit.pas' {StatistArmForm},
-  CreateArmCommandUnit in 'CreateArmCommandUnit.pas',
-  CommandUnit in 'CommandUnit.pas';
+  ArmFormFactoryUnit in 'ArmFormFactoryUnit.pas';
 
 {$R *.res}
 
