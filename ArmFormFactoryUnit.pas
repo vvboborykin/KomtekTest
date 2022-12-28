@@ -49,6 +49,9 @@ type
 
 implementation
 
+uses
+  TypInfo;
+
 var
   FArmFormFactory: TArmFormFactory;
 
@@ -72,8 +75,9 @@ end;
 
 function TArmFormFactory.CreateArmForm<T>: T;
 begin
-  Result := T.Create(Application);
-  Application.ProcessMessages();
+  // выводим класс запрошенного АРМ использыя старый RTTI
+  var vClass := TBaseArmFormClass(PTypeInfo(TypeInfo(T)).TypeData.ClassType);
+  Result := CreateArmForm(vClass) as T;
 end;
 
 function TArmFormFactory.CreateStatistArm: TStatistArmForm;
