@@ -24,13 +24,13 @@ type
     /// </summary>
     /// <returns> TOperArmForm
     /// </returns>
-    function CreateOperArm: TOperArmForm;
+    function CreateOperArm: TFrmOperator;
     /// <summary>TArmFormFactory.CreateStatistArm
     /// Создать АРМ статиста
     /// </summary>
     /// <returns> TStatistArmForm
     /// </returns>
-    function CreateStatistArm: TStatistArmForm;
+    function CreateStatistArm: TFrmStatist;
     /// <summary>TArmFormFactory.CreateArmForm<>
     /// Создать АРМ заданного класса
     /// </summary>
@@ -68,9 +68,9 @@ begin
   Application.ProcessMessages();
 end;
 
-function TArmFormFactory.CreateOperArm: TOperArmForm;
+function TArmFormFactory.CreateOperArm: TFrmOperator;
 begin
-  Result := CreateArmForm<TOperArmForm>();
+  Result := CreateArmForm<TFrmOperator>();
 end;
 
 function TArmFormFactory.CreateArmForm<T>: T;
@@ -80,9 +80,9 @@ begin
   Result := CreateArmForm(vClass) as T;
 end;
 
-function TArmFormFactory.CreateStatistArm: TStatistArmForm;
+function TArmFormFactory.CreateStatistArm: TFrmStatist;
 begin
-  Result := CreateArmForm<TStatistArmForm>();
+  Result := CreateArmForm<TFrmStatist>();
 end;
 
 initialization

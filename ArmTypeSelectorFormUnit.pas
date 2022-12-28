@@ -61,13 +61,13 @@ uses
 procedure TArmTypeSelectorForm.actArmOperExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := TOperArmForm;
+  FBaseArmFormClass := TFrmOperator;
 end;
 
 procedure TArmTypeSelectorForm.actArmStatistExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := TStatistArmForm;
+  FBaseArmFormClass := TFrmStatist;
 end;
 
 procedure TArmTypeSelectorForm.actExitExecute(Sender: TObject);

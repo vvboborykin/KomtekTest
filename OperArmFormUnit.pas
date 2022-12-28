@@ -21,7 +21,7 @@ type
   /// <summary>TOperArmForm
   /// Форма АРМ оператора
   /// </summary>
-  TOperArmForm = class(TBaseArmForm)
+  TFrmOperator = class(TBaseArmForm)
   private
     { Private declarations }
   public

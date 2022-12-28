@@ -21,7 +21,7 @@ type
   /// <summary>TStatistArmForm
   /// Форма АРМ статиста
   /// </summary>
-  TStatistArmForm = class(TBaseArmForm)
+  TFrmStatist = class(TBaseArmForm)
   private
     { Private declarations }
   public

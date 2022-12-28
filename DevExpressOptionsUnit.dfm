@@ -1,7 +1,7 @@
 object DevExpressOptions: TDevExpressOptions
   OnCreate = DataModuleCreate
-  Height = 480
-  Width = 640
+  Height = 181
+  Width = 321
   object locRus: TcxLocalizer
     FileName = 
       'C:\Users\bpost\Documents\Embarcadero\Studio\Projects\KomtekTest\' +

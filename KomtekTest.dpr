@@ -10,8 +10,8 @@ uses
   DevExpressOptionsUnit in 'DevExpressOptionsUnit.pas' {DevExpressOptions: TDataModule},
   ArmTypeSelectorFormUnit in 'ArmTypeSelectorFormUnit.pas' {ArmTypeSelectorForm},
   BaseArmFormUnit in 'BaseArmFormUnit.pas' {BaseArmForm},
-  OperArmFormUnit in 'OperArmFormUnit.pas' {OperArmForm},
-  StatistArmFormUnit in 'StatistArmFormUnit.pas' {StatistArmForm},
+  OperArmFormUnit in 'OperArmFormUnit.pas' {FrmOperator},
+  StatistArmFormUnit in 'StatistArmFormUnit.pas' {FrmStatist},
   ArmFormFactoryUnit in 'ArmFormFactoryUnit.pas';
 
 {$R *.res}

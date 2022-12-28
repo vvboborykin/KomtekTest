@@ -130,11 +130,11 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="OperArmFormUnit.pas">
-            <Form>OperArmForm</Form>
+            <Form>FrmOperator</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="StatistArmFormUnit.pas">
-            <Form>StatistArmForm</Form>
+            <Form>FrmStatist</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ArmFormFactoryUnit.pas"/>
