@@ -6,7 +6,7 @@
 * Created: 28.12.2022 11:59:53
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit Search.FDQueryEngineUnit;
+unit Search.OraQueryEngineUnit;
 
 interface
 
@@ -15,25 +15,25 @@ uses
   System.StrUtils, Ora;
 
 type
-  /// <summary>TFDQueryLastNameSearchEngine
-  /// Реализация механизма поиска по фамилии на основе TFDQuery
+  /// <summary>TOraQuerySurnameSearchEngine
+  /// Реализация механизма поиска по фамилии на основе TOraQuery
   /// </summary>
-  TFDQueryLastNameSearchEngine = class(TInterfacedObject, ILastNameSearchEngine)
+  TOraQuerySurnameSearchEngine = class(TInterfacedObject, ISurnameSearchEngine)
   strict private
-    FLastNameFieldName: String;
+    FSurnameFieldName: String;
     FWhereMacroName: String;
     FQuery: TOraQuery;
-    /// <summary>ILastNameSearchEngine.FindHumanByLastName
+    /// <summary>ISurnameSearchEngine.FindHumanBySurname
     /// Найти человека по фамилии (регистронезависимый поиск)
     /// </summary>
     /// <returns> Boolean
     /// </returns>
-    /// <param name="ALastName"> (String) Фамилия человека</param>
-    function FindHumanByLastName(ALastName: String): Boolean; stdcall;
+    /// <param name="ASurname"> (String) Фамилия человека</param>
+    function FindHumanBySurname(ASurname: String): Boolean; stdcall;
     procedure Validate;
   public
     constructor Create(AQuery: TOraQuery; AWhereMacroName: String; const
-        ALastNameFieldName: String);
+        ASurnameFieldName: String);
   end;
 
   EQueryNotAssigned = class(Exception)
@@ -64,35 +64,35 @@ uses
 resourcestring
   SMacroNotFoundInSQL = 'Макрос &"%s" не найден в SQL запросе механизма поиска:'#13'%s';
   SWhereMacroNameIsEmpty = 'Не задано имя макроса для выражения WHERE запроса к данным';
-  SQueryNotSpecified = 'Не задан компонент FDQuery для механизма поиска';
-  SQueryIsNotActive = 'Компонент FDQuery не активен в механизме поиска';
+  SQueryNotSpecified = 'Не задан компонент OraQuery для механизма поиска по фамилии';
+  SQueryIsNotActive = 'Компонент OraQuery не активен в механизме поиска по фамилии';
 
-constructor TFDQueryLastNameSearchEngine.Create(AQuery: TOraQuery;
-    AWhereMacroName: String; const ALastNameFieldName: String);
+constructor TOraQuerySurnameSearchEngine.Create(AQuery: TOraQuery;
+    AWhereMacroName: String; const ASurnameFieldName: String);
 begin
   inherited Create;
   FQuery := AQuery;
   FWhereMacroName := AWhereMacroName;
-  FLastNameFieldName := ALastNameFieldName;
+  FSurnameFieldName := ASurnameFieldName;
 end;
 
-function TFDQueryLastNameSearchEngine.FindHumanByLastName(ALastName: String):
+function TOraQuerySurnameSearchEngine.FindHumanBySurname(ASurname: String):
     Boolean;
 var
   vMacro: TMacro;
   vMacroText: string;
 begin
   Validate();
-  ALastName := AnsiUpperCase(ALastName.Trim());
+  ASurname := AnsiUpperCase(ASurname.Trim());
   vMacro := FQuery.MacroByName(FWhereMacroName);
   vMacroText := '';
-  if ALastName <> '' then
-    vMacroText := ' AND UPPER(' + FLastNameFieldName + ') = ''' + ALastName + '''';
+  if ASurname <> '' then
+    vMacroText := ' AND UPPER(' + FSurnameFieldName + ') = ''' + ASurname + '''';
   vMacro.Value := vMacroText;
   Result := FQuery.RecordCount > 0;
 end;
 
-procedure TFDQueryLastNameSearchEngine.Validate;
+procedure TOraQuerySurnameSearchEngine.Validate;
 begin
   if FQuery = nil then
     raise EQueryNotAssigned.Create();
@@ -106,7 +106,7 @@ begin
   if FQuery.MacroByName(FWhereMacroName) = nil then
     raise EWhereMacroNotFound.Create(FWhereMacroName, FQuery.SQL.Text);
 
-  FQuery.FieldByName(FLastNameFieldName);
+  FQuery.FieldByName(FSurnameFieldName);
 end;
 
 constructor EQueryNotAssigned.Create;

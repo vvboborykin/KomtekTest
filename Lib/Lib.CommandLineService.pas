@@ -87,10 +87,11 @@ end;
 procedure TCommandLineService.ParseParameters;
 var
   I: Integer;
+  vMatch: TMatch;
 begin
   for I := 1 to ParamCount do
   begin
-    var vMatch := TRegEx.Match(ParamStr(I), SParameterExpr);
+    vMatch := TRegEx.Match(ParamStr(I), SParameterExpr);
     if vMatch.Success then
       FValues.AddOrSetValue(vMatch.Groups[1].Value, vMatch.Groups[2].Value);
   end;

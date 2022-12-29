@@ -1,12 +1,13 @@
 program KomtekTest;
 
+
+
 {$R *.dres}
 
 uses
   Vcl.Forms,
-  BaseFormUnit in 'BaseFormUnit.pas' {BaseForm},
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
-  LayoutFormUnit in 'LayoutFormUnit.pas' {LayoutForm},
+  LayoutFormUnit in 'BaseForms\LayoutFormUnit.pas' {LayoutForm},
   DevExpressOptionsUnit in 'DevExpressOptionsUnit.pas' {DevExpressOptions: TDataModule},
   Arm.TypeSelectorFormUnit in 'Arm\Arm.TypeSelectorFormUnit.pas' {ArmTypeSelectorForm},
   Arm.BaseFormUnit in 'Arm\Arm.BaseFormUnit.pas' {BaseArmForm},
@@ -17,8 +18,9 @@ uses
   Search.EngineUnit in 'Search\Search.EngineUnit.pas',
   Lib.CommandLineService in 'Lib\Lib.CommandLineService.pas',
   Lib.Nullable in 'Lib\Lib.Nullable.pas',
-  Search.FDQueryEngineUnit in 'Search\Search.FDQueryEngineUnit.pas',
-  AppDataUnit in 'AppDataUnit.pas' {AppData: TDataModule};
+  Search.OraQueryEngineUnit in 'Search\Search.OraQueryEngineUnit.pas',
+  AppDataUnit in 'AppDataUnit.pas' {AppData: TDataModule},
+  BaseFormUnit in 'BaseForms\BaseFormUnit.pas' {BaseForm};
 
 {$R *.res}
 

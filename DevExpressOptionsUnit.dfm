@@ -1,4 +1,5 @@
 object DevExpressOptions: TDevExpressOptions
+  OldCreateOrder = True
   OnCreate = DataModuleCreate
   Height = 181
   Width = 321

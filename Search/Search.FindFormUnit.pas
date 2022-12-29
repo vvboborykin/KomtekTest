@@ -11,15 +11,15 @@ unit Search.FindFormUnit;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, LayoutFormUnit, cxGraphics, cxControls,
-  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful,
-  dxLayoutcxEditAdapters, dxLayoutControlAdapters, cxContainer, cxEdit,
-  Vcl.Menus, Vcl.StdCtrls, cxButtons, System.Actions, Vcl.ActnList,
-  System.ImageList, Vcl.ImgList, cxImageList, dxLayoutContainer, cxTextEdit,
-  cxClasses, dxLayoutControl, Search.EngineUnit, dxSkinOffice2013White,
-  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
-  dxSkinOffice2019DarkGray, dxSkinOffice2019White;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  dxSkinsCore, dxSkinOffice2019Colorful, dxLayoutcxEditAdapters,
+  dxLayoutControlAdapters, cxContainer, cxEdit, Vcl.Menus, Vcl.StdCtrls,
+  cxButtons, System.Actions, Vcl.ActnList, Vcl.ImgList, cxImageList,
+  dxLayoutContainer, cxTextEdit, cxClasses, dxLayoutControl, Search.EngineUnit,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinOffice2019Black, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
 type
   TFrmFind = class(TLayoutForm)
@@ -32,18 +32,18 @@ type
     litFindButton: TdxLayoutItem;
     procedure actFindExecute(Sender: TObject);
   strict private
-    procedure FindLastName;
+    procedure FindSurname;
   private
-    FLastNameSearchEngine: ILastNameSearchEngine;
-    procedure SetLastNameSearchEngine(const Value: ILastNameSearchEngine);
+    FSurnameSearchEngine: ISurnameSearchEngine;
+    procedure SetSurnameSearchEngine(const Value: ISurnameSearchEngine);
     { Private declarations }
   public
-    /// <summary>TFrmFind.LastNameSearchEngine
+    /// <summary>TFrmFind.SurnameSearchEngine
     /// Механизм поиска по фамилии
     /// </summary>
-    /// type:ILastNameSearchEngine
-    property LastNameSearchEngine: ILastNameSearchEngine read FLastNameSearchEngine
-        write SetLastNameSearchEngine;
+    /// type:ISurnameSearchEngine
+    property SurnameSearchEngine: ISurnameSearchEngine read
+      FSurnameSearchEngine write SetSurnameSearchEngine;
   end;
 
   ESearchEngineNotSpecified = class(Exception)
@@ -54,7 +54,8 @@ type
 implementation
 
 resourcestring
-  SSearchEngineNotAssigned = 'Для формы поиска по фамилии не задан механизм поиска';
+  SSearchEngineNotAssigned =
+    'Для формы поиска по фамилии не задан механизм поиска';
   SHumanNotFound = 'Человек с указанной фамилией в БД не найден';
 
 {$R *.dfm}
@@ -62,26 +63,28 @@ resourcestring
 procedure TFrmFind.actFindExecute(Sender: TObject);
 begin
   inherited;
-  FindLastName();
+  FindSurname();
 end;
 
-procedure TFrmFind.FindLastName;
+procedure TFrmFind.FindSurname;
+var
+  vSurname: string;
 begin
-  var vLastName := edFind.Text;
-  if (FLastNameSearchEngine <> nil) then
+  vSurname := edFind.Text;
+  if (FSurnameSearchEngine <> nil) then
   begin
-    if not FLastNameSearchEngine.FindHumanByLastName(vLastName) then
+    if not FSurnameSearchEngine.FindHumanBySurname(vSurname) then
       ShowMessage(SHumanNotFound);
   end
   else
     raise ESearchEngineNotSpecified.Create();
 end;
 
-procedure TFrmFind.SetLastNameSearchEngine(const Value: ILastNameSearchEngine);
+procedure TFrmFind.SetSurnameSearchEngine(const Value: ISurnameSearchEngine);
 begin
-  if FLastNameSearchEngine <> Value then
+  if FSurnameSearchEngine <> Value then
   begin
-    FLastNameSearchEngine := Value;
+    FSurnameSearchEngine := Value;
   end;
 end;
 
@@ -91,3 +94,4 @@ begin
 end;
 
 end.
+

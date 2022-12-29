@@ -11,8 +11,8 @@ unit DevExpressOptionsUnit;
 interface
 
 uses
-  System.SysUtils, System.Classes, cxClasses, cxLocalization, VCL.Forms, Winapi.Windows,
-  dxLayoutLookAndFeels;
+  System.SysUtils, System.Classes, cxClasses, cxLocalization, VCL.Forms,
+  Winapi.Windows, dxLayoutLookAndFeels;
 
 type
   /// <summary>TDevExpressOptions
@@ -39,6 +39,7 @@ var
 implementation
 
 const
+  cRusLangId = $419;
   SDevExpressRuLocale = 'DevExpressRuLocale';
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
@@ -66,7 +67,8 @@ procedure TDevExpressOptions.SetRusLocalization;
 begin
   LoadRusLocalizationFromRCData;
   locRus.Active := True;
-  locRus.LanguageIndex := $419;
+  locRus.LanguageIndex := cRusLangId;
 end;
 
 end.
+

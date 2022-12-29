@@ -23,7 +23,7 @@ type
   /// <summary>TBaseArmForm
   /// Базовая форма АРМ
   /// </summary>
-  TBaseArmForm = class abstract(TLayoutForm)
+  TBaseArmForm = class(TLayoutForm)
     pnlFind: TPanel;
     layFind: TdxLayoutItem;
     procedure FormCreate(Sender: TObject);
@@ -50,8 +50,10 @@ begin
 end;
 
 procedure TBaseArmForm.CreateFindForm;
+var
+  vFindForm: TFrmFind;
 begin
-  var vFindForm := TFrmFind.Create(pnlFind);
+  vFindForm := TFrmFind.Create(pnlFind);
   vFindForm.Parent := pnlFind;
   vFindForm.Visible := True;
   vFindForm.Align := alTop;

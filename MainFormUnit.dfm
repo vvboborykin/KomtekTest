@@ -8,6 +8,7 @@ inherited MainForm: TMainForm
   OnShow = FormShow
   ExplicitWidth = 983
   ExplicitHeight = 790
+  PixelsPerInch = 96
   TextHeight = 21
   object rbMain: TdxRibbon
     Left = 0
@@ -28,16 +29,11 @@ inherited MainForm: TMainForm
         end
         item
           ToolbarName = 'barStyle'
-        end>
-      Index = 0
-    end
-    object tabWindows: TdxRibbonTab
-      Caption = #1054#1082#1085#1072
-      Groups = <
+        end
         item
           ToolbarName = 'dxbrWindows'
         end>
-      Index = 1
+      Index = 0
     end
   end
   object manMain: TdxBarManager
@@ -81,7 +77,7 @@ inherited MainForm: TMainForm
           ItemName = 'btnStatistArm'
         end>
       OneOnRow = False
-      Row = 0
+      Row = 1
       UseOwnFont = False
       Visible = True
       WholeRow = False
@@ -89,7 +85,7 @@ inherited MainForm: TMainForm
     object dxbrWindows: TdxBar
       Caption = #1056#1072#1089#1087#1086#1083#1086#1078#1077#1085#1080#1077
       CaptionButtons = <>
-      DockedLeft = 0
+      DockedLeft = 258
       DockedTop = 0
       FloatLeft = 488
       FloatTop = 197
@@ -141,7 +137,7 @@ inherited MainForm: TMainForm
           ItemName = 'dxSkinChooserGalleryItem1'
         end>
       OneOnRow = False
-      Row = 0
+      Row = 1
       UseOwnFont = False
       Visible = True
       WholeRow = False
@@ -214,7 +210,7 @@ inherited MainForm: TMainForm
     Left = 752
     Top = 160
     Bitmap = {
-      494C010108001800040020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010108001800140020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

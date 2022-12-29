@@ -74,9 +74,11 @@ begin
 end;
 
 function TFormFactory.CreateArmForm<T>: T;
+var
+  vClass: TBaseArmFormClass;
 begin
   // выводим класс запрошенного АРМ использыя старый RTTI
-  var vClass := TBaseArmFormClass(PTypeInfo(TypeInfo(T)).TypeData.ClassType);
+  vClass := TBaseArmFormClass(PTypeInfo(TypeInfo(T)).TypeData.ClassType);
   Result := CreateArmForm(vClass) as T;
 end;
 

@@ -15,11 +15,11 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   BaseFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinOffice2019Colorful, dxCore, dxRibbonSkins,
-  dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList,
-  System.ImageList, Vcl.ImgList, cxImageList, cxClasses, dxRibbon, Vcl.StdActns,
-  System.Threading, dxRibbonGallery, dxSkinChooserGallery,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinOffice2019Black, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
+  dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList, Vcl.ImgList,
+  cxImageList, cxClasses, dxRibbon, Vcl.StdActns, dxRibbonGallery,
+  dxSkinChooserGallery, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White;
 
 type
   TMainForm = class(TBaseForm)
@@ -51,13 +51,12 @@ type
     dxBarLargeButton4: TdxBarLargeButton;
     dxBarLargeButton5: TdxBarLargeButton;
     dxBarLargeButton6: TdxBarLargeButton;
-    tabWindows: TdxRibbonTab;
     barStyle: TdxBar;
     dxSkinChooserGalleryItem1: TdxSkinChooserGalleryItem;
     procedure actCreateOperArmExecute(Sender: TObject);
     procedure actCreateStatistArmExecute(Sender: TObject);
     procedure dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
-        ASkinName: string);
+      ASkinName: string);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   strict private
@@ -75,7 +74,8 @@ var
 implementation
 
 uses
-  Arm.TypeSelectorFormUnit, Arm.FormFactoryUnit, DevExpressOptionsUnit;
+  Arm.BaseFormUnit, Arm.TypeSelectorFormUnit, Arm.FormFactoryUnit,
+  DevExpressOptionsUnit;
 
 const
   cSelectorFormDelay = 100;
@@ -95,7 +95,7 @@ begin
 end;
 
 procedure TMainForm.dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
-    ASkinName: string);
+  ASkinName: string);
 begin
   inherited;
   rbMain.ColorSchemeName := ASkinName;
@@ -120,19 +120,25 @@ begin
 end;
 
 procedure TMainForm.ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
+var
+  vThread: TThread;
 begin
-  TTask.Run(
+  vThread := TThread.CreateAnonymousThread(
     procedure
     begin
       Sleep(ADelayTimeMs);
       TThread.Synchronize(nil,
         procedure
+        var
+          vClass: TBaseArmFormClass;
         begin
-          var vClass := TArmTypeSelectorForm.SelectArmClass;
+          vClass := TArmTypeSelectorForm.SelectArmClass;
           if vClass <> nil then
             ArmFormFactory.CreateArmForm(vClass);
         end);
     end);
+  vThread.FreeOnTerminate := True;
+  vThread.Start;
 end;
 
 end.

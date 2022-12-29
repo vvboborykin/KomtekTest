@@ -14,18 +14,18 @@ uses
   System.SysUtils, System.Classes, System.Variants, Lib.Nullable;
 
 type
-  /// <summary>ILastNameSearchEngine
+  /// <summary>ISurnameSearchEngine
   /// Механизм поиска
   /// </summary>
-  ILastNameSearchEngine = interface
+  ISurnameSearchEngine = interface
     ['{408E388E-CDBC-4C49-BFC2-30EB3426587D}']
-    /// <summary>ILastNameSearchEngine.FindHumanByLastName
+    /// <summary>ISurnameSearchEngine.FindHumanBySurname
     /// Найти человека по фамилии
     /// </summary>
     /// <returns> Boolean
     /// </returns>
-    /// <param name="ALastName"> (String) Фамилия человека</param>
-    function FindHumanByLastName(ALastName: String): Boolean; stdcall;
+    /// <param name="ASurname"> (String) Фамилия человека</param>
+    function FindHumanBySurname(ASurname: String): Boolean; stdcall;
   end;
 
 implementation

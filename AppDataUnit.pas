@@ -3,14 +3,12 @@
 interface
 
 uses
-  System.SysUtils, System.Classes, DBAccess, UniDacVcl, UniProvider,
-  OracleUniProvider, Data.DB, Uni;
+  System.SysUtils, System.Classes, DBAccess, Data.DB, Ora, OdacVcl, OraCall;
 
 type
   TAppData = class(TDataModule)
-    conMain: TUniConnection;
-    OracleUniProvider1: TOracleUniProvider;
-    dlgOra: TUniConnectDialog;
+    sesMain: TOraSession;
+    dlgConnect: TConnectDialog;
   private
     { Private declarations }
   public

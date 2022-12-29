@@ -12,11 +12,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  dxSkinsCore, dxSkinOffice2019Colorful, cxClasses, dxLayoutContainer,
-  dxLayoutControl, Arm.BaseFormUnit, dxLayoutControlAdapters, Vcl.Menus,
-  System.ImageList, Vcl.ImgList, cxImageList, System.Actions, Vcl.ActnList,
+  System.UITypes, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
+  Vcl.Dialogs, LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful, cxClasses,
+  dxLayoutContainer, dxLayoutControl, Arm.BaseFormUnit, dxLayoutControlAdapters,
+  Vcl.Menus, Vcl.ImgList, cxImageList, System.Actions, Vcl.ActnList,
   Vcl.StdCtrls, cxButtons, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
   dxSkinOffice2019White;
@@ -79,9 +79,11 @@ begin
 end;
 
 class function TArmTypeSelectorForm.SelectArmClass: TBaseArmFormClass;
+var
+  vForm: TArmTypeSelectorForm;
 begin
   Result := nil;
-  var vForm := TArmTypeSelectorForm.Create(Application);
+  vForm := TArmTypeSelectorForm.Create(Application);
   try
     if IsPositiveResult(vForm.ShowModal) then
       Result := vForm.FBaseArmFormClass;

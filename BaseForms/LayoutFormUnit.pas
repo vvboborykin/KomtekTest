@@ -22,7 +22,7 @@ type
   /// <summary>TLayoutForm
   /// Базовая форма с авторазмещением элементов на основе Devexpress Layout control
   /// </summary>
-  TLayoutForm = class abstract(TBaseForm)
+  TLayoutForm = class(TBaseForm)
     lgrRoot: TdxLayoutGroup;
     lacMain: TdxLayoutControl;
   private
