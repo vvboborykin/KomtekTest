@@ -6,7 +6,7 @@
 * Created: 27.12.2022 21:45:16
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit Arm.TypeSelectorFormUnit;
+unit Arm.FrmTypeSelectorUnit;
 
 interface
 
@@ -15,7 +15,7 @@ uses
   System.UITypes, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful, cxClasses,
-  dxLayoutContainer, dxLayoutControl, Arm.BaseFormUnit, dxLayoutControlAdapters,
+  dxLayoutContainer, dxLayoutControl, Arm.FrmBaseArmUnit, dxLayoutControlAdapters,
   Vcl.Menus, Vcl.ImgList, cxImageList, System.Actions, Vcl.ActnList,
   Vcl.StdCtrls, cxButtons, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
@@ -25,7 +25,7 @@ type
   /// <summary>TArmTypeSelectorForm
   /// Форма выбора типа АРМ
   /// </summary>
-  TArmTypeSelectorForm = class(TLayoutForm)
+  TFrmTypeSelector = class(TLayoutForm)
     btnArmOper: TcxButton;
     lit: TdxLayoutItem;
     aclMain: TActionList;
@@ -42,7 +42,7 @@ type
     procedure actArmStatistExecute(Sender: TObject);
     procedure actExitExecute(Sender: TObject);
   strict private
-    FBaseArmFormClass: TBaseArmFormClass;
+    FResultFormClass: TFrmBaseArmClass;
   public
     /// <summary>TArmTypeSelectorForm.SelectArmClass
     /// Запросить у пользователя выбор типа создаваемого АРМ
@@ -50,43 +50,43 @@ type
     /// <returns> TBaseArmFormClass
     /// Класс выбранного типа АРМ или nil при отказе от создания
     /// </returns>
-    class function SelectArmClass: TBaseArmFormClass;
+    class function SelectArmClass: TFrmBaseArmClass;
   end;
 
 implementation
 
 uses
-  Arm.OperFormUnit, Arm.StatistFormUnit;
+  Arm.FrmOperatorUnit, Arm.FrmStatistUnit;
 
 {$R *.dfm}
 
-procedure TArmTypeSelectorForm.actArmOperExecute(Sender: TObject);
+procedure TFrmTypeSelector.actArmOperExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := TFrmOperator;
+  FResultFormClass := TFrmOperator;
 end;
 
-procedure TArmTypeSelectorForm.actArmStatistExecute(Sender: TObject);
+procedure TFrmTypeSelector.actArmStatistExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := TFrmStatist;
+  FResultFormClass := TFrmStatist;
 end;
 
-procedure TArmTypeSelectorForm.actExitExecute(Sender: TObject);
+procedure TFrmTypeSelector.actExitExecute(Sender: TObject);
 begin
   inherited;
-  FBaseArmFormClass := nil;
+  FResultFormClass := nil;
 end;
 
-class function TArmTypeSelectorForm.SelectArmClass: TBaseArmFormClass;
+class function TFrmTypeSelector.SelectArmClass: TFrmBaseArmClass;
 var
-  vForm: TArmTypeSelectorForm;
+  vForm: TFrmTypeSelector;
 begin
   Result := nil;
-  vForm := TArmTypeSelectorForm.Create(Application);
+  vForm := TFrmTypeSelector.Create(Application);
   try
     if IsPositiveResult(vForm.ShowModal) then
-      Result := vForm.FBaseArmFormClass;
+      Result := vForm.FResultFormClass;
   finally
     vForm.Free;
   end;

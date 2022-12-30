@@ -1,13 +1,16 @@
 object AppData: TAppData
   OldCreateOrder = True
+  OnCreate = DataModuleCreate
   Height = 218
   Width = 470
   object sesMain: TOraSession
     Options.Direct = True
+    Options.KeepDesignConnected = False
     Username = 'KOMTEKTEST'
-    Server = 'localhost:1521/XE'
+    Server = 'localhost:1521:XE'
+    Connected = True
     ConnectDialog = dlgConnect
-    HomeName = 'XE6'
+    HomeName = 'c:\temp'
     Left = 24
     Top = 16
     EncryptedPassword = '8EFFCEFF88FFCDFFBAFFDCFFADFFDBFF'
@@ -26,19 +29,26 @@ object AppData: TAppData
     Password.Visible = True
     Password.Order = 3
     Home.Caption = 'Home Name'
-    Home.Visible = False
+    Home.Visible = True
     Home.Order = 0
     Direct.Caption = 'Direct'
-    Direct.Visible = False
+    Direct.Visible = True
     Direct.Order = 6
     Schema.Caption = 'Schema'
-    Schema.Visible = False
+    Schema.Visible = True
     Schema.Order = 4
     Role.Caption = 'Connect Mode'
-    Role.Visible = False
+    Role.Visible = True
     Role.Order = 5
     LabelSet = lsCustom
     Left = 80
+    Top = 16
+  end
+  object qryCurrentDateTime: TOraQuery
+    Session = sesMain
+    SQL.Strings = (
+      'SELECT CURRENT_TIMESTAMP FROM DUAL d')
+    Left = 160
     Top = 16
   end
 end

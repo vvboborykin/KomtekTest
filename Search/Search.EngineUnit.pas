@@ -14,18 +14,27 @@ uses
   System.SysUtils, System.Classes, System.Variants, Lib.Nullable;
 
 type
-  /// <summary>ISurnameSearchEngine
+  TSearchParameters = record
+    Surname: String;
+    PartialSearch: Boolean;
+    MinBirthDate: Variant;
+    MaxBirthDate: Variant;
+    MinCreateDate: Variant;
+    MaxCreateDate: Variant;
+  end;
+
+  /// <summary>IHumanSearchEngine
   /// Механизм поиска
   /// </summary>
-  ISurnameSearchEngine = interface
-    ['{408E388E-CDBC-4C49-BFC2-30EB3426587D}']
-    /// <summary>ISurnameSearchEngine.FindHumanBySurname
+  IHumanSearchEngine = interface
+  ['{408E388E-CDBC-4C49-BFC2-30EB3426587D}']
+    /// <summary>IHumanSearchEngine.FindHuman
     /// Найти человека по фамилии
     /// </summary>
     /// <returns> Boolean
     /// </returns>
     /// <param name="ASurname"> (String) Фамилия человека</param>
-    function FindHumanBySurname(ASurname: String): Boolean; stdcall;
+    function FindHuman(ASearchParameters: TSearchParameters): Boolean; stdcall;
   end;
 
 implementation

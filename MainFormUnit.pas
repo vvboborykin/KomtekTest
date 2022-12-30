@@ -19,7 +19,7 @@ uses
   cxImageList, cxClasses, dxRibbon, Vcl.StdActns, dxRibbonGallery,
   dxSkinChooserGallery, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White;
+  dxSkinOffice2019White, Arm.FrmBaseArmUnit, dxBarExtItems, DataNotificationUnit;
 
 type
   TMainForm = class(TBaseForm)
@@ -45,16 +45,19 @@ type
     dxBarButton3: TdxBarButton;
     dxBarButton4: TdxBarButton;
     dxBarButton5: TdxBarButton;
-    dxBarLargeButton1: TdxBarLargeButton;
-    dxBarLargeButton2: TdxBarLargeButton;
-    dxBarLargeButton3: TdxBarLargeButton;
-    dxBarLargeButton4: TdxBarLargeButton;
-    dxBarLargeButton5: TdxBarLargeButton;
-    dxBarLargeButton6: TdxBarLargeButton;
     barStyle: TdxBar;
     dxSkinChooserGalleryItem1: TdxSkinChooserGalleryItem;
+    iml16: TcxImageList;
+    btn1: TdxBarButton;
+    btn2: TdxBarButton;
+    btn3: TdxBarButton;
+    btn4: TdxBarButton;
+    btn5: TdxBarButton;
+    btn6: TdxBarButton;
+    ArmMruList: TdxBarMRUListItem;
     procedure actCreateOperArmExecute(Sender: TObject);
     procedure actCreateStatistArmExecute(Sender: TObject);
+    procedure ArmMruListClick(Sender: TObject);
     procedure dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
       ASkinName: string);
     procedure FormCreate(Sender: TObject);
@@ -63,9 +66,9 @@ type
     FShowFirstTime: Boolean;
     procedure ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
   private
-    { Private declarations }
   public
-    { Public declarations }
+    procedure RegisterMdiChild(AForm: TForm);
+    procedure UnRegisterMdChild(AForm: TForm);
   end;
 
 var
@@ -74,7 +77,7 @@ var
 implementation
 
 uses
-  Arm.BaseFormUnit, Arm.TypeSelectorFormUnit, Arm.FormFactoryUnit,
+  Arm.FrmTypeSelectorUnit, Arm.ArmFormFactoryUnit,
   DevExpressOptionsUnit;
 
 const
@@ -92,6 +95,15 @@ procedure TMainForm.actCreateStatistArmExecute(Sender: TObject);
 begin
   inherited;
   ArmFormFactory.CreateStatistArm();
+end;
+
+procedure TMainForm.ArmMruListClick(Sender: TObject);
+var
+  vForm: TFrmBaseArm;
+begin
+  inherited;
+  vForm := ArmMruList.Items.Objects[ArmMruList.ItemIndex] as TFrmBaseArm;
+  vForm.Show;
 end;
 
 procedure TMainForm.dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
@@ -119,6 +131,11 @@ begin
   end;
 end;
 
+procedure TMainForm.RegisterMdiChild(AForm: TForm);
+begin
+  ArmMruList.AddItem(AForm.Caption, AForm);
+end;
+
 procedure TMainForm.ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
 var
   vThread: TThread;
@@ -130,9 +147,9 @@ begin
       TThread.Synchronize(nil,
         procedure
         var
-          vClass: TBaseArmFormClass;
+          vClass: TFrmBaseArmClass;
         begin
-          vClass := TArmTypeSelectorForm.SelectArmClass;
+          vClass := TFrmTypeSelector.SelectArmClass;
           if vClass <> nil then
             ArmFormFactory.CreateArmForm(vClass);
         end);
@@ -141,5 +158,11 @@ begin
   vThread.Start;
 end;
 
+procedure TMainForm.UnRegisterMdChild(AForm: TForm);
+begin
+  ArmMruList.RemoveItem(AForm.Caption, AForm);
+end;
+
 end.
+
 

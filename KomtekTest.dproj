@@ -89,8 +89,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Build>5</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.5;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>7</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.7;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -108,37 +108,29 @@
         </DelphiCompile>
         <DCCReference Include="MainFormUnit.pas">
             <Form>MainForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="BaseForms\LayoutFormUnit.pas">
             <Form>LayoutForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="DevExpressOptionsUnit.pas">
             <Form>DevExpressOptions</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Arm\Arm.TypeSelectorFormUnit.pas">
-            <Form>ArmTypeSelectorForm</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="Arm\Arm.FrmTypeSelectorUnit.pas">
+            <Form>FrmTypeSelector</Form>
         </DCCReference>
-        <DCCReference Include="Arm\Arm.BaseFormUnit.pas">
-            <Form>BaseArmForm</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="Arm\Arm.FrmBaseArmUnit.pas">
+            <Form>frmBaseArm</Form>
         </DCCReference>
-        <DCCReference Include="Arm\Arm.OperFormUnit.pas">
+        <DCCReference Include="Arm\Arm.FrmOperatorUnit.pas">
             <Form>FrmOperator</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Arm\Arm.StatistFormUnit.pas">
+        <DCCReference Include="Arm\Arm.FrmStatistUnit.pas">
             <Form>FrmStatist</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Arm\Arm.FormFactoryUnit.pas"/>
-        <DCCReference Include="Search\Search.FindFormUnit.pas">
+        <DCCReference Include="Arm\Arm.ArmFormFactoryUnit.pas"/>
+        <DCCReference Include="Search\Search.FrmFindUnit.pas">
             <Form>FrmFind</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Search\Search.EngineUnit.pas"/>
         <DCCReference Include="Lib\Lib.CommandLineService.pas"/>
@@ -146,13 +138,29 @@
         <DCCReference Include="Search\Search.OraQueryEngineUnit.pas"/>
         <DCCReference Include="AppDataUnit.pas">
             <Form>AppData</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="BaseForms\BaseFormUnit.pas">
             <Form>BaseForm</Form>
+        </DCCReference>
+        <DCCReference Include="DataNotificationUnit.pas"/>
+        <DCCReference Include="Lib\Lib.ComponentHelper.pas"/>
+        <DCCReference Include="DbLib\DbLib.DataSetHelper.pas"/>
+        <DCCReference Include="Lib\VCL.DevExpressVisualValidator.pas"/>
+        <DCCReference Include="BaseForms\BaseFrameUnit.pas">
+            <Form>BaseFrame</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Search\Search.FrmFindStatistUnit.pas">
+            <Form>FrmFindStatist</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Arm\Arm.FrmDocumentUnit.pas">
+            <Form>FrmDocument</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Arm\Arm.DocumentFormFactory.pas"/>
         <RcItem Include="DevExpress_ru.ini">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>
@@ -179,8 +187,8 @@
                     <Source Name="MainSource">KomtekTest.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k280.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp280.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
@@ -503,13 +511,13 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSInfoPList">
-                    <Platform Name="iOSDevice32">
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
                     </Platform>
-                    <Platform Name="iOSDevice64">
+                    <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -531,11 +539,11 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXDebug">
-                    <Platform Name="OSX64">
+                    <Platform Name="OSXARM64">
                         <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
-                    <Platform Name="OSXARM64">
+                    <Platform Name="OSX64">
                         <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
@@ -938,18 +946,18 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>

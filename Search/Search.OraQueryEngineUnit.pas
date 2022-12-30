@@ -18,22 +18,30 @@ type
   /// <summary>TOraQuerySurnameSearchEngine
   /// Реализация механизма поиска по фамилии на основе TOraQuery
   /// </summary>
-  TOraQuerySurnameSearchEngine = class(TInterfacedObject, ISurnameSearchEngine)
+  TOraQuerySurnameSearchEngine = class(TInterfacedObject, IHumanSearchEngine)
   strict private
-    FSurnameFieldName: String;
     FWhereMacroName: String;
+    FDateMacroName: String;
+    FSurnameFieldName: String;
+    FBirthDateFieldName: String;
+    FCreateDateFieldName: String;
     FQuery: TOraQuery;
-    /// <summary>ISurnameSearchEngine.FindHumanBySurname
+    /// <summary>ISurnameSearchEngine.FindHuman
     /// Найти человека по фамилии (регистронезависимый поиск)
     /// </summary>
     /// <returns> Boolean
     /// </returns>
     /// <param name="ASurname"> (String) Фамилия человека</param>
-    function FindHumanBySurname(ASurname: String): Boolean; stdcall;
+    function FindHuman(ASearchParameters: TSearchParameters): Boolean; stdcall;
     procedure Validate;
+    procedure SetDateMacro(ASearchParameters: TSearchParameters);
+    procedure SetSurnameMacro(ASearchParameters: TSearchParameters);
+    function GetDateMacroExpr(AFieldName: String; AValue: Variant; ACompareOper:
+        string): String;
   public
-    constructor Create(AQuery: TOraQuery; AWhereMacroName: String; const
-        ASurnameFieldName: String);
+    constructor Create(AQuery: TOraQuery; AWhereMacroName, ASurnameFieldName:
+        String; const ADateMacroName, ABirthDateFieldName, ACreateDateFieldName:
+        String);
   end;
 
   EQueryNotAssigned = class(Exception)
@@ -68,28 +76,87 @@ resourcestring
   SQueryIsNotActive = 'Компонент OraQuery не активен в механизме поиска по фамилии';
 
 constructor TOraQuerySurnameSearchEngine.Create(AQuery: TOraQuery;
-    AWhereMacroName: String; const ASurnameFieldName: String);
+    AWhereMacroName, ASurnameFieldName: String; const ADateMacroName,
+    ABirthDateFieldName, ACreateDateFieldName: String);
 begin
   inherited Create;
   FQuery := AQuery;
   FWhereMacroName := AWhereMacroName;
   FSurnameFieldName := ASurnameFieldName;
+  FDateMacroName := ADateMacroName;
+  FBirthDateFieldName := ABirthDateFieldName;
+  FCreateDateFieldName := ACreateDateFieldName;
 end;
 
-function TOraQuerySurnameSearchEngine.FindHumanBySurname(ASurname: String):
-    Boolean;
+function TOraQuerySurnameSearchEngine.FindHuman(ASearchParameters:
+    TSearchParameters): Boolean;
+begin
+  Validate();
+  SetSurnameMacro(ASearchParameters);
+  SetDateMacro(ASearchParameters);
+  FQuery.Open;
+  Result := FQuery.RecordCount > 0;
+end;
+
+function TOraQuerySurnameSearchEngine.GetDateMacroExpr(AFieldName: String;
+    AValue: Variant; ACompareOper: string): String;
+begin
+  Result := '';
+  if (AValue <> null) then
+    Result := ' AND ' + AFieldName +
+      ' ' + ACompareOper + ' DATE ''' +
+      FormatDateTime('yyyy-mm-dd', AValue) + '''';
+end;
+
+procedure TOraQuerySurnameSearchEngine.SetDateMacro(ASearchParameters:
+    TSearchParameters);
 var
   vMacro: TMacro;
   vMacroText: string;
 begin
-  Validate();
-  ASurname := AnsiUpperCase(ASurname.Trim());
-  vMacro := FQuery.MacroByName(FWhereMacroName);
+  vMacro := FQuery.MacroByName(FDateMacroName);
+  if vMacro = nil then
+    raise EWhereMacroNotFound.Create(FDateMacroName, FQuery.SQL.Text);
+
   vMacroText := '';
-  if ASurname <> '' then
-    vMacroText := ' AND UPPER(' + FSurnameFieldName + ') = ''' + ASurname + '''';
+
+  vMacroText := vMacroText +
+    GetDateMacroExpr(FBirthDateFieldName, ASearchParameters.MinBirthDate, '>=');
+
+  vMacroText := vMacroText +
+    GetDateMacroExpr(FBirthDateFieldName, ASearchParameters.MaxBirthDate, '<=');
+
+  vMacroText := vMacroText +
+    GetDateMacroExpr(FCreateDateFieldName, ASearchParameters.MinCreateDate, '>=');
+
+  vMacroText := vMacroText +
+    GetDateMacroExpr(FCreateDateFieldName, ASearchParameters.MaxCreateDate, '<=');
+
   vMacro.Value := vMacroText;
-  Result := FQuery.RecordCount > 0;
+
+end;
+
+procedure TOraQuerySurnameSearchEngine.SetSurnameMacro(ASearchParameters:
+    TSearchParameters);
+var
+  vMacro: TMacro;
+  vMacroText: string;
+begin
+
+  vMacro := FQuery.MacroByName(FWhereMacroName);
+  if vMacro = nil then
+    raise EWhereMacroNotFound.Create(FWhereMacroName, FQuery.SQL.Text);
+
+  ASearchParameters.Surname := AnsiUpperCase(ASearchParameters.Surname.Trim());
+  vMacroText := '';
+  if ASearchParameters.Surname <> '' then
+  begin
+    if ASearchParameters.PartialSearch then
+      vMacroText := ' AND UPPER(' + FSurnameFieldName + ') LIKE ''' + ASearchParameters.Surname + '%'''
+    else
+      vMacroText := ' AND UPPER(' + FSurnameFieldName + ') = ''' + ASearchParameters.Surname + '''';
+  end;
+  vMacro.Value := vMacroText;
 end;
 
 procedure TOraQuerySurnameSearchEngine.Validate;
