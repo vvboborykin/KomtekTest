@@ -28,13 +28,13 @@ uses
   cxDropDownEdit, dxRichEdit.Actions, dxActions, dxPrinting, dxBar, dxRibbon,
   dxGallery, dxRibbonGallery, dxRibbonColorGallery, cxBarEditItem,
   dxRichEdit.Platform.Win.Control, dxRichEdit.Control.Core,
-  Arm.DocumentFormFactory;
+  Arm.DocumentFormFactory, FrmMDIChildUnit, cxDBEdit, cxMaskEdit, cxCalendar;
 
 type
   /// <summary>TFrmDocument
   /// Форма - Редактор документа
   /// </summary>
-  TFrmDocument = class(TLayoutForm, IDataNotificationListener)
+  TFrmDocument = class(TFrmMDIChild)
     qryDocument: TOraQuery;
     dsDocument: TOraDataSource;
     qryDocumentID: TFloatField;
@@ -42,10 +42,6 @@ type
     qryDocumentDOCDATE: TDateTimeField;
     qryDocumentTITLE: TStringField;
     qryDocumentCONTENT: TBlobField;
-    dbedtDOCDATE: TDBEdit;
-    lit: TdxLayoutItem;
-    dbedtTITLE: TDBEdit;
-    lit1: TdxLayoutItem;
     aclRft: TActionList;
     btnSave: TcxButton;
     dxLayoutItem1: TdxLayoutItem;
@@ -613,21 +609,23 @@ type
     actSave: TAction;
     actCancel: TAction;
     iml24: TcxImageList;
-    procedure FormDestroy(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+    edDOCDATE: TcxDBDateEdit;
+    lit: TdxLayoutItem;
+    edTITLE: TcxDBTextEdit;
+    lit1: TdxLayoutItem;
     procedure actCancelExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure qryDocumentAfterPost(DataSet: TDataSet);
     procedure qryDocumentBeforePost(DataSet: TDataSet);
+    procedure qryDocumentDOCDATEValidate(Sender: TField);
     procedure qryDocumentNewRecord(DataSet: TDataSet);
+    procedure qryDocumentTITLEValidate(Sender: TField);
   strict private
-  private
     FCreateParams: TCreateDocumentParams;
     class procedure CreateAndShow(AProc: TProc<TFrmDocument>);
-    procedure LoadDocumentContentFromDataset;
-    procedure SaveDocumentContentToDataset;
-    procedure OnDataNotification(AData: TDataNotification); stdcall;
+    procedure LoadDocumentContentFromDatasetToRtf;
+    procedure SaveRtfDocumentContentToDataset;
+  strict protected
   public
     /// <summary>TFrmDocument.CreateNewDocument
     /// Создать новый документ
@@ -647,21 +645,11 @@ uses
   DevExpressOptionsUnit, AppDataUnit, DbLib.DataSetHelper, MainFormUnit;
 
 resourcestring
+  SMinDateError = 'Дата документа не должна быть меньше 01.01.2000';
+  SMaxDateError = 'Дата документа не должна превышать текущую';
   SDefaultDocTitle = 'СПРАВКА';
 
 {$R *.dfm}
-
-procedure TFrmDocument.FormDestroy(Sender: TObject);
-begin
-  MainForm.UnRegisterMdChild(Self);
-  inherited;
-end;
-
-procedure TFrmDocument.FormCreate(Sender: TObject);
-begin
-  inherited;
-  MainForm.RegisterMdiChild(Self);
-end;
 
 procedure TFrmDocument.actCancelExecute(Sender: TObject);
 begin
@@ -706,17 +694,11 @@ begin
       AForm.qryDocument.ParamByName('DocumentId').Value := ADocumentId;
       AForm.qryDocument.Open;
       AForm.qryDocument.Edit;
-      AForm.LoadDocumentContentFromDataset();
+      AForm.LoadDocumentContentFromDatasetToRtf();
     end);
 end;
 
-procedure TFrmDocument.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  inherited;
-  Action := caFree;
-end;
-
-procedure TFrmDocument.LoadDocumentContentFromDataset;
+procedure TFrmDocument.LoadDocumentContentFromDatasetToRtf;
 var
   vStream: TMemoryStream;
 begin
@@ -725,6 +707,7 @@ begin
     vStream := TMemoryStream.Create();
     try
       qryDocumentCONTENT.SaveToStream(vStream);
+      vStream.Seek(0, 0);
       dxRichEditControl1.LoadDocument(vStream, TdxRichEditDocumentFormat.rtf);
     finally
       vStream.Free;
@@ -732,25 +715,19 @@ begin
   end;
 end;
 
-procedure TFrmDocument.SaveDocumentContentToDataset;
+procedure TFrmDocument.SaveRtfDocumentContentToDataset;
 var
   vStream: TMemoryStream;
 begin
   vStream := TMemoryStream.Create();
   try
     dxRichEditControl1.SaveDocument(vStream, TdxRichEditDocumentFormat.rtf);
+    vStream.Seek(0,0);
+    qryDocumentCONTENT.AsVariant := null;
     qryDocumentCONTENT.LoadFromStream(vStream);
   finally
     vStream.Free;
   end;
-end;
-
-procedure TFrmDocument.OnDataNotification(AData: TDataNotification);
-begin
-  if (qryDocument.State = dsBrowse) and (AData is TTableDataNotification) and
-    AnsiSameText((AData as TTableDataNotification).TableName, qryDocument.UpdatingTable)
-    then
-    qryDocument.CloseOpen;
 end;
 
 procedure TFrmDocument.qryDocumentAfterPost(DataSet: TDataSet);
@@ -769,7 +746,20 @@ end;
 procedure TFrmDocument.qryDocumentBeforePost(DataSet: TDataSet);
 begin
   inherited;
-  SaveDocumentContentToDataset();
+  SaveRtfDocumentContentToDataset();
+end;
+
+procedure TFrmDocument.qryDocumentDOCDATEValidate(Sender: TField);
+begin
+  inherited;
+  if Sender.Value <> null then
+  begin
+    if Sender.AsDateTime > DateOf(AppData.GetServerDateTime) then
+      Validator.SetFieldErrorText(SMaxDateError);
+
+    if Sender.AsDateTime < EncodeDate(200,1,1) then
+      Validator.SetFieldErrorText(SMinDateError);
+  end;
 end;
 
 procedure TFrmDocument.qryDocumentNewRecord(DataSet: TDataSet);
@@ -777,7 +767,14 @@ begin
   inherited;
   qryDocumentHUMANID.Value := FCreateParams.HumanId;
   qryDocumentDOCDATE.Value := DateOf(AppData.GetServerDateTime);
-  qryDocumentTITLE.Value := SDefaultDocTitle;
+  qryDocumentTITLE.AsString := SDefaultDocTitle;
+end;
+
+procedure TFrmDocument.qryDocumentTITLEValidate(Sender: TField);
+begin
+  inherited;
+  if (VarToStr(Sender.Value) = '') then
+    Validator.SetFieldErrorText('Поле не должно быть пустым');
 end;
 
 end.

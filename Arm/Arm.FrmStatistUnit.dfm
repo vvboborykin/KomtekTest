@@ -4,28 +4,61 @@ inherited FrmStatist: TFrmStatist
   TextHeight = 21
   inherited lacMain: TdxLayoutControl
     inherited edSURNAME: TcxDBTextEdit
+      Left = 10000
+      Top = 10000
       Properties.ReadOnly = True
+      Visible = False
+      ExplicitLeft = 10000
+      ExplicitTop = 10000
     end
     inherited edFIRSTNAME: TcxDBTextEdit
+      Left = 10000
+      Top = 10000
       Properties.ReadOnly = True
+      Visible = False
+      ExplicitLeft = 10000
+      ExplicitTop = 10000
     end
     inherited edPATRNAME: TcxDBTextEdit
+      Left = 10000
+      Top = 10000
       Properties.ReadOnly = True
+      Visible = False
+      ExplicitLeft = 10000
+      ExplicitTop = 10000
     end
     inherited edBIRTHDATE: TcxDBDateEdit
+      Left = 10000
+      Top = 10000
       Properties.ReadOnly = True
+      Visible = False
+      ExplicitLeft = 10000
+      ExplicitTop = 10000
     end
     inherited btnRefreshHumanList: TcxButton
       TabOrder = 1
+    end
+    inherited grdDocuments: TcxGrid
+      Left = 36
+      Top = 460
+      Visible = True
+      ExplicitLeft = 36
+      ExplicitTop = 460
     end
     inherited cbbLimit: TcxComboBox
       TabOrder = 2
     end
     inherited edCREATETS: TcxDBDateEdit
+      Left = 10000
+      Top = 10000
       AutoSize = False
       Properties.ReadOnly = True
-      ExplicitHeight = 21
-      Height = 21
+      Visible = False
+      ExplicitLeft = 10000
+      ExplicitTop = 10000
+    end
+    inherited lgrDetails: TdxLayoutGroup
+      ItemIndex = 1
     end
     inherited lit3: TdxLayoutItem
       Parent = dxLayoutAutoCreatedGroup2
@@ -55,7 +88,7 @@ inherited FrmStatist: TFrmStatist
   inherited iml24: TcxImageList
     FormatVersion = 1
     Bitmap = {
-      494C010106002400280018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101060024002C0018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000003000000001002000000000000048
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -657,6 +690,9 @@ inherited FrmStatist: TFrmStatist
       000000000000}
   end
   inherited iml16: TcxImageList
+    FormatVersion = 1
+  end
+  inherited imlTab: TcxImageList
     FormatVersion = 1
   end
 end

@@ -39,6 +39,10 @@ implementation
 uses
   Arm.FrmDocumentUnit;
 
+resourcestring
+  SInvalidDoc = 'Пустой идентификатор документа, документ не найден';
+  SInvalidHuman = 'Пока сведения о человеке не сохранены невозможно создать для него документ';
+
 var
   FDocumentFormFactory: TDocumentFormFactory;
 
@@ -49,11 +53,15 @@ end;
 
 procedure TDocumentFormFactory.CreateDocument(AParams: TCreateDocumentParams);
 begin
+  if (AParams.HumanId = null) then
+    raise Exception.Create(SInvalidHuman);
   TFrmDocument.CreateNewDocument(AParams);
 end;
 
 procedure TDocumentFormFactory.EditDocument(ADocumentId: Variant);
 begin
+  if ADocumentId = null then
+    raise Exception.Create(SInvalidDoc);
   TFrmDocument.EditDocument(ADocumentId);
 end;
 

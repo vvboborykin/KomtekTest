@@ -8,30 +8,36 @@ inherited FrmOperator: TFrmOperator
     Height = 727
     ExplicitHeight = 727
     inherited grdHumans: TcxGrid
-      Height = 236
+      Height = 175
       TabOrder = 5
       OnEnter = grdHumansEnter
-      ExplicitHeight = 236
+      ExplicitHeight = 175
     end
     inherited edSURNAME: TcxDBTextEdit
+      Top = 408
       TabOrder = 6
+      ExplicitTop = 408
     end
     inherited edFIRSTNAME: TcxDBTextEdit
+      Top = 445
       TabOrder = 7
+      ExplicitTop = 445
     end
     inherited edPATRNAME: TcxDBTextEdit
+      Top = 482
       TabOrder = 8
+      ExplicitTop = 482
     end
     inherited edBIRTHDATE: TcxDBDateEdit
+      Top = 519
       TabOrder = 9
+      ExplicitTop = 519
     end
     inherited btnRefreshHumanList: TcxButton
       TabOrder = 1
     end
     inherited grdDocuments: TcxGrid
-      Top = 453
-      TabOrder = 14
-      ExplicitTop = 453
+      TabOrder = 16
       inherited viewDocuments: TcxGridDBTableView
         OnDblClick = viewDocumentsDblClick
         OptionsData.Editing = True
@@ -63,54 +69,72 @@ inherited FrmOperator: TFrmOperator
       TabOrder = 4
     end
     inherited edCREATETS: TcxDBDateEdit
+      Top = 519
       AutoSize = False
       TabOrder = 10
-      ExplicitHeight = 21
-      Height = 21
+      ExplicitTop = 519
     end
     object cxButton1: TcxButton [10]
-      Left = 10000
-      Top = 10000
+      Left = 36
+      Top = 653
       Width = 108
       Height = 38
       Action = actSaveHuman
       Default = True
       TabOrder = 11
-      Visible = False
     end
     object btnCancelHuman: TcxButton [11]
-      Left = 10000
-      Top = 10000
+      Left = 154
+      Top = 653
       Width = 102
       Height = 38
       Action = actCancelHuman
       TabOrder = 12
-      Visible = False
     end
     object btnCreateHuman: TcxButton [12]
       Left = 171
-      Top = 107
+      Top = 123
       Width = 230
       Height = 34
       Action = actCreateHuman
       TabOrder = 2
     end
     object btnCreateHuman1: TcxButton [13]
-      Left = 10000
-      Top = 10000
+      Left = 286
+      Top = 653
       Width = 239
       Height = 38
       Action = actCreateHuman
       TabOrder = 13
-      Visible = False
     end
     object btnCreateDocument: TcxButton [14]
       Left = 411
-      Top = 107
+      Top = 123
       Width = 206
       Height = 34
       Action = actCreateDocument
       TabOrder = 3
+    end
+    object btnCreateDocument1: TcxButton [15]
+      Left = 10000
+      Top = 10000
+      Width = 181
+      Height = 35
+      Action = actCreateDocument
+      TabOrder = 14
+      Visible = False
+    end
+    object cxButton2: TcxButton [16]
+      Left = 10000
+      Top = 10000
+      Width = 174
+      Height = 35
+      Action = actEditDocument
+      TabOrder = 15
+      Visible = False
+    end
+    inherited lgrRoot: TdxLayoutGroup
+      ItemIndex = 2
     end
     inherited lgrDetails: TdxLayoutGroup
       OnTabChanging = lgrDetailsTabChanging
@@ -121,6 +145,9 @@ inherited FrmOperator: TFrmOperator
     end
     inherited lit6: TdxLayoutItem
       Index = 0
+    end
+    inherited litDocuments: TdxLayoutItem
+      Index = 1
     end
     inherited litPeopleMaxCount: TdxLayoutItem
       Index = 3
@@ -218,11 +245,39 @@ inherited FrmOperator: TFrmOperator
       ControlOptions.ShowBorder = False
       Index = 2
     end
+    object lgrSpravToolbar: TdxLayoutGroup
+      Parent = lgrDocuments
+      CaptionOptions.Text = 'New Group'
+      ButtonOptions.Buttons = <>
+      LayoutDirection = ldHorizontal
+      ShowBorder = False
+      Index = 0
+    end
+    object dxLayoutItem6: TdxLayoutItem
+      Parent = lgrSpravToolbar
+      CaptionOptions.Text = 'cxButton2'
+      CaptionOptions.Visible = False
+      Control = btnCreateDocument1
+      ControlOptions.OriginalHeight = 35
+      ControlOptions.OriginalWidth = 181
+      ControlOptions.ShowBorder = False
+      Index = 0
+    end
+    object dxLayoutItem7: TdxLayoutItem
+      Parent = lgrSpravToolbar
+      CaptionOptions.Text = 'cxButton2'
+      CaptionOptions.Visible = False
+      Control = cxButton2
+      ControlOptions.OriginalHeight = 35
+      ControlOptions.OriginalWidth = 174
+      ControlOptions.ShowBorder = False
+      Index = 1
+    end
   end
   inherited iml24: TcxImageList
     FormatVersion = 1
     Bitmap = {
-      494C010106001C00200018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106001C00240018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000003000000001002000000000000048
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1011,6 +1066,9 @@ inherited FrmOperator: TFrmOperator
       end>
   end
   inherited iml16: TcxImageList
+    FormatVersion = 1
+  end
+  inherited imlTab: TcxImageList
     FormatVersion = 1
   end
 end

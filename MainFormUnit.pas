@@ -11,7 +11,7 @@ unit MainFormUnit;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, FrmMDIChildUnit,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   BaseFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinOffice2019Colorful, dxCore, dxRibbonSkins,
@@ -68,7 +68,7 @@ type
   private
   public
     procedure RegisterMdiChild(AForm: TForm);
-    procedure UnRegisterMdChild(AForm: TForm);
+    procedure UnRegisterMdiChild(AForm: TForm);
   end;
 
 var
@@ -99,10 +99,10 @@ end;
 
 procedure TMainForm.ArmMruListClick(Sender: TObject);
 var
-  vForm: TFrmBaseArm;
+  vForm: TForm;
 begin
   inherited;
-  vForm := ArmMruList.Items.Objects[ArmMruList.ItemIndex] as TFrmBaseArm;
+  vForm := ArmMruList.Items.Objects[ArmMruList.ItemIndex] as TForm;
   vForm.Show;
 end;
 
@@ -158,7 +158,7 @@ begin
   vThread.Start;
 end;
 
-procedure TMainForm.UnRegisterMdChild(AForm: TForm);
+procedure TMainForm.UnRegisterMdiChild(AForm: TForm);
 begin
   ArmMruList.RemoveItem(AForm.Caption, AForm);
 end;

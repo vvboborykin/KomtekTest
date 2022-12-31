@@ -2,11 +2,6 @@ inherited FrmDocument: TFrmDocument
   Caption = #1056#1077#1076#1072#1082#1090#1086#1088' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
   ClientHeight = 794
   ClientWidth = 933
-  FormStyle = fsMDIChild
-  Visible = True
-  OnClose = FormClose
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
   ExplicitWidth = 949
   ExplicitHeight = 833
   PixelsPerInch = 96
@@ -18,51 +13,25 @@ inherited FrmDocument: TFrmDocument
     ExplicitTop = 132
     ExplicitWidth = 933
     ExplicitHeight = 662
-    object dbedtDOCDATE: TDBEdit [0]
-      Left = 141
-      Top = 521
-      Width = 774
-      Height = 25
-      BevelInner = bvNone
-      BevelOuter = bvSpace
-      BevelKind = bkFlat
-      BorderStyle = bsNone
-      DataField = 'DOCDATE'
-      DataSource = dsDocument
-      TabOrder = 3
-    end
-    object dbedtTITLE: TDBEdit [1]
-      Left = 141
-      Top = 558
-      Width = 774
-      Height = 25
-      BevelInner = bvNone
-      BevelOuter = bvSpace
-      BevelKind = bkFlat
-      BorderStyle = bsNone
-      DataField = 'TITLE'
-      DataSource = dsDocument
-      TabOrder = 4
-    end
-    object btnSave: TcxButton [2]
+    object btnSave: TcxButton [0]
       Left = 17
       Top = 610
       Width = 150
       Height = 35
       Action = actSave
       Default = True
-      TabOrder = 1
+      TabOrder = 3
     end
-    object btnCancel: TcxButton [3]
+    object btnCancel: TcxButton [1]
       Left = 177
       Top = 610
       Width = 150
       Height = 35
       Action = actCancel
       Cancel = True
-      TabOrder = 2
+      TabOrder = 4
     end
-    object dxRichEditControl1: TdxRichEditControl [4]
+    object dxRichEditControl1: TdxRichEditControl [2]
       Left = 17
       Top = 46
       Width = 899
@@ -70,24 +39,28 @@ inherited FrmDocument: TFrmDocument
       Color = 15790320
       TabOrder = 0
     end
+    object edDOCDATE: TcxDBDateEdit [3]
+      Left = 140
+      Top = 557
+      DataBinding.DataField = 'DOCDATE'
+      DataBinding.DataSource = dsDocument
+      Style.HotTrack = False
+      Style.TransparentBorder = False
+      TabOrder = 2
+      Width = 776
+    end
+    object edTITLE: TcxDBTextEdit [4]
+      Left = 140
+      Top = 520
+      DataBinding.DataField = 'TITLE'
+      DataBinding.DataSource = dsDocument
+      Style.HotTrack = False
+      Style.TransparentBorder = False
+      TabOrder = 1
+      Width = 776
+    end
     inherited lgrRoot: TdxLayoutGroup
-      ItemIndex = 4
-    end
-    object lit: TdxLayoutItem
-      Parent = lgrRoot
-      CaptionOptions.Text = #1044#1072#1090#1072' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
-      Control = dbedtDOCDATE
-      ControlOptions.OriginalHeight = 25
-      ControlOptions.OriginalWidth = 121
-      Index = 3
-    end
-    object lit1: TdxLayoutItem
-      Parent = lgrRoot
-      CaptionOptions.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-      Control = dbedtTITLE
-      ControlOptions.OriginalHeight = 25
-      ControlOptions.OriginalWidth = 121
-      Index = 4
+      ItemIndex = 1
     end
     object dxLayoutItem1: TdxLayoutItem
       Parent = lgrBtn
@@ -106,7 +79,7 @@ inherited FrmDocument: TFrmDocument
       ButtonOptions.Buttons = <>
       LayoutDirection = ldHorizontal
       ShowBorder = False
-      Index = 2
+      Index = 4
     end
     object dxLayoutItem2: TdxLayoutItem
       Parent = lgrBtn
@@ -122,7 +95,7 @@ inherited FrmDocument: TFrmDocument
       Parent = lgrRoot
       AlignVert = avBottom
       CaptionOptions.Text = 'Separator'
-      Index = 1
+      Index = 3
     end
     object lit2: TdxLayoutItem
       Parent = lgrRoot
@@ -135,6 +108,24 @@ inherited FrmDocument: TFrmDocument
       ControlOptions.OriginalWidth = 300
       ControlOptions.ShowBorder = False
       Index = 0
+    end
+    object lit: TdxLayoutItem
+      Parent = lgrRoot
+      CaptionOptions.Text = #1044#1072#1090#1072' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
+      Control = edDOCDATE
+      ControlOptions.OriginalHeight = 27
+      ControlOptions.OriginalWidth = 121
+      ControlOptions.ShowBorder = False
+      Index = 2
+    end
+    object lit1: TdxLayoutItem
+      Parent = lgrRoot
+      CaptionOptions.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      Control = edTITLE
+      ControlOptions.OriginalHeight = 27
+      ControlOptions.OriginalWidth = 121
+      ControlOptions.ShowBorder = False
+      Index = 1
     end
   end
   object rb: TdxRibbon
@@ -378,11 +369,13 @@ inherited FrmDocument: TFrmDocument
       DisplayLabel = #1044#1072#1090#1072' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
       FieldName = 'DOCDATE'
       Required = True
+      OnValidate = qryDocumentDOCDATEValidate
     end
     object qryDocumentTITLE: TStringField
       DisplayLabel = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
       FieldName = 'TITLE'
       Required = True
+      OnValidate = qryDocumentTITLEValidate
       Size = 255
     end
     object qryDocumentCONTENT: TBlobField
@@ -13454,7 +13447,7 @@ inherited FrmDocument: TFrmDocument
     Left = 608
     Top = 224
     Bitmap = {
-      494C010102000800080018001800FFFFFFFF2100FFFFFFFFFFFFFFFF424D3600
+      494C010102000800200018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000001800000001002000000000000024
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -13755,7 +13748,8 @@ inherited FrmDocument: TFrmDocument
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000}
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000}
     DesignInfo = 14680672
     ImageInfo = <
       item

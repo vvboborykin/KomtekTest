@@ -25,11 +25,13 @@ uses
   DataNotificationUnit in 'DataNotificationUnit.pas',
   Lib.ComponentHelper in 'Lib\Lib.ComponentHelper.pas',
   DbLib.DataSetHelper in 'DbLib\DbLib.DataSetHelper.pas',
-  VCL.DevExpressVisualValidator in 'Lib\VCL.DevExpressVisualValidator.pas',
+  VCL.DbEditorsValidator in 'Lib\VCL.DbEditorsValidator.pas',
   BaseFrameUnit in 'BaseForms\BaseFrameUnit.pas' {BaseFrame: TFrame},
   Search.FrmFindStatistUnit in 'Search\Search.FrmFindStatistUnit.pas' {FrmFindStatist},
   Arm.FrmDocumentUnit in 'Arm\Arm.FrmDocumentUnit.pas' {FrmDocument},
-  Arm.DocumentFormFactory in 'Arm\Arm.DocumentFormFactory.pas';
+  Arm.DocumentFormFactory in 'Arm\Arm.DocumentFormFactory.pas',
+  VCL.DevExpressDbEditor in 'Lib\VCL.DevExpressDbEditor.pas',
+  FrmMDIChildUnit in 'BaseForms\FrmMDIChildUnit.pas' {FrmMDIChild};
 
 {$R *.res}
 

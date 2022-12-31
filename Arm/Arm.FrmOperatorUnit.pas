@@ -47,6 +47,11 @@ type
     btnCreateDocument: TcxButton;
     dxLayoutItem5: TdxLayoutItem;
     viewDocumentsBtn: TcxGridDBColumn;
+    lgrSpravToolbar: TdxLayoutGroup;
+    btnCreateDocument1: TcxButton;
+    dxLayoutItem6: TdxLayoutItem;
+    cxButton2: TcxButton;
+    dxLayoutItem7: TdxLayoutItem;
     procedure actCreateHumanExecute(Sender: TObject);
     procedure grdHumansEnter(Sender: TObject);
     procedure lgrDetailsTabChanging(Sender: TObject; ANewTabIndex: Integer; var
