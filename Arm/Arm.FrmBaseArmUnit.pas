@@ -24,7 +24,8 @@ uses
   cxGridTableView, cxGridDBTableView, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
   cxMaskEdit, cxDropDownEdit, cxCalendar, cxDBEdit, cxTextEdit, DBAccess, MemDS,
   cxGridLevel, cxGridCustomView, cxGrid, Vcl.Menus, cxButtons, System.Actions,
-  Vcl.ActnList, Vcl.ImgList, cxImageList, Search.EngineUnit, Search.FrmFindUnit;
+  Vcl.ActnList, Vcl.ImgList, cxImageList, Search.EngineUnit, Search.FrmFindUnit,
+  Vcl.DevExpressVisualValidator;
 
 type
   /// <summary>TBaseArmForm
@@ -95,6 +96,7 @@ type
     dxLayoutAutoCreatedGroup1: TdxLayoutAutoCreatedGroup;
     actCreateDocument: TAction;
     actEditDocument: TAction;
+    procedure FormDestroy(Sender: TObject);
     procedure actCancelHumanExecute(Sender: TObject);
     procedure actCreateDocumentExecute(Sender: TObject);
     procedure actCreateHumanExecute(Sender: TObject);
@@ -111,13 +113,15 @@ type
   strict private
     class var
       FArmCounter: Integer;
-      FSearch: IHumanSearchEngine;
+    FSearch: IHumanSearchEngine;
+    FValidator: TDevExpressVisualValidator;
     function CreateFindForm: TFrmFind;
     procedure OnDataNotification(AData: TDataNotification); virtual; stdcall;
     procedure OpenDatasets;
     procedure RegisterArmInGlobals;
     procedure UnregisterArmInGlobals;
     procedure CreateAndBindSearchEngine(vFindForm: TFrmFind);
+    procedure CreateValidator;
   strict protected
     function GetFindFormClass: TFrmFindClass; virtual;
   public
@@ -138,6 +142,12 @@ resourcestring
     'Данные о текущем человеке не сохранены. Вы хотите сохранить их ?';
 
 {$R *.dfm}
+
+procedure TFrmBaseArm.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FValidator);
+  inherited;
+end;
 
 procedure TFrmBaseArm.actCancelHumanExecute(Sender: TObject);
 begin
@@ -223,6 +233,7 @@ procedure TFrmBaseArm.FormCreate(Sender: TObject);
 begin
   inherited;
   CreateAndBindSearchEngine(CreateFindForm);
+  CreateValidator();
   OpenDatasets();
 
   Inc(FArmCounter);
@@ -244,6 +255,11 @@ begin
   pnlFind.Height := vFindForm.Height;
   Application.ProcessMessages;
   Result := vFindForm;
+end;
+
+procedure TFrmBaseArm.CreateValidator;
+begin
+  FValidator := TDevExpressVisualValidator.Create(Self);
 end;
 
 procedure TFrmBaseArm.OnDataNotification(AData: TDataNotification);
@@ -311,9 +327,12 @@ begin
   if Sender.AsVariant <> null then
   begin
     if Sender.AsDateTime < EncodeDate(1900,1,1) then
-      raise Exception.Create(SDateMinError);
+//      raise Exception.Create(SDateMinError);
+      FValidator.SetFieldErrorText(SDateMinError);
+
     if Sender.AsDateTime > AppData.GetServerDateTime then
-      raise Exception.Create(SDateMaxError);
+//      raise Exception.Create(SDateMaxError);
+      FValidator.SetFieldErrorText(SDateMaxError);
   end;
 end;
 
