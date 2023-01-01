@@ -81,43 +81,40 @@ inherited frmBaseArm: TfrmBaseArm
       end
     end
     object edSURNAME: TcxDBTextEdit [2]
-      Left = 10000
-      Top = 10000
+      Left = 155
+      Top = 460
       DataBinding.DataField = 'SURNAME'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 4
-      Visible = False
       Width = 847
     end
     object edFIRSTNAME: TcxDBTextEdit [3]
-      Left = 10000
-      Top = 10000
+      Left = 155
+      Top = 497
       DataBinding.DataField = 'FIRSTNAME'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 5
-      Visible = False
       Width = 847
     end
     object edPATRNAME: TcxDBTextEdit [4]
-      Left = 10000
-      Top = 10000
+      Left = 155
+      Top = 534
       DataBinding.DataField = 'PATRNAME'
       DataBinding.DataSource = dsHumans
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 6
-      Visible = False
       Width = 847
     end
     object edBIRTHDATE: TcxDBDateEdit [5]
-      Left = 10000
-      Top = 10000
+      Left = 155
+      Top = 571
       Hint = #1044#1072#1090#1072' '#1088#1086#1078#1076#1077#1085#1080#1103' '#1087#1072#1094#1080#1077#1085#1090#1072
       AutoSize = False
       DataBinding.DataField = 'BIRTHDATE'
@@ -126,7 +123,6 @@ inherited frmBaseArm: TfrmBaseArm
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 7
-      Visible = False
       Height = 27
       Width = 121
     end
@@ -139,11 +135,12 @@ inherited frmBaseArm: TfrmBaseArm
       TabOrder = 2
     end
     object grdDocuments: TcxGrid [7]
-      Left = 36
-      Top = 460
+      Left = 10000
+      Top = 10000
       Width = 966
       Height = 238
       TabOrder = 9
+      Visible = False
       object viewDocuments: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         ScrollbarAnnotations.CustomAnnotations = <>
@@ -169,13 +166,16 @@ inherited frmBaseArm: TfrmBaseArm
         end
         object viewDocumentsDOCDATE: TcxGridDBColumn
           DataBinding.FieldName = 'DOCDATE'
+          Options.Editing = False
           Width = 132
         end
         object viewDocumentsDOCNUM: TcxGridDBColumn
           DataBinding.FieldName = 'DOCNUM'
+          Options.Editing = False
         end
         object viewDocumentsTITLE: TcxGridDBColumn
           DataBinding.FieldName = 'TITLE'
+          Options.Editing = False
           Width = 448
         end
       end
@@ -205,15 +205,14 @@ inherited frmBaseArm: TfrmBaseArm
       Width = 77
     end
     object edCREATETS: TcxDBDateEdit [9]
-      Left = 10000
-      Top = 10000
+      Left = 398
+      Top = 571
       DataBinding.DataField = 'CREATETS'
       DataBinding.DataSource = dsHumans
       Properties.Kind = ckDateTime
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 8
-      Visible = False
       Width = 203
     end
     inherited lgrRoot: TdxLayoutGroup
@@ -244,7 +243,6 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrWorkArea
       AlignHorz = ahClient
       ButtonOptions.Buttons = <>
-      ItemIndex = 1
       LayoutDirection = ldTabbed
       ShowBorder = False
       Index = 2
@@ -547,7 +545,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 904
     Top = 176
     Bitmap = {
-      494C010106001800400018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106001800440018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000003000000001002000000000000048
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1336,7 +1334,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 664
     Top = 416
     Bitmap = {
-      494C010102000800100010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800140010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000001C0F025C9B550BD9D575

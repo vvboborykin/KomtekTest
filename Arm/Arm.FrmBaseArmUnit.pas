@@ -169,6 +169,7 @@ begin
         Exit;
     end;
   end;
+  lgrDetails.ItemIndex := 0;
   qryHuman.Append;
 end;
 
