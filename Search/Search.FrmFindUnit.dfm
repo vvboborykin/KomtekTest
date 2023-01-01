@@ -1,15 +1,15 @@
 inherited FrmFind: TFrmFind
   BorderStyle = bsNone
   Caption = #1060#1086#1088#1084#1072' '#1087#1086#1080#1089#1082#1072
-  ClientHeight = 62
+  ClientHeight = 54
   ClientWidth = 865
   ExplicitWidth = 865
-  ExplicitHeight = 62
+  ExplicitHeight = 54
   PixelsPerInch = 96
   TextHeight = 21
   inherited lacMain: TdxLayoutControl
     Width = 865
-    Height = 62
+    Height = 54
     ExplicitWidth = 865
     ExplicitHeight = 62
     object edFind: TcxTextEdit [0]
@@ -114,7 +114,7 @@ inherited FrmFind: TFrmFind
     Left = 424
     Top = 8
     Bitmap = {
-      494C010102000C00200010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000C00240010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

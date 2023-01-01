@@ -81,40 +81,43 @@ inherited frmBaseArm: TfrmBaseArm
       end
     end
     object edSURNAME: TcxDBTextEdit [2]
-      Left = 155
-      Top = 460
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'SURNAME'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 4
+      Visible = False
       Width = 847
     end
     object edFIRSTNAME: TcxDBTextEdit [3]
-      Left = 155
-      Top = 497
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'FIRSTNAME'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 5
+      Visible = False
       Width = 847
     end
     object edPATRNAME: TcxDBTextEdit [4]
-      Left = 155
-      Top = 534
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'PATRNAME'
       DataBinding.DataSource = dsHumans
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 6
+      Visible = False
       Width = 847
     end
     object edBIRTHDATE: TcxDBDateEdit [5]
-      Left = 155
-      Top = 571
+      Left = 10000
+      Top = 10000
       Hint = #1044#1072#1090#1072' '#1088#1086#1078#1076#1077#1085#1080#1103' '#1087#1072#1094#1080#1077#1085#1090#1072
       AutoSize = False
       DataBinding.DataField = 'BIRTHDATE'
@@ -123,6 +126,7 @@ inherited frmBaseArm: TfrmBaseArm
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 7
+      Visible = False
       Height = 27
       Width = 121
     end
@@ -135,12 +139,11 @@ inherited frmBaseArm: TfrmBaseArm
       TabOrder = 2
     end
     object grdDocuments: TcxGrid [7]
-      Left = 10000
-      Top = 10000
+      Left = 36
+      Top = 460
       Width = 966
       Height = 238
       TabOrder = 9
-      Visible = False
       object viewDocuments: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         ScrollbarAnnotations.CustomAnnotations = <>
@@ -167,6 +170,9 @@ inherited frmBaseArm: TfrmBaseArm
         object viewDocumentsDOCDATE: TcxGridDBColumn
           DataBinding.FieldName = 'DOCDATE'
           Width = 132
+        end
+        object viewDocumentsDOCNUM: TcxGridDBColumn
+          DataBinding.FieldName = 'DOCNUM'
         end
         object viewDocumentsTITLE: TcxGridDBColumn
           DataBinding.FieldName = 'TITLE'
@@ -199,14 +205,15 @@ inherited frmBaseArm: TfrmBaseArm
       Width = 77
     end
     object edCREATETS: TcxDBDateEdit [9]
-      Left = 398
-      Top = 571
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'CREATETS'
       DataBinding.DataSource = dsHumans
       Properties.Kind = ckDateTime
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 8
+      Visible = False
       Width = 203
     end
     inherited lgrRoot: TdxLayoutGroup
@@ -237,6 +244,7 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrWorkArea
       AlignHorz = ahClient
       ButtonOptions.Buttons = <>
+      ItemIndex = 1
       LayoutDirection = ldTabbed
       ShowBorder = False
       Index = 2
@@ -401,18 +409,18 @@ inherited frmBaseArm: TfrmBaseArm
       DisplayLabel = #1060#1072#1084#1080#1083#1080#1103
       FieldName = 'SURNAME'
       Required = True
-      Size = 100
+      Size = 50
     end
     object qryHumanFIRSTNAME: TStringField
       DisplayLabel = #1048#1084#1103
       FieldName = 'FIRSTNAME'
       Required = True
-      Size = 100
+      Size = 50
     end
     object qryHumanPATRNAME: TStringField
       DisplayLabel = #1054#1090#1095#1077#1089#1090#1074#1086
       FieldName = 'PATRNAME'
-      Size = 100
+      Size = 50
     end
     object qryHumanBIRTHDATE: TDateTimeField
       DisplayLabel = #1044#1072#1090#1072' '#1088#1086#1078#1076#1077#1085#1080#1103
@@ -439,9 +447,9 @@ inherited frmBaseArm: TfrmBaseArm
       '       HUMANID,'
       '       DOCDATE,'
       '       TITLE,'
-      '       CONTENT'
+      '       DOCNUM'
       '  FROM DOCUMENT'
-      'ORDER BY DOCDATE;')
+      'ORDER BY DOCDATE, DOCNUM;')
     MasterSource = dsHumans
     MasterFields = 'ID'
     DetailFields = 'HUMANID'
@@ -457,7 +465,7 @@ inherited frmBaseArm: TfrmBaseArm
         DataType = ftFloat
         Name = 'ID'
         ParamType = ptInput
-        Value = 1.000000000000000000
+        Value = 2.000000000000000000
       end>
     object qryDocumentID: TFloatField
       FieldName = 'ID'
@@ -478,10 +486,9 @@ inherited frmBaseArm: TfrmBaseArm
       FieldName = 'TITLE'
       Size = 255
     end
-    object qryDocumentCONTENT: TBlobField
-      DisplayLabel = #1057#1086#1076#1077#1088#1078#1072#1085#1080#1077
-      FieldName = 'CONTENT'
-      BlobType = ftOraBlob
+    object qryDocumentDOCNUM: TFloatField
+      DisplayLabel = #1053#1086#1084#1077#1088
+      FieldName = 'DOCNUM'
     end
   end
   object dsDocument: TOraDataSource
@@ -540,7 +547,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 904
     Top = 176
     Bitmap = {
-      494C010106001800380018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106001800400018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000003000000001002000000000000048
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1329,7 +1336,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 664
     Top = 416
     Bitmap = {
-      494C010102000800080010001000FFFFFFFF2100FFFFFFFFFFFFFFFF424D3600
+      494C010102000800100010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000001C0F025C9B550BD9D575
@@ -1465,7 +1472,8 @@ inherited frmBaseArm: TfrmBaseArm
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000}
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000}
     DesignInfo = 27263640
     ImageInfo = <
       item

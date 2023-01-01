@@ -78,7 +78,6 @@ type
     litDocuments: TdxLayoutItem;
     qryDocumentDOCDATE: TDateTimeField;
     qryDocumentTITLE: TStringField;
-    qryDocumentCONTENT: TBlobField;
     qryDocumentID: TFloatField;
     qryDocumentHUMANID: TFloatField;
     viewDocumentsID: TcxGridDBColumn;
@@ -98,6 +97,8 @@ type
     actEditDocument: TAction;
     dxSepSearch: TdxLayoutSeparatorItem;
     imlTab: TcxImageList;
+    qryDocumentDOCNUM: TFloatField;
+    viewDocumentsDOCNUM: TcxGridDBColumn;
     procedure actCancelHumanExecute(Sender: TObject);
     procedure actCreateDocumentExecute(Sender: TObject);
     procedure actCreateHumanExecute(Sender: TObject);
@@ -276,7 +277,7 @@ begin
     if Sender.AsDateTime < EncodeDate(1900, 1, 1) then
       Validator.SetFieldErrorText(SDateMinError);
 
-    if Sender.AsDateTime > AppData.GetServerDateTime then
+    if Sender.AsDateTime > AppData.GetServerDate then
       Validator.SetFieldErrorText(SDateMaxError);
   end;
 end;

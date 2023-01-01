@@ -11,8 +11,8 @@ unit AppDataUnit;
 interface
 
 uses
-  System.SysUtils, System.Classes, DBAccess, Data.DB, Ora, OdacVcl, OraCall,
-  DataNotificationUnit, System.Generics.Collections, MemDS;
+  System.SysUtils, System.Classes, System.DateUtils, DBAccess, Data.DB, Ora,
+  OdacVcl, OraCall, DataNotificationUnit, System.Generics.Collections, MemDS;
 
 type
   TAppData = class(TDataModule, IDataNotificationHub)
@@ -29,12 +29,18 @@ type
     /// <returns> TDateTime
     /// </returns>
     function GetServerDateTime: TDateTime;
+    /// <summary>TAppData.GetServerDate
+    /// Получить текущие дату сервера БД
+    /// </summary>
+    /// <returns> TDateTime
+    /// </returns>
+    function GetServerDate: TDateTime;
     /// <summary>TAppData.DataNotificationHub
     /// Реализация службы доставки сообщений IDataNotificationHub
     /// </summary>
     /// type:IDataNotificationHub
     property DataNotificationHub: IDataNotificationHub read FDataNotificationHub
-        implements IDataNotificationHub;
+      implements IDataNotificationHub;
   end;
 
 var
@@ -52,6 +58,11 @@ uses
 procedure TAppData.DataModuleCreate(Sender: TObject);
 begin
   FDataNotificationHub := TDataNotificationHub.Create;
+end;
+
+function TAppData.GetServerDate: TDateTime;
+begin
+  Result := DateOf(GetServerDateTime);
 end;
 
 function TAppData.GetServerDateTime: TDateTime;

@@ -6,11 +6,10 @@ object AppData: TAppData
   object sesMain: TOraSession
     Options.Direct = True
     Options.KeepDesignConnected = False
-    Username = 'KOMTEKTEST'
-    Server = 'localhost:1521:XE'
+    Username = 'C##KOMTEKTEST'
+    Server = '192.168.0.10:1521:XE'
     Connected = True
     ConnectDialog = dlgConnect
-    HomeName = 'c:\temp'
     Left = 24
     Top = 16
     EncryptedPassword = '8EFFCEFF88FFCDFFBAFFDCFFADFFDBFF'
