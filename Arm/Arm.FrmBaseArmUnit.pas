@@ -11,21 +11,21 @@ unit Arm.FrmBaseArmUnit;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, Ora, System.DateUtils,
-  System.UITypes, Data.DB, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
-  Vcl.Dialogs, LayoutFormUnit, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful, cxClasses,
-  dxLayoutContainer, dxLayoutControl, dxLayoutControlAdapters, Vcl.ExtCtrls,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinOffice2019Black, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
-  DataNotificationUnit, dxLayoutcxEditAdapters, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
-  dxScrollbarAnnotations, cxDBData, cxContainer, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
-  cxMaskEdit, cxDropDownEdit, cxCalendar, cxDBEdit, cxTextEdit, DBAccess, MemDS,
-  cxGridLevel, cxGridCustomView, cxGrid, Vcl.Menus, cxButtons, System.Actions,
-  Vcl.ActnList, Vcl.ImgList, cxImageList, Search.EngineUnit, Search.FrmFindUnit,
-  Vcl.DbEditorsValidator, FrmMDIChildUnit;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, Ora,
+  System.DateUtils, System.UITypes, Data.DB, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, LayoutFormUnit, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful,
+  cxClasses, dxLayoutContainer, dxLayoutControl, dxLayoutControlAdapters,
+  Vcl.ExtCtrls, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, DataNotificationUnit, dxLayoutcxEditAdapters, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  dxDateRanges, dxScrollbarAnnotations, cxDBData, cxContainer,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls, cxMaskEdit, cxDropDownEdit, cxCalendar, cxDBEdit,
+  cxTextEdit, DBAccess, MemDS, cxGridLevel, cxGridCustomView, cxGrid, Vcl.Menus,
+  cxButtons, System.Actions, Vcl.ActnList, Vcl.ImgList, cxImageList,
+  Search.EngineUnit, Search.FrmFindUnit, FrmMDIChildUnit;
 
 type
   /// <summary>TBaseArmForm
@@ -103,21 +103,38 @@ type
     procedure actCreateDocumentExecute(Sender: TObject);
     procedure actCreateHumanExecute(Sender: TObject);
     procedure actEditDocumentExecute(Sender: TObject);
-    procedure actFocusFindExecute(Sender: TObject);
     procedure actRefreshHumanListExecute(Sender: TObject);
     procedure actSaveHumanExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryDocumentNewRecord(DataSet: TDataSet);
     procedure qryHumanAfterPost(DataSet: TDataSet);
     procedure cbbLimitPropertiesEditValueChanged(Sender: TObject);
-    procedure qryHumanBIRTHDATEValidate(Sender: TField);
+    procedure qryHumanPostError(DataSet: TDataSet; E: EDatabaseError; var Action:
+        TDataAction);
   strict private
     FSearch: IHumanSearchEngine;
+    /// <summary>TFrmBaseArm.CreateFindForm
+    /// Создать форму поиска и встроить ее в pnlFind
+    /// </summary>
+    /// <returns> TFrmFind
+    /// </returns>
     function CreateFindForm: TFrmFind;
-    procedure OpenDatasets;
+    /// <summary>TFrmBaseArm.CreateAndBindSearchEngine
+    /// Создат поисковый механизм и связать его с формой поиска
+    /// </summary>
+    /// <param name="vFindForm"> (TFrmFind) </param>
     procedure CreateAndBindSearchEngine(vFindForm: TFrmFind);
   strict protected
+    /// <summary>TFrmBaseArm.GetFindFormClass
+    /// Получить классс поисковой формы АРМ
+    /// </summary>
+    /// <returns> TFrmFindClass
+    /// </returns>
     function GetFindFormClass: TFrmFindClass; virtual;
+    /// <summary>TFrmBaseArm.OpenDatasets
+    /// Отрыть наборы данных формы
+    /// </summary>
+    procedure OpenDatasets; virtual;
   public
   end;
 
@@ -127,7 +144,8 @@ implementation
 
 uses
   MainFormUnit, Lib.ComponentHelper, DbLib.DataSetHelper, AppDataUnit,
-  Search.OraQueryEngineUnit, Arm.DocumentFormFactory;
+  Search.OraQueryEngineUnit, Arm.CreateDocumentParamsUnit,
+  Arm.DocumentFormFactory;
 
 resourcestring
   SDateMaxError = 'Дата не может быть больше текущей';
@@ -169,6 +187,8 @@ begin
         Exit;
     end;
   end;
+
+  // активируем закладку - редактор человека
   lgrDetails.ItemIndex := 0;
   qryHuman.Append;
 end;
@@ -182,12 +202,6 @@ begin
   end;
 end;
 
-procedure TFrmBaseArm.actFocusFindExecute(Sender: TObject);
-begin
-  inherited;
-//  (pnlFind.Controls[0] as TFrmFind).edFind.SetFocus;
-end;
-
 procedure TFrmBaseArm.actRefreshHumanListExecute(Sender: TObject);
 begin
   inherited;
@@ -197,22 +211,24 @@ end;
 procedure TFrmBaseArm.actSaveHumanExecute(Sender: TObject);
 begin
   inherited;
-  qryHuman.PostIfNeeded
+  qryHuman.PostIfNeeded;
 end;
 
 procedure TFrmBaseArm.cbbLimitPropertiesEditValueChanged(Sender: TObject);
 begin
   inherited;
+  // изменяем макрос определяющий количество возвращаемых записей
   qryHuman.MacroByName('LimitCount').Value :=
     cbbLimit.Properties.Items[cbbLimit.SelectedItem];
+
+  // переоткрываем humans
   qryHuman.CloseOpen;
 end;
 
 procedure TFrmBaseArm.CreateAndBindSearchEngine(vFindForm: TFrmFind);
 begin
   FSearch := TOraQuerySurnameSearchEngine.Create(qryHuman, 'FioWhere',
-    qryHumanSURNAME.FieldName, 'DateWhere',
-    qryHumanBIRTHDATE.FieldName,
+    qryHumanSURNAME.FieldName, 'DateWhere', qryHumanBIRTHDATE.FieldName,
     qryHumanCREATETS.FieldName);
 
   vFindForm.HumanSearchEngine := FSearch;
@@ -230,11 +246,14 @@ var
   vFindForm: TFrmFind;
 begin
   vFindForm := GetFindFormClass.Create(pnlFind);
+
+  // располагаем форму поиска в pnlFind
   vFindForm.Parent := pnlFind;
   vFindForm.Visible := True;
   vFindForm.Align := alTop;
   Application.ProcessMessages;
 
+  // подгоняем высоту pnlFind под форму поиска
   pnlFind.Height := vFindForm.Height;
   Application.ProcessMessages;
   Result := vFindForm;
@@ -258,29 +277,17 @@ begin
 end;
 
 procedure TFrmBaseArm.qryHumanAfterPost(DataSet: TDataSet);
-var
-  vTableNotif: TTableDataNotification;
 begin
   inherited;
-  vTableNotif := TTableDataNotification.Create(Self, (DataSet as TOraQuery).UpdatingTable);
-  try
-    (AppData as IDataNotificationHub).BroadcastDataNotification(vTableNotif);
-  finally
-    vTableNotif.Free;
-  end;
+  BroadcastTableModified((DataSet as TOraQuery).UpdatingTable);
 end;
 
-procedure TFrmBaseArm.qryHumanBIRTHDATEValidate(Sender: TField);
+procedure TFrmBaseArm.qryHumanPostError(DataSet: TDataSet; E: EDatabaseError;
+    var Action: TDataAction);
 begin
   inherited;
-  if Sender.AsVariant <> null then
-  begin
-    if Sender.AsDateTime < EncodeDate(1900, 1, 1) then
-      Validator.SetFieldErrorText(SDateMinError);
-
-    if Sender.AsDateTime > AppData.GetServerDate then
-      Validator.SetFieldErrorText(SDateMaxError);
-  end;
+  ShowOracleException(E);
+  Action := daAbort;
 end;
 
 end.

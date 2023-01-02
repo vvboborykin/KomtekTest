@@ -385,6 +385,7 @@ inherited frmBaseArm: TfrmBaseArm
     Options.RequiredFields = False
     AfterPost = qryHumanAfterPost
     AfterDelete = qryHumanAfterPost
+    OnPostError = qryHumanPostError
     Left = 192
     Top = 184
     MacroData = <
@@ -424,12 +425,10 @@ inherited frmBaseArm: TfrmBaseArm
       DisplayLabel = #1044#1072#1090#1072' '#1088#1086#1078#1076#1077#1085#1080#1103
       FieldName = 'BIRTHDATE'
       Required = True
-      OnValidate = qryHumanBIRTHDATEValidate
     end
     object qryHumanCREATETS: TDateTimeField
       DisplayLabel = #1044#1072#1090#1072' '#1074#1085#1077#1089#1077#1085#1080#1103
       FieldName = 'CREATETS'
-      OnValidate = qryHumanBIRTHDATEValidate
     end
   end
   object dsHumans: TOraDataSource
@@ -456,6 +455,7 @@ inherited frmBaseArm: TfrmBaseArm
     AfterPost = qryHumanAfterPost
     AfterDelete = qryHumanAfterPost
     OnNewRecord = qryDocumentNewRecord
+    OnPostError = qryHumanPostError
     Left = 280
     Top = 184
     ParamData = <
@@ -477,7 +477,6 @@ inherited frmBaseArm: TfrmBaseArm
     object qryDocumentDOCDATE: TDateTimeField
       DisplayLabel = #1044#1072#1090#1072' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
       FieldName = 'DOCDATE'
-      OnValidate = qryHumanBIRTHDATEValidate
     end
     object qryDocumentTITLE: TStringField
       DisplayLabel = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
@@ -524,7 +523,6 @@ inherited frmBaseArm: TfrmBaseArm
     object actFocusFind: TAction
       Caption = 'actFocusFind'
       ShortCut = 16454
-      OnExecute = actFocusFindExecute
     end
     object actCreateDocument: TAction
       Caption = #1057#1086#1079#1076#1072#1090#1100' '#1089#1087#1088#1072#1074#1082#1091
@@ -545,7 +543,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 904
     Top = 176
     Bitmap = {
-      494C010106001800440018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106001800500018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000003000000001002000000000000048
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1334,7 +1332,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 664
     Top = 416
     Bitmap = {
-      494C010102000800140010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800200010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000001C0F025C9B550BD9D575

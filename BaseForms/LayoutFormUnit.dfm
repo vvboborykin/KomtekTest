@@ -4,6 +4,7 @@ inherited LayoutForm: TLayoutForm
   ClientWidth = 615
   ExplicitWidth = 631
   ExplicitHeight = 458
+  PixelsPerInch = 96
   TextHeight = 21
   object lacMain: TdxLayoutControl
     Left = 0

@@ -20,8 +20,11 @@ type
     dlgConnect: TConnectDialog;
     qryCurrentDateTime: TOraQuery;
     procedure DataModuleCreate(Sender: TObject);
+    procedure sesMainError(Sender: TObject; E: EDAError; var Fail: Boolean);
   private
     FDataNotificationHub: IDataNotificationHub;
+  strict protected
+    procedure TryConnect;
   public
     /// <summary>TAppData.GetServerDateTime
     /// Получить текущие дату и время сервера БД
@@ -49,7 +52,7 @@ var
 implementation
 
 uses
-  VCL.Dialogs, DbLib.DataSetHelper;
+  VCL.Dialogs, DbLib.DataSetHelper, OraErrorProcessorUnit;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -58,6 +61,7 @@ uses
 procedure TAppData.DataModuleCreate(Sender: TObject);
 begin
   FDataNotificationHub := TDataNotificationHub.Create;
+  TryConnect();
 end;
 
 function TAppData.GetServerDate: TDateTime;
@@ -69,6 +73,17 @@ function TAppData.GetServerDateTime: TDateTime;
 begin
   qryCurrentDateTime.CloseOpen;
   Result := qryCurrentDateTime.Fields[0].Value;
+end;
+
+procedure TAppData.sesMainError(Sender: TObject; E: EDAError; var Fail:
+    Boolean);
+begin
+  OraErrorProcessor.ShowOracleException(E);
+end;
+
+procedure TAppData.TryConnect;
+begin
+  sesMain.Open;
 end;
 
 end.

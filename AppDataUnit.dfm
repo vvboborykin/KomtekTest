@@ -4,12 +4,14 @@ object AppData: TAppData
   Height = 218
   Width = 470
   object sesMain: TOraSession
+    Options.AllowImplicitConnect = False
     Options.Direct = True
     Options.KeepDesignConnected = False
     Username = 'C##KOMTEKTEST'
     Server = '192.168.0.10:1521:XE'
     Connected = True
     ConnectDialog = dlgConnect
+    OnError = sesMainError
     Left = 24
     Top = 16
     EncryptedPassword = '8EFFCEFF88FFCDFFBAFFDCFFADFFDBFF'

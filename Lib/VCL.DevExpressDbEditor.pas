@@ -12,7 +12,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Variants, System.StrUtils,
-  VCL.Controls, VCL.DbEditorsValidator, Data.DB, VCL.Graphics, cxEdit, cxDBEdit,
+  VCL.Controls, VCL.DbEditorsVisualValidator, Data.DB, VCL.Graphics, cxEdit, cxDBEdit,
   cxDB;
 
 type

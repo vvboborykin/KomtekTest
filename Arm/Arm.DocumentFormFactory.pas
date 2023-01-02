@@ -9,14 +9,12 @@
 unit Arm.DocumentFormFactory;
 
 interface
+
 uses
-  System.SysUtils, System.Classes, System.Variants, System.StrUtils;
+  System.SysUtils, System.Classes, System.Variants, System.StrUtils,
+  Arm.CreateDocumentParamsUnit;
 
 type
-  TCreateDocumentParams = record
-    HumanId: Variant;
-  end;
-
   TDocumentFormFactory = class
   public
     /// <summary>TDocumentFormFactory.CreateDocument
@@ -41,7 +39,8 @@ uses
 
 resourcestring
   SInvalidDoc = 'Пустой идентификатор документа, документ не найден';
-  SInvalidHuman = 'Пока сведения о человеке не сохранены невозможно создать для него документ';
+  SInvalidHuman =
+    'Пока сведения о человеке не сохранены невозможно создать для него документ';
 
 var
   FDocumentFormFactory: TDocumentFormFactory;
@@ -67,6 +66,9 @@ end;
 
 initialization
   FDocumentFormFactory := TDocumentFormFactory.Create;
+
 finalization
   FDocumentFormFactory.Free;
+
 end.
+

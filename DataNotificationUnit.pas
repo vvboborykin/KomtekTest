@@ -1,7 +1,7 @@
 {*******************************************************
 * Project: KomtekTest
 * Unit: DataNotificationUnit.pas
-* Description: Механизм доставки опорещений
+* Description: Механизм доставки оповещений
 *
 * Created: 29.12.2022 19:35:38
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)

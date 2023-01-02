@@ -17,7 +17,7 @@ uses
   cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
   dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
-  cxClasses, dxLayoutContainer, dxLayoutControl, VCL.DbEditorsValidator;
+  cxClasses, dxLayoutContainer, dxLayoutControl, VCL.DbEditorsVisualValidator;
 
 type
   /// <summary>TFrmMDIChild
@@ -28,23 +28,42 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
-    // механизм валидации данных
     FValidator: TDevExpressVisualValidator;
+    procedure SetValidator(const Value: TDevExpressVisualValidator);
   strict protected
     procedure OnDataNotification(AData: TDataNotification); virtual; stdcall;
+    procedure UpdateCaption(const ACaption: string); virtual;
+    procedure BroadcastTableModified(ATableName: String);
   public
-    property Validator: TDevExpressVisualValidator read FValidator;
+    procedure ShowOracleException(E: Exception);
+    property Validator: TDevExpressVisualValidator read FValidator write
+        SetValidator;
   end;
+
 
 implementation
 
 uses
-  MainFormUnit, Lib.ComponentHelper, DbLib.DataSetHelper, AppDataUnit;
+  MainFormUnit, Lib.ComponentHelper, DbLib.DataSetHelper, AppDataUnit,
+  OraErrorProcessorUnit;
 
 {$R *.dfm}
 
 var
   FArmCounter: Integer;
+
+procedure TFrmMDIChild.BroadcastTableModified(ATableName: String);
+var
+  vChangeNoti: TTableDataNotification;
+begin
+  inherited;
+  vChangeNoti := TTableDataNotification.Create(Self, ATableName);
+  try
+    (AppData as IDataNotificationHub).BroadcastDataNotification(vChangeNoti);
+  finally
+    vChangeNoti.Free;
+  end;
+end;
 
 procedure TFrmMDIChild.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -55,18 +74,18 @@ end;
 procedure TFrmMDIChild.FormCreate(Sender: TObject);
 begin
   inherited;
-  FValidator := TDevExpressVisualValidator.Create(Self);
   Inc(FArmCounter);
-  Caption := Caption + ' №' + FArmCounter.ToString();
   MainForm.RegisterMdiChild(Self);
   (AppData as IDataNotificationHub).RegisterListener(Self);
+  UpdateCaption(' №' + FArmCounter.ToString());
+  FValidator := TDevExpressVisualValidator.Create(Self);
 end;
 
 procedure TFrmMDIChild.FormDestroy(Sender: TObject);
 begin
   (AppData as IDataNotificationHub).UnRegisterListener(Self);
   MainForm.UnRegisterMdiChild(Self);
-  FValidator.Free;
+  FreeAndNil(FValidator);
   inherited;
 end;
 
@@ -84,6 +103,22 @@ begin
       then
         AQuery.CloseOpen;
     end);
+end;
+
+procedure TFrmMDIChild.SetValidator(const Value: TDevExpressVisualValidator);
+begin
+  FValidator := Value;
+end;
+
+procedure TFrmMDIChild.ShowOracleException(E: Exception);
+begin
+  OraErrorProcessor.ShowOracleException(E);
+end;
+
+procedure TFrmMDIChild.UpdateCaption(const ACaption: string);
+begin
+  Caption := ACaption;
+  MainForm.UpdateMDIChildCaption(Self);
 end;
 
 initialization

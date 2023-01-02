@@ -146,7 +146,7 @@
         <DCCReference Include="DataNotificationUnit.pas"/>
         <DCCReference Include="Lib\Lib.ComponentHelper.pas"/>
         <DCCReference Include="DbLib\DbLib.DataSetHelper.pas"/>
-        <DCCReference Include="Lib\VCL.DbEditorsValidator.pas"/>
+        <DCCReference Include="Lib\VCL.DbEditorsVisualValidator.pas"/>
         <DCCReference Include="BaseForms\BaseFrameUnit.pas">
             <Form>BaseFrame</Form>
             <FormType>dfm</FormType>
@@ -166,6 +166,9 @@
             <Form>FrmMDIChild</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Lib\VCL.DevExpressRichEditControlData.pas"/>
+        <DCCReference Include="Arm\Arm.CreateDocumentParamsUnit.pas"/>
+        <DCCReference Include="OraErrorProcessorUnit.pas"/>
         <RcItem Include="DevExpress_ru.ini">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>
@@ -517,10 +520,10 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSInfoPList">
-                    <Platform Name="iOSDevice64">
+                    <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
                     </Platform>
-                    <Platform Name="iOSSimulator">
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSDevice32">
@@ -952,16 +955,16 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>

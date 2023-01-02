@@ -69,6 +69,7 @@ type
   public
     procedure RegisterMdiChild(AForm: TForm);
     procedure UnRegisterMdiChild(AForm: TForm);
+    procedure UpdateMDIChildCaption(AForm: TForm);
   end;
 
 var
@@ -161,6 +162,15 @@ end;
 procedure TMainForm.UnRegisterMdiChild(AForm: TForm);
 begin
   ArmMruList.RemoveItem(AForm.Caption, AForm);
+end;
+
+procedure TMainForm.UpdateMDIChildCaption(AForm: TForm);
+var
+  I: Integer;
+begin
+  I := ArmMruList.Items.IndexOfObject(AForm);
+  if I >= 0 then
+    ArmMruList.Items[I] := AForm.Caption;
 end;
 
 end.
