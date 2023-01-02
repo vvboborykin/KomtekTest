@@ -93,10 +93,6 @@ begin
 end;
 
 procedure TOraErrorProcessor.ShowOracleException(E: Exception);
-var
-  vErrorMessages: TArray<string>;
-  vDialogLines: TList<string>;
-  vLine: string;
 begin
   if (E is EOraError) or (E is EDAError) then
     ShowOraError(E)

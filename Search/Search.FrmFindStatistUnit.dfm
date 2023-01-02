@@ -1,12 +1,12 @@
 inherited FrmFindStatist: TFrmFindStatist
   Caption = 'FrmFindStatist'
-  ClientHeight = 93
-  ExplicitHeight = 93
+  ClientHeight = 100
+  ExplicitHeight = 100
   PixelsPerInch = 96
   TextHeight = 21
   inherited lacMain: TdxLayoutControl
-    Height = 93
-    ExplicitHeight = 99
+    Height = 100
+    ExplicitHeight = 93
     inherited edFind: TcxTextEdit
       ExplicitWidth = 291
       Width = 291
@@ -46,7 +46,7 @@ inherited FrmFindStatist: TFrmFindStatist
       Width = 108
     end
     object edMinCreateDate: TcxDateEdit [6]
-      Left = 550
+      Left = 566
       Top = 54
       AutoSize = False
       Properties.ImmediatePost = True
@@ -58,7 +58,7 @@ inherited FrmFindStatist: TFrmFindStatist
       Width = 115
     end
     object edMaxCreateDate: TcxDateEdit [7]
-      Left = 701
+      Left = 717
       Top = 54
       AutoSize = False
       Properties.ImmediatePost = True
@@ -122,7 +122,7 @@ inherited FrmFindStatist: TFrmFindStatist
       ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 115
       ControlOptions.ShowBorder = False
-      Index = 2
+      Index = 3
     end
     object litMaxCreateDate: TdxLayoutItem
       Parent = dxLayoutAutoCreatedGroup1
@@ -132,12 +132,17 @@ inherited FrmFindStatist: TFrmFindStatist
       ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 116
       ControlOptions.ShowBorder = False
-      Index = 3
+      Index = 4
     end
     object dxLayoutAutoCreatedGroup1: TdxLayoutAutoCreatedGroup
       Parent = lgrRoot
       LayoutDirection = ldHorizontal
       Index = 1
+    end
+    object dxLayoutSeparatorItem1: TdxLayoutSeparatorItem
+      Parent = dxLayoutAutoCreatedGroup1
+      CaptionOptions.Text = 'Separator'
+      Index = 2
     end
   end
   inherited aclFind: TActionList
@@ -149,7 +154,7 @@ inherited FrmFindStatist: TFrmFindStatist
     Left = 160
     Top = 65528
     Bitmap = {
-      494C010102000C002C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000C00300010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

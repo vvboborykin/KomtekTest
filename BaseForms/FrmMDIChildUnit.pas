@@ -77,7 +77,7 @@ begin
   Inc(FArmCounter);
   MainForm.RegisterMdiChild(Self);
   (AppData as IDataNotificationHub).RegisterListener(Self);
-  UpdateCaption(' №' + FArmCounter.ToString());
+  UpdateCaption(Caption + ' №' + FArmCounter.ToString());
   FValidator := TDevExpressVisualValidator.Create(Self);
 end;
 
@@ -91,7 +91,7 @@ end;
 
 procedure TFrmMDIChild.OnDataNotification(AData: TDataNotification);
 begin
-  // оповещение других активных АРМ приложения об изменении данных таблицы
+  // Обработка оповещения от других активных АРМ приложения об изменении данных таблицы
   // необходимо для синхронизации данных в разных АРМ
   // можно было сделать на основе TOraChangeNotification но не будет работать
   // в DirectMode

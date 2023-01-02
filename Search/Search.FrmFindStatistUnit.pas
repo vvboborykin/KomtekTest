@@ -34,6 +34,7 @@ type
     edMaxCreateDate: TcxDateEdit;
     litMaxCreateDate: TdxLayoutItem;
     dxLayoutAutoCreatedGroup1: TdxLayoutAutoCreatedGroup;
+    dxLayoutSeparatorItem1: TdxLayoutSeparatorItem;
   private
   strict protected
     procedure ClearFindFields; override;

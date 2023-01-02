@@ -1045,7 +1045,7 @@ inherited FrmDocument: TFrmDocument
     Left = 672
     Top = 8
     Bitmap = {
-      494C010102000800340018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800380018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000001800000001002000000000000024
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14289,5 +14289,30 @@ inherited FrmDocument: TFrmDocument
     DataSet = qryHuman
     Left = 464
     Top = 400
+  end
+  object dxComponentPrinter: TdxComponentPrinter
+    CurrentLink = dxComponentPrinterLink1
+    Version = 0
+    Left = 712
+    Top = 356
+    PixelsPerInch = 96
+    object dxComponentPrinterLink1: TdxRichEditControlReportLink
+      Active = True
+      Component = rtfContent
+      PrinterPage.DMPaper = 9
+      PrinterPage.Footer = 6350
+      PrinterPage.Header = 6350
+      PrinterPage.Margins.Bottom = 12700
+      PrinterPage.Margins.Left = 12700
+      PrinterPage.Margins.Right = 12700
+      PrinterPage.Margins.Top = 12700
+      PrinterPage.PageSize.X = 210000
+      PrinterPage.PageSize.Y = 297000
+      PrinterPage._dxMeasurementUnits_ = 0
+      PrinterPage._dxLastMU_ = 2
+      ReportDocument.CreationDate = 44928.458640868060000000
+      PixelsPerInch = 96
+      BuiltInReportLink = True
+    end
   end
 end

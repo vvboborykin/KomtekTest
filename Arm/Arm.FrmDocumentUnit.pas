@@ -29,7 +29,12 @@ uses
   dxBarBuiltInMenu, dxRibbonSkins, dxRibbonCustomizationForm, cxFontNameComboBox,
   dxRichEdit.Actions, dxActions, dxPrinting, dxBar, dxRibbon, dxGallery,
   dxRibbonGallery, dxRibbonColorGallery, cxBarEditItem,
-  dxRichEdit.Platform.Win.Control, dxRichEdit.Control.Core;
+  dxRichEdit.Platform.Win.Control, dxRichEdit.Control.Core, dxPSGlbl, dxPSUtl,
+  dxPSEngn, dxPrnPg, dxBkgnd, dxWrap, dxPrnDev, dxPSCompsProvider,
+  dxPSFillPatterns, dxPSEdgePatterns, dxPSPDFExportCore, dxPSPDFExport,
+  cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
+  dxPScxPageControlProducer, dxPSRichEditControlLnk, dxPScxEditorProducers,
+  dxPScxExtEditorProducers, dxPSCore;
 
 type
   /// <summary>TFrmDocument
@@ -638,6 +643,8 @@ type
     dsHuman: TDataSource;
     edFIOD: TcxDBTextEdit;
     litFIOD: TdxLayoutItem;
+    dxComponentPrinter: TdxComponentPrinter;
+    dxComponentPrinterLink1: TdxRichEditControlReportLink;
     procedure actCancelExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
     procedure qryDocumentAfterOpen(DataSet: TDataSet);

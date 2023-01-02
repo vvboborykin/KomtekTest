@@ -1,17 +1,18 @@
 inherited FrmFind: TFrmFind
   BorderStyle = bsNone
   Caption = #1060#1086#1088#1084#1072' '#1087#1086#1080#1089#1082#1072
-  ClientHeight = 54
+  ClientHeight = 61
   ClientWidth = 865
+  ShowHint = True
   ExplicitWidth = 865
-  ExplicitHeight = 54
+  ExplicitHeight = 61
   PixelsPerInch = 96
   TextHeight = 21
   inherited lacMain: TdxLayoutControl
     Width = 865
-    Height = 54
+    Height = 61
     ExplicitWidth = 865
-    ExplicitHeight = 62
+    ExplicitHeight = 54
     object edFind: TcxTextEdit [0]
       Left = 160
       Top = 17
@@ -34,6 +35,7 @@ inherited FrmFind: TFrmFind
       Top = 17
       Width = 49
       Height = 27
+      Hint = #1054#1095#1080#1089#1090#1080#1090#1100' '#1092#1080#1083#1100#1090#1088
       Action = actClear
       PaintStyle = bpsGlyph
       TabOrder = 2
@@ -114,7 +116,7 @@ inherited FrmFind: TFrmFind
     Left = 424
     Top = 8
     Bitmap = {
-      494C010102000C00240010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000C00280010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
