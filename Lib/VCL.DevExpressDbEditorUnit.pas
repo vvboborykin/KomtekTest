@@ -6,13 +6,13 @@
 * Created: 31.12.2022 16:01:46
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit VCL.DevExpressDbEditor;
+unit VCL.DevExpressDbEditorUnit;
 
 interface
 
 uses
   System.SysUtils, System.Classes, System.Variants, System.StrUtils,
-  VCL.Controls, VCL.DbEditorsVisualValidator, Data.DB, VCL.Graphics, cxEdit, cxDBEdit,
+  VCL.Controls, VCL.DbEditorsVisualValidatorUnit, Data.DB, VCL.Graphics, cxEdit, cxDBEdit,
   cxDB;
 
 type

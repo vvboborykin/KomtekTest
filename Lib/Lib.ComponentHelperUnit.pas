@@ -1,12 +1,12 @@
 {*******************************************************
 * Project: VistaZslLoader.Vcl
-* Unit: Lib.ComponentHelper.pas
+* Unit: Lib.ComponentHelperUnit.pas
 * Description: Расширение функциональности TComponent
 *
 * Created: 26.12.2022 11:06:21
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit Lib.ComponentHelper;
+unit Lib.ComponentHelperUnit;
 
 interface
 

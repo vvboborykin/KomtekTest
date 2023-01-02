@@ -12,7 +12,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Variants, System.StrUtils, Ora,
-  OraError, System.Generics.Collections, VCL.Dialogs;
+  OraError, System.Generics.Collections;
 
 type
   /// <summary>TOraErrorProcessor
@@ -46,7 +46,7 @@ const
 implementation
 
 uses
-  System.RegularExpressions, DBAccess;
+  System.RegularExpressions, DBAccess, WinAPI.Windows, VCL.WindowsDialogsUnit;
 
 resourcestring
   SOraUniqExceptionText = 'ограничение уникальности';
@@ -114,7 +114,7 @@ begin
       if ParseErrors(vLine, vDialogLines) = cOraRowValidationError then
         Break;
     end;
-    MessageDlg(string.Join(#13, vDialogLines.ToArray), mtError, [mbOK], 0);
+    ShowError(string.Join(#13, vDialogLines.ToArray()));
   finally
     vDialogLines.Free;
   end;

@@ -1,12 +1,12 @@
 {*******************************************************
 * Project: KomtekTest
-* Unit: Arm.DocumentFormFactory.pas
+* Unit: Arm.DocumentFormFactoryUnit.pas
 * Description: Фабрика редактора документов
 *
 * Created: 30.12.2022 19:45:34
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit Arm.DocumentFormFactory;
+unit Arm.DocumentFormFactoryUnit;
 
 interface
 

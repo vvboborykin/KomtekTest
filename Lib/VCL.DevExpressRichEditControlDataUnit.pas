@@ -1,12 +1,12 @@
 {*******************************************************
 * Project: KomtekTest
-* Unit: VCL.DevExpressRichEditControlData.pas
+* Unit: VCL.DevExpressRichEditControlDataUnit.pas
 * Description: Добавление TdxRichEditControl функционала загрузки / сохранения в BLOB поле
 *
 * Created: 01.01.2023 11:56:27
 * Copyright (C) 2023 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit VCL.DevExpressRichEditControlData;
+unit VCL.DevExpressRichEditControlDataUnit;
 
 interface
 

@@ -52,7 +52,7 @@ var
 implementation
 
 uses
-  VCL.Dialogs, DbLib.DataSetHelper, OraErrorProcessorUnit;
+  VCL.Dialogs, DbLib.DataSetHelperUnit, OraErrorProcessorUnit;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 

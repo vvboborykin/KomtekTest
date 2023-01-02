@@ -7,7 +7,7 @@
 * Created: 24.12.2022 11:09:55
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit DbLib.DataSetHelper;
+unit DbLib.DataSetHelperUnit;
 
 interface
 

@@ -14,7 +14,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.DateUtils, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Arm.CreateDocumentParamsUnit, Vcl.Dialogs, DataNotificationUnit,
-  LayoutFormUnit, FrmMDIChildUnit, VCL.DevExpressRichEditControlData, cxGraphics,
+  LayoutFormUnit, FrmMDIChildUnit, VCL.DevExpressRichEditControlDataUnit, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
   dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
@@ -678,7 +678,7 @@ type
 implementation
 
 uses
-  DevExpressOptionsUnit, AppDataUnit, DbLib.DataSetHelper, MainFormUnit;
+  DevExpressOptionsUnit, AppDataUnit, DbLib.DataSetHelperUnit, MainFormUnit;
 
 resourcestring
   SMofidied = ' (изменен)';

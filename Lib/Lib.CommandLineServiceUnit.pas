@@ -6,7 +6,7 @@
 * Created: 19.12.2022 13:31:28
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit Lib.CommandLineService;
+unit Lib.CommandLineServiceUnit;
 
 interface
 

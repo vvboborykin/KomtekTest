@@ -17,7 +17,7 @@ uses
   cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
   dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
-  cxClasses, dxLayoutContainer, dxLayoutControl, VCL.DbEditorsVisualValidator;
+  cxClasses, dxLayoutContainer, dxLayoutControl, VCL.DbEditorsVisualValidatorUnit;
 
 type
   /// <summary>TFrmMDIChild
@@ -44,7 +44,7 @@ type
 implementation
 
 uses
-  MainFormUnit, Lib.ComponentHelper, DbLib.DataSetHelper, AppDataUnit,
+  MainFormUnit, Lib.ComponentHelperUnit, DbLib.DataSetHelperUnit, AppDataUnit,
   OraErrorProcessorUnit;
 
 {$R *.dfm}
@@ -125,4 +125,6 @@ initialization
   FArmCounter := 0;
 
 end.
+
+
 

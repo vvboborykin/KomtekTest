@@ -6,7 +6,7 @@
 * Created: 30.12.2022 11:47:27
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit VCL.DbEditorsVisualValidator;
+unit VCL.DbEditorsVisualValidatorUnit;
 
 interface
 
@@ -134,7 +134,7 @@ type
 implementation
 
 uses
-  Lib.ComponentHelper, TypInfo;
+  Lib.ComponentHelperUnit, TypInfo;
 
 resourcestring
   SValidationErrorsDetected = 'При проверке данных обнаружены ошибки'#13'%s';

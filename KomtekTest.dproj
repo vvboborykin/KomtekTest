@@ -89,8 +89,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Build>12</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.12;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.17;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -138,8 +138,8 @@
             <Form>FrmFind</Form>
         </DCCReference>
         <DCCReference Include="Search\Search.EngineUnit.pas"/>
-        <DCCReference Include="Lib\Lib.CommandLineService.pas"/>
-        <DCCReference Include="Lib\Lib.Nullable.pas"/>
+        <DCCReference Include="Lib\Lib.CommandLineServiceUnit.pas"/>
+        <DCCReference Include="Lib\Lib.NullableUnit.pas"/>
         <DCCReference Include="Search\Search.OraQueryEngineUnit.pas"/>
         <DCCReference Include="AppDataUnit.pas">
             <Form>AppData</Form>
@@ -149,9 +149,9 @@
             <Form>BaseForm</Form>
         </DCCReference>
         <DCCReference Include="DataNotificationUnit.pas"/>
-        <DCCReference Include="Lib\Lib.ComponentHelper.pas"/>
-        <DCCReference Include="DbLib\DbLib.DataSetHelper.pas"/>
-        <DCCReference Include="Lib\VCL.DbEditorsVisualValidator.pas"/>
+        <DCCReference Include="Lib\Lib.ComponentHelperUnit.pas"/>
+        <DCCReference Include="DbLib\DbLib.DataSetHelperUnit.pas"/>
+        <DCCReference Include="Lib\VCL.DbEditorsVisualValidatorUnit.pas"/>
         <DCCReference Include="BaseForms\BaseFrameUnit.pas">
             <Form>BaseFrame</Form>
             <FormType>dfm</FormType>
@@ -165,15 +165,16 @@
             <Form>FrmDocument</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Arm\Arm.DocumentFormFactory.pas"/>
-        <DCCReference Include="Lib\VCL.DevExpressDbEditor.pas"/>
+        <DCCReference Include="Arm\Arm.DocumentFormFactoryUnit.pas"/>
+        <DCCReference Include="Lib\VCL.DevExpressDbEditorUnit.pas"/>
         <DCCReference Include="BaseForms\FrmMDIChildUnit.pas">
             <Form>FrmMDIChild</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Lib\VCL.DevExpressRichEditControlData.pas"/>
+        <DCCReference Include="Lib\VCL.DevExpressRichEditControlDataUnit.pas"/>
         <DCCReference Include="Arm\Arm.CreateDocumentParamsUnit.pas"/>
         <DCCReference Include="OraErrorProcessorUnit.pas"/>
+        <DCCReference Include="Lib\VCL.WindowsDialogsUnit.pas"/>
         <RcItem Include="DevExpress_ru.ini">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>

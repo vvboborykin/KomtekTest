@@ -66,7 +66,7 @@ type
 implementation
 
 uses
-  DbLib.DataSetHelper, AppDataUnit;
+  DbLib.DataSetHelperUnit, AppDataUnit;
 
 {$R *.dfm}
 

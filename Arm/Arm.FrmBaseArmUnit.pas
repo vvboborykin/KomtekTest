@@ -143,9 +143,9 @@ type
 implementation
 
 uses
-  MainFormUnit, Lib.ComponentHelper, DbLib.DataSetHelper, AppDataUnit,
+  MainFormUnit, Lib.ComponentHelperUnit, DbLib.DataSetHelperUnit, AppDataUnit,
   Search.OraQueryEngineUnit, Arm.CreateDocumentParamsUnit,
-  Arm.DocumentFormFactory;
+  Arm.DocumentFormFactoryUnit;
 
 resourcestring
   SDateMaxError = 'Дата не может быть больше текущей';

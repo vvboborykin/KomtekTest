@@ -11,7 +11,7 @@ unit Search.EngineUnit;
 interface
 
 uses
-  System.SysUtils, System.Classes, System.Variants, Lib.Nullable;
+  System.SysUtils, System.Classes, System.Variants;
 
 type
   TSearchParameters = record
