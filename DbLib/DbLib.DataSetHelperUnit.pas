@@ -171,11 +171,10 @@ begin
     raise EArgumentException.Create(SErrForEachRecordAProcIsNil);
 
   vRecno := RecNo;
-
   try
     AProc();
   finally
-    if (vRecno >= 0) and (vRecno < RecordCount) then
+    if (vRecno > 0) and (vRecno <= RecordCount) then
       RecNo := vRecno;
   end;
 end;
