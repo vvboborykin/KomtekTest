@@ -35,7 +35,9 @@ uses
   VCL.DevExpressRichEditControlDataUnit in 'Lib\VCL.DevExpressRichEditControlDataUnit.pas',
   Arm.CreateDocumentParamsUnit in 'Arm\Arm.CreateDocumentParamsUnit.pas',
   OraErrorProcessorUnit in 'OraErrorProcessorUnit.pas',
-  VCL.WindowsDialogsUnit in 'Lib\VCL.WindowsDialogsUnit.pas';
+  VCL.WindowsDialogsUnit in 'Lib\VCL.WindowsDialogsUnit.pas',
+  Lib.SubscriptionUnit in 'Lib\Lib.SubscriptionUnit.pas',
+  Lib.ThreadSafeObjectUnit in 'Lib\Lib.ThreadSafeObjectUnit.pas';
 
 {$R *.res}
 

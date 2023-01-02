@@ -31,7 +31,7 @@ type
   /// <summary>TBaseArmForm
   /// Базовая форма АРМ
   /// </summary>
-  TFrmBaseArm = class(TFrmMDIChild, IDataNotificationListener)
+  TFrmBaseArm = class(TFrmMDIChild)
     pnlFind: TPanel;
     layFind: TdxLayoutItem;
     lgrWorkArea: TdxLayoutGroup;

@@ -11,15 +11,16 @@ unit MainFormUnit;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, FrmMDIChildUnit,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  BaseFormUnit, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  dxSkinsCore, dxSkinOffice2019Colorful, dxCore, dxRibbonSkins,
-  dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList, Vcl.ImgList,
-  cxImageList, cxClasses, dxRibbon, Vcl.StdActns, dxRibbonGallery,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  FrmMDIChildUnit, DataNotificationUnit, DevExpressOptionsUnit,
+  Lib.SubscriptionUnit, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
+  Vcl.Dialogs, BaseFormUnit, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful, dxCore,
+  dxRibbonSkins, dxRibbonCustomizationForm, dxBar, System.Actions, Vcl.ActnList,
+  Vcl.ImgList, cxImageList, cxClasses, dxRibbon, Vcl.StdActns, dxRibbonGallery,
   dxSkinChooserGallery, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White, Arm.FrmBaseArmUnit, dxBarExtItems, DataNotificationUnit;
+  dxSkinOffice2019White, Arm.FrmBaseArmUnit, dxBarExtItems;
 
 type
   TMainForm = class(TBaseForm)
@@ -66,6 +67,14 @@ type
     FShowFirstTime: Boolean;
     procedure ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
   private
+  strict protected
+    /// <summary>ISubscriber<TMessageData>.OnPublisherMessage
+    /// Обработчик событий получаемых от издателей
+    /// </summary>
+    /// <param name="APublisher"> (IPublisher<TMessageData>) Издатель</param>
+    /// <param name="AMessage"> (TMessageData) Событие</param>
+    procedure OnPublisherMessage(APublisher: IPublisher<TSkinNotification>;
+      AMessage: TSkinNotification); override; stdcall;
   public
     procedure RegisterMdiChild(AForm: TForm);
     procedure UnRegisterMdiChild(AForm: TForm);
@@ -78,8 +87,7 @@ var
 implementation
 
 uses
-  Arm.FrmTypeSelectorUnit, Arm.ArmFormFactoryUnit,
-  DevExpressOptionsUnit;
+  Arm.FrmTypeSelectorUnit, Arm.ArmFormFactoryUnit;
 
 const
   cSelectorFormDelay = 100;
@@ -111,8 +119,7 @@ procedure TMainForm.dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
   ASkinName: string);
 begin
   inherited;
-  rbMain.ColorSchemeName := ASkinName;
-  DevExpressOptions.dxLayoutSkinLookAndFeel1.LookAndFeel.SkinName := ASkinName;
+  DevExpressOptions.SetSkinName(ASkinName);
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -130,6 +137,12 @@ begin
     Application.ProcessMessages;
     ShowArmSelectorAfterDelay(cSelectorFormDelay);
   end;
+end;
+
+procedure TMainForm.OnPublisherMessage(APublisher: IPublisher<TSkinNotification>;
+  AMessage: TSkinNotification);
+begin
+  rbMain.ColorSchemeName := AMessage.SkinName;
 end;
 
 procedure TMainForm.RegisterMdiChild(AForm: TForm);
@@ -174,5 +187,4 @@ begin
 end;
 
 end.
-
 

@@ -1,6 +1,6 @@
 ﻿{*******************************************************
 * Project: KomtekTest
-* Unit: Unit1.pas
+* Unit: LayoutFormUnit.pas
 * Description: Базовая форма с авторазмещением элементов на основе Devexpress Layout control
 *
 * Created: 27.12.2022 21:15:41
@@ -26,7 +26,7 @@ type
     lgrRoot: TdxLayoutGroup;
     lacMain: TdxLayoutControl;
   private
-    { Private declarations }
+  strict protected
   public
   end;
 

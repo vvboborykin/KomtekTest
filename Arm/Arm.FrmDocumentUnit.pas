@@ -14,25 +14,25 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.DateUtils, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Arm.CreateDocumentParamsUnit, Vcl.Dialogs, DataNotificationUnit,
-  LayoutFormUnit, FrmMDIChildUnit, VCL.DevExpressRichEditControlDataUnit, cxGraphics,
-  cxControls, cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White, dxLayoutControlAdapters, dxLayoutcxEditAdapters,
-  Vcl.Menus, cxContainer, cxEdit, Vcl.ImgList, cxImageList, System.Actions,
-  Vcl.ActnList, Data.DB, DBAccess, Ora, MemDS, dxLayoutContainer, cxCalc,
-  cxDBEdit, Vcl.ExtCtrls, RVRulerBase, RVRuler, cxTextEdit, cxMaskEdit,
-  cxDropDownEdit, cxCalendar, Vcl.StdCtrls, cxButtons, cxClasses,
-  dxLayoutControl, dxCore, dxCoreClasses, dxGDIPlusAPI, dxGDIPlusClasses,
-  dxRichEdit.NativeApi, dxRichEdit.Types, dxRichEdit.Options, dxRichEdit.Control,
-  dxRichEdit.Control.SpellChecker, dxRichEdit.Dialogs.EventArgs,
-  dxBarBuiltInMenu, dxRibbonSkins, dxRibbonCustomizationForm, cxFontNameComboBox,
-  dxRichEdit.Actions, dxActions, dxPrinting, dxBar, dxRibbon, dxGallery,
-  dxRibbonGallery, dxRibbonColorGallery, cxBarEditItem,
-  dxRichEdit.Platform.Win.Control, dxRichEdit.Control.Core, dxPSGlbl, dxPSUtl,
-  dxPSEngn, dxPrnPg, dxBkgnd, dxWrap, dxPrnDev, dxPSCompsProvider,
-  dxPSFillPatterns, dxPSEdgePatterns, dxPSPDFExportCore, dxPSPDFExport,
-  cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
+  Lib.SubscriptionUnit, DevExpressOptionsUnit, LayoutFormUnit, FrmMDIChildUnit,
+  VCL.DevExpressRichEditControlDataUnit, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
+  dxLayoutControlAdapters, dxLayoutcxEditAdapters, Vcl.Menus, cxContainer,
+  cxEdit, Vcl.ImgList, cxImageList, System.Actions, Vcl.ActnList, Data.DB,
+  DBAccess, Ora, MemDS, dxLayoutContainer, cxCalc, cxDBEdit, Vcl.ExtCtrls,
+  RVRulerBase, RVRuler, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar,
+  Vcl.StdCtrls, cxButtons, cxClasses, dxLayoutControl, dxCore, dxCoreClasses,
+  dxGDIPlusAPI, dxGDIPlusClasses, dxRichEdit.NativeApi, dxRichEdit.Types,
+  dxRichEdit.Options, dxRichEdit.Control, dxRichEdit.Control.SpellChecker,
+  dxRichEdit.Dialogs.EventArgs, dxBarBuiltInMenu, dxRibbonSkins,
+  dxRibbonCustomizationForm, cxFontNameComboBox, dxRichEdit.Actions, dxActions,
+  dxPrinting, dxBar, dxRibbon, dxGallery, dxRibbonGallery, dxRibbonColorGallery,
+  cxBarEditItem, dxRichEdit.Platform.Win.Control, dxRichEdit.Control.Core,
+  dxPSGlbl, dxPSUtl, dxPSEngn, dxPrnPg, dxBkgnd, dxWrap, dxPrnDev,
+  dxPSCompsProvider, dxPSFillPatterns, dxPSEdgePatterns, dxPSPDFExportCore,
+  dxPSPDFExport, cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
   dxPScxPageControlProducer, dxPSRichEditControlLnk, dxPScxEditorProducers,
   dxPScxExtEditorProducers, dxPSCore;
 
@@ -645,6 +645,7 @@ type
     litFIOD: TdxLayoutItem;
     dxComponentPrinter: TdxComponentPrinter;
     dxComponentPrinterLink1: TdxRichEditControlReportLink;
+    procedure FormCreate(Sender: TObject);
     procedure actCancelExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
     procedure qryDocumentAfterOpen(DataSet: TDataSet);
@@ -662,6 +663,13 @@ type
     FLoaded: Boolean;
     procedure SetCaptionForData;
   strict protected
+    /// <summary>ISubscriber<TMessageData>.OnPublisherMessage
+    /// Обработчик событий получаемых от издателей
+    /// </summary>
+    /// <param name="APublisher"> (IPublisher<TMessageData>) Издатель</param>
+    /// <param name="AMessage"> (TMessageData) Событие</param>
+    procedure OnPublisherMessage(APublisher: IPublisher<TSkinNotification>;
+      AMessage: TSkinNotification); override; stdcall;
   public
     /// <summary>TFrmDocument.CreateNewDocument
     /// Создать новый документ
@@ -671,14 +679,15 @@ type
     /// <summary>TFrmDocument.EditDocument
     /// Редактировать докумиент в форме
     /// </summary>
-    /// <param name="ADocumentId"> (Variant) ID редактируемого документа </param>
+
+      /// <param name="ADocumentId"> (Variant) ID редактируемого документа </param>
     class procedure EditDocument(ADocumentId: Variant);
   end;
 
 implementation
 
 uses
-  DevExpressOptionsUnit, AppDataUnit, DbLib.DataSetHelperUnit, MainFormUnit;
+  AppDataUnit, DbLib.DataSetHelperUnit, MainFormUnit;
 
 resourcestring
   SMofidied = ' (изменен)';
@@ -689,6 +698,12 @@ resourcestring
   SDefaultDocTitle = 'СПРАВКА';
 
 {$R *.dfm}
+
+procedure TFrmDocument.FormCreate(Sender: TObject);
+begin
+  inherited;
+  rbRtf.ColorSchemeName := DevExpressOptions.dxLayoutSkinLookAndFeel1.LookAndFeel.SkinName;
+end;
 
 procedure TFrmDocument.actCancelExecute(Sender: TObject);
 begin
@@ -749,6 +764,12 @@ begin
   FLoaded := True;
 end;
 
+procedure TFrmDocument.OnPublisherMessage(APublisher: IPublisher<
+  TSkinNotification>; AMessage: TSkinNotification);
+begin
+  rbRtf.ColorSchemeName := AMessage.SkinName;
+end;
+
 procedure TFrmDocument.qryDocumentAfterOpen(DataSet: TDataSet);
 begin
   inherited;
@@ -793,9 +814,8 @@ procedure TFrmDocument.SetCaptionForData;
 var
   vCaption: string;
 begin
-  vCaption := Format(SCaptionTemplate,
-    [qryDocumentTITLE.AsString, qryDocumentDOCNUM.AsString,
-    qryDocumentDOCDATE.AsString, qryHumanFIOD.AsString]);
+  vCaption := Format(SCaptionTemplate, [qryDocumentTITLE.AsString,
+    qryDocumentDOCNUM.AsString, qryDocumentDOCDATE.AsString, qryHumanFIOD.AsString]);
 
   if qryDocument.State <> dsBrowse then
     vCaption := vCaption + SMofidied;

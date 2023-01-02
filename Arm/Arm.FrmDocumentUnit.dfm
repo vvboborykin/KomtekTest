@@ -1045,7 +1045,7 @@ inherited FrmDocument: TFrmDocument
     Left = 672
     Top = 8
     Bitmap = {
-      494C010102000800380018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800400018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000001800000001002000000000000024
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1768,7 +1768,7 @@ inherited FrmDocument: TFrmDocument
     object barParagraph: TdxBar
       Caption = 'Paragraph'
       CaptionButtons = <>
-      DockedLeft = 176
+      DockedLeft = 167
       DockedTop = 0
       FloatLeft = 967
       FloatTop = 8
@@ -1877,7 +1877,7 @@ inherited FrmDocument: TFrmDocument
     object barStyles: TdxBar
       Caption = 'Styles'
       CaptionButtons = <>
-      DockedLeft = 239
+      DockedLeft = 230
       DockedTop = 0
       FloatLeft = 967
       FloatTop = 8
@@ -1928,7 +1928,7 @@ inherited FrmDocument: TFrmDocument
     object barEditing: TdxBar
       Caption = 'Editing'
       CaptionButtons = <>
-      DockedLeft = 293
+      DockedLeft = 275
       DockedTop = 0
       FloatLeft = 967
       FloatTop = 8
@@ -14310,7 +14310,7 @@ inherited FrmDocument: TFrmDocument
       PrinterPage.PageSize.Y = 297000
       PrinterPage._dxMeasurementUnits_ = 0
       PrinterPage._dxLastMU_ = 2
-      ReportDocument.CreationDate = 44928.458640868060000000
+      ReportDocument.CreationDate = 44928.618273032410000000
       PixelsPerInch = 96
       BuiltInReportLink = True
     end

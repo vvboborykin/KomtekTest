@@ -23,7 +23,7 @@ type
   /// <summary>TFrmMDIChild
   /// Базовая дочерняя форма MDI
   /// </summary>
-  TFrmMDIChild = class(TLayoutForm, IDataNotificationListener)
+  TFrmMDIChild = class(TLayoutForm)
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -33,7 +33,6 @@ type
   strict protected
     procedure OnDataNotification(AData: TDataNotification); virtual; stdcall;
     procedure UpdateCaption(const ACaption: string); virtual;
-    procedure BroadcastTableModified(ATableName: String);
   public
     procedure ShowOracleException(E: Exception);
     property Validator: TDevExpressVisualValidator read FValidator write
@@ -52,19 +51,6 @@ uses
 var
   FArmCounter: Integer;
 
-procedure TFrmMDIChild.BroadcastTableModified(ATableName: String);
-var
-  vChangeNoti: TTableDataNotification;
-begin
-  inherited;
-  vChangeNoti := TTableDataNotification.Create(Self, ATableName);
-  try
-    (AppData as IDataNotificationHub).BroadcastDataNotification(vChangeNoti);
-  finally
-    vChangeNoti.Free;
-  end;
-end;
-
 procedure TFrmMDIChild.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
@@ -76,14 +62,12 @@ begin
   inherited;
   Inc(FArmCounter);
   MainForm.RegisterMdiChild(Self);
-  (AppData as IDataNotificationHub).RegisterListener(Self);
   UpdateCaption(Caption + ' №' + FArmCounter.ToString());
   FValidator := TDevExpressVisualValidator.Create(Self);
 end;
 
 procedure TFrmMDIChild.FormDestroy(Sender: TObject);
 begin
-  (AppData as IDataNotificationHub).UnRegisterListener(Self);
   MainForm.UnRegisterMdiChild(Self);
   FreeAndNil(FValidator);
   inherited;
@@ -91,18 +75,6 @@ end;
 
 procedure TFrmMDIChild.OnDataNotification(AData: TDataNotification);
 begin
-  // Обработка оповещения от других активных АРМ приложения об изменении данных таблицы
-  // необходимо для синхронизации данных в разных АРМ
-  // можно было сделать на основе TOraChangeNotification но не будет работать
-  // в DirectMode
-  Self.ForEachSubcomponent<TOraQuery>(
-    procedure(AQuery: TOraQuery)
-    begin
-      if (AQuery.State = dsBrowse) and (AData is TTableDataNotification) and
-        AnsiSameText((AData as TTableDataNotification).TableName, AQuery.UpdatingTable)
-      then
-        AQuery.CloseOpen;
-    end);
 end;
 
 procedure TFrmMDIChild.SetValidator(const Value: TDevExpressVisualValidator);

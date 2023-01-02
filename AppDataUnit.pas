@@ -12,17 +12,18 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.DateUtils, DBAccess, Data.DB, Ora,
-  OdacVcl, OraCall, DataNotificationUnit, System.Generics.Collections, MemDS;
+  OdacVcl, OraCall, Lib.SubscriptionUnit, DataNotificationUnit,
+  System.Generics.Collections, MemDS;
 
 type
-  TAppData = class(TDataModule, IDataNotificationHub)
+  TAppData = class(TDataModule, IPublisher<TDataNotification>)
     sesMain: TOraSession;
     dlgConnect: TConnectDialog;
     qryCurrentDateTime: TOraQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure sesMainError(Sender: TObject; E: EDAError; var Fail: Boolean);
   private
-    FDataNotificationHub: IDataNotificationHub;
+    FDataNotificationHub: IPublisher<TDataNotification>;
   strict protected
     procedure TryConnect;
   public
@@ -42,8 +43,8 @@ type
     /// Реализация службы доставки сообщений IDataNotificationHub
     /// </summary>
     /// type:IDataNotificationHub
-    property DataNotificationHub: IDataNotificationHub read FDataNotificationHub
-      implements IDataNotificationHub;
+    property DataNotificationHub: IPublisher<TDataNotification> read FDataNotificationHub
+      implements IPublisher<TDataNotification>;
   end;
 
 var
@@ -60,7 +61,7 @@ uses
 
 procedure TAppData.DataModuleCreate(Sender: TObject);
 begin
-  FDataNotificationHub := TDataNotificationHub.Create;
+  FDataNotificationHub := TPublisher<TDataNotification>.Create();
   TryConnect();
 end;
 
@@ -75,8 +76,7 @@ begin
   Result := qryCurrentDateTime.Fields[0].Value;
 end;
 
-procedure TAppData.sesMainError(Sender: TObject; E: EDAError; var Fail:
-    Boolean);
+procedure TAppData.sesMainError(Sender: TObject; E: EDAError; var Fail: Boolean);
 begin
   OraErrorProcessor.ShowOracleException(E);
 end;

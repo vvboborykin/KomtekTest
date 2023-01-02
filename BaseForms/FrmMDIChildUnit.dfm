@@ -4,8 +4,6 @@ inherited FrmMDIChild: TFrmMDIChild
   ShowHint = True
   Visible = True
   OnClose = FormClose
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
   ExplicitWidth = 320
   ExplicitHeight = 240
   PixelsPerInch = 96

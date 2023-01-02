@@ -11,6 +11,8 @@ object BaseForm: TBaseForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = True
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 21
 end

@@ -12,13 +12,17 @@ interface
 
 uses
   System.SysUtils, System.Classes, cxClasses, cxLocalization, VCL.Forms,
-  Winapi.Windows, dxLayoutLookAndFeels;
+  Winapi.Windows, dxLayoutLookAndFeels, Lib.SubscriptionUnit;
 
 type
+   TSkinNotification = record
+     SkinName: String;
+   end;
+
   /// <summary>TDevExpressOptions
   /// Модуль глобальных параметров работы компонентов DevExpress
   /// </summary>
-  TDevExpressOptions = class(TDataModule)
+  TDevExpressOptions = class(TDataModule, IPublisher<TSkinNotification>)
     locRus: TcxLocalizer;
     llfMain: TdxLayoutLookAndFeelList;
     dxLayoutSkinLookAndFeel1: TdxLayoutSkinLookAndFeel;
@@ -29,8 +33,12 @@ type
     /// </summary>
     procedure LoadRusLocalizationFromRCData;
   private
+    FSkinNotificationHub: IPublisher<TSkinNotification>;
     procedure SetRusLocalization;
   public
+    procedure SetSkinName(ASkinName: string);
+    property SkinNotificationHub: IPublisher<TSkinNotification> read FSkinNotificationHub
+        implements IPublisher<TSkinNotification>;
   end;
 
 var
@@ -48,6 +56,7 @@ const
 
 procedure TDevExpressOptions.DataModuleCreate(Sender: TObject);
 begin
+  FSkinNotificationHub := TPublisher<TSkinNotification>.Create();
   SetRusLocalization;
 end;
 
@@ -68,6 +77,15 @@ begin
   LoadRusLocalizationFromRCData;
   locRus.Active := True;
   locRus.LanguageIndex := cRusLangId;
+end;
+
+procedure TDevExpressOptions.SetSkinName(ASkinName: string);
+var
+  vSkinMessare: TSkinNotification;
+begin
+  dxLayoutSkinLookAndFeel1.LookAndFeel.SkinName := ASkinName;
+  vSkinMessare.SkinName := ASkinName;
+  FSkinNotificationHub.BroadcastMessage(vSkinMessare);
 end;
 
 end.
