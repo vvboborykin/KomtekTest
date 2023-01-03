@@ -1,5 +1,4 @@
-﻿
-  {*******************************************************
+﻿{*******************************************************
 * Project: VistaZslLoader.Vcl
 * Unit: DataSetHelper.pas
 * Description: Расширение функциональности TDataSet
@@ -28,8 +27,7 @@ type
     /// Итератор по записям DataSet
     /// </summary>
     /// <param name="AProc"> (TProc) Процедура выполняемая для записей</param>
-
-      /// <param name="ADisableControls"> (Boolean) Отключать обновление визуальных
+    /// <param name="ADisableControls"> (Boolean) Отключать обновление визуальных
     /// компоненов подключенных к DataSet</param>
     /// <param name="AFilter"> (TFunc<Boolean>) Предикат отфильтровывающий
     /// обрабатываемые записи</param>
@@ -40,25 +38,21 @@ type
     /// <summary>TDataSetHelper.ForEachField
     /// Итератор по полям DataSet
     /// </summary>
-
-      /// <param name="AProc"> (TProc<TField>) Процедура выполняемая для полей</param>
-
-      /// <param name="AFilter"> (TFunc<TField, Boolean>) Предикат отфильтровывающий
+    /// <param name="AProc"> (TProc<TField>) Процедура выполняемая для полей</param>
+    /// <param name="AFilter"> (TFunc<TField, Boolean>) Предикат отфильтровывающий
     /// обрабатываемые поля</param>
     /// <param name="ABreaker"> (TFunc<TField, Boolean>) Предикат прерывания
     /// итерации</param>
     procedure ForEachField(AProc: TProc<TField>; AFilter: TFunc<TField, Boolean>
       = nil; ABreaker: TFunc<TField, Boolean> = nil);
     /// <summary>TDataSetHelper.PostIfNeeded
-
-      /// Зафиксировать изменения в DataSet если он в режиме вставки или редактирования
+    /// Зафиксировать изменения в DataSet если он в режиме вставки или редактирования
     /// </summary>
     procedure PostIfNeeded;
     procedure CancelIfNeeded;
     function CurrentRecordIsModified: Boolean;
     /// <summary>TDataSetHelper.EditIfNeeded
-
-      /// Перевести DataSet в режим редактирования если он уже не находится в этом режиме
+    /// Перевести DataSet в режим редактирования если он уже не находится в этом режиме
     /// </summary>
     procedure EditIfNeeded;
     /// <summary>TDataSetHelper.WithRestoreRecno
@@ -66,7 +60,6 @@ type
     /// </summary>
     /// <param name="AProc"> (TProc) Процедура для выполнения</param>
     procedure WithRestoreRecno(AProc: TProc);
-
   end;
 
   EDataSetIsNotActive = class(Exception)

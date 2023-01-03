@@ -134,6 +134,8 @@ begin
   finally
     vFormList.Free;
   end;
+  // обновим MDIChildCount
+  Application.ProcessMessages;
 end;
 
 procedure TMainForm.dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
@@ -185,7 +187,10 @@ begin
   vThread := TThread.CreateAnonymousThread(
     procedure
     begin
+      // дадим главной форме прорисоваться
       Sleep(ADelayTimeMs);
+
+      // все работы с формами выполняем в основном потоке приложения
       TThread.Synchronize(nil,
         procedure
         var

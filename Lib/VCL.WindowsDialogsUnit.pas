@@ -18,23 +18,82 @@ uses
 {$ENDIF}
   ;
 
+/// <summary>procedure ShowErrorFmt
+/// Вывести на экран диалог ошибки с заполнением шаблона
+/// </summary>
+/// <param name="AErrorText"> (String) </param>
+/// <param name="AParams"> (array of const) </param>
 procedure ShowErrorFmt(AErrorText: String; AParams: array of const);
+/// <summary>procedure ShowError
+/// Вывести на экран диалог ошибки
+/// </summary>
+/// <param name="AErrorText"> (String) </param>
 procedure ShowError(AErrorText: String);
 
+/// <summary>procedure ShowWarningFmt
+/// Вывести на экран диалог предупреждения с заполнением шаблона
+/// </summary>
+/// <param name="AWarningText"> (String) </param>
+/// <param name="AParams"> (array of const) </param>
 procedure ShowWarningFmt(AWarningText: String; AParams: array of const);
+/// <summary>procedure ShowWarning
+/// Вывести на экран диалог предупреждения
+/// </summary>
+/// <param name="AWarningText"> (String) </param>
 procedure ShowWarning(AWarningText: String);
 
+/// <summary>procedure ShowInfoFmt
+/// Вывести на экран диалог информации с заполнением шаблона
+/// </summary>
+/// <param name="AInfoText"> (String) </param>
+/// <param name="AParams"> (array of const) </param>
 procedure ShowInfoFmt(AInfoText: String; AParams: array of const);
+/// <summary>procedure ShowInfo
+/// <summary>procedure ShowInfo
+/// </summary>
+/// <param name="AInfoText"> (String) </param>
+/// Вывести на экран диалог информации
+/// </summary>
+/// <param name="AInfoText"> (String) </param>
 procedure ShowInfo(AInfoText: String);
 
+/// <summary>procedure AskYesNoFtm
+/// Вывести на экран диалог запроса подтверждения (Да/Нет) с заполнением шаблона
+/// </summary>
+/// <returns> Boolean
+/// </returns>
+/// <param name="AInfoText"> (String) </param>
+/// <param name="AParams"> (array of const) </param>
 function AskYesNoFtm(AInfoText: String; AParams: array of const): Boolean;
+/// <summary>procedure AskYesNo
+/// Вывести на экран диалог запроса подтверждения (Да/Нет)
+/// </summary>
+/// <returns> Boolean
+/// </returns>
+/// <param name="AInfoText"> (String) </param>
 function AskYesNo(AInfoText: String): Boolean;
 
 type
+  /// <summary>
+  ///  Возможные варианты ответа в диалоге запроса (Да/Нет/Отмена)
+  ///  </summary>
   TYesNoCancel = (yncYes = ID_YES, yncNo = ID_NO, yncCancel = ID_CANCEL);
 
+/// <summary>procedure AskYesNoCancelFtm
+/// Вывести на экран диалог запроса (Да/Нет/Отмена) с заполнением шаблона
+/// </summary>
+/// <returns> TYesNoCancel
+/// </returns>
+/// <param name="AInfoText"> (String) </param>
+/// <param name="AParams"> (array of const) </param>
 function AskYesNoCancelFtm(AInfoText: String; AParams: array of const):
     TYesNoCancel;
+/// <summary>procedure AskYesNoCancel
+/// Вывести на экран диалог запроса (Да/Нет/Отмена)
+/// </summary>
+/// <returns> TYesNoCancel
+/// </returns>
+/// <param name="AInfoText"> (String) </param>
 function AskYesNoCancel(AInfoText: String): TYesNoCancel;
 
 
