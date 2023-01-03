@@ -702,21 +702,25 @@ resourcestring
 procedure TFrmDocument.FormCreate(Sender: TObject);
 begin
   inherited;
-  rbRtf.ColorSchemeName := DevExpressOptions.dxLayoutSkinLookAndFeel1.LookAndFeel.SkinName;
+  rbRtf.ColorSchemeName := DevExpressOptions
+    .dxLayoutSkinLookAndFeel1.LookAndFeel.SkinName;
 end;
 
 procedure TFrmDocument.actCancelExecute(Sender: TObject);
 begin
   inherited;
-  qryDocument.CancelIfNeeded;
+  CancelChanges;
+
   Close;
 end;
 
 procedure TFrmDocument.actSaveExecute(Sender: TObject);
 begin
   inherited;
-  qryDocument.PostIfNeeded;
-  Close;
+  SaveChanges;
+
+  if not UnsavedChangesExists then
+    Close;
 end;
 
 class procedure TFrmDocument.CreateAndShow(AProc: TProc<TFrmDocument>);
@@ -817,7 +821,7 @@ begin
   vCaption := Format(SCaptionTemplate, [qryDocumentTITLE.AsString,
     qryDocumentDOCNUM.AsString, qryDocumentDOCDATE.AsString, qryHumanFIOD.AsString]);
 
-  if qryDocument.State <> dsBrowse then
+  if (qryDocument.State <> dsBrowse) then
     vCaption := vCaption + SMofidied;
 
   UpdateCaption(vCaption);

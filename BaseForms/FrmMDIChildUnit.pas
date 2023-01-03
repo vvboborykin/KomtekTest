@@ -17,7 +17,8 @@ uses
   cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
   dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
-  cxClasses, dxLayoutContainer, dxLayoutControl, VCL.DbEditorsVisualValidatorUnit;
+  cxClasses, dxLayoutContainer, dxLayoutControl,
+  VCL.DbEditorsVisualValidatorUnit;
 
 type
   /// <summary>TFrmMDIChild
@@ -25,36 +26,85 @@ type
   /// </summary>
   TFrmMDIChild = class(TLayoutForm)
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
     FValidator: TDevExpressVisualValidator;
     procedure SetValidator(const Value: TDevExpressVisualValidator);
   strict protected
-    procedure OnDataNotification(AData: TDataNotification); virtual; stdcall;
     procedure UpdateCaption(const ACaption: string); virtual;
+    /// <summary>TFrmMDIChild.UnsavedChangesExists
+    /// ќпределить есть ли на форме несохраненные изменени€ данных, подлежащие
+    /// сохранению
+    /// </summary>
+    /// <returns> Boolean
+    /// </returns>
+    function UnsavedChangesExists: Boolean; virtual;
+    /// <summary>TFrmMDIChild.SaveChanges
+    /// —охранить изменени€ данных формы
+    /// </summary>
+    /// <returns> Boolean
+    /// </returns>
+    function SaveChanges: Boolean; virtual;
+    function CancelChanges: Boolean; virtual;
   public
     procedure ShowOracleException(E: Exception);
     property Validator: TDevExpressVisualValidator read FValidator write
-        SetValidator;
+      SetValidator;
   end;
-
 
 implementation
 
 uses
   MainFormUnit, Lib.ComponentHelperUnit, DbLib.DataSetHelperUnit, AppDataUnit,
-  OraErrorProcessorUnit;
+  OraErrorProcessorUnit, VCL.WindowsDialogsUnit;
+
+resourcestring
+  SUnsavedChanges = 'Ќа форме "%s" есть несохраненные изменени€. —охранить их ?';
 
 {$R *.dfm}
 
 var
   FArmCounter: Integer;
 
+function TFrmMDIChild.CancelChanges: Boolean;
+var
+  vResult: Boolean;
+begin
+  vResult := True;
+  ForEachSubcomponent<TOraQuery>(
+    procedure(AQuery: TOraQuery)
+    begin
+      if AQuery.CurrentRecordIsModified then
+      try
+        AQuery.Cancel;
+      except
+        vResult := False;
+        raise;
+      end;
+    end);
+  Result := vResult
+end;
+
 procedure TFrmMDIChild.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
   Action := caFree;
+end;
+
+procedure TFrmMDIChild.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  inherited;
+  CanClose := True;
+  if UnsavedChangesExists then
+  begin
+    case AskYesNoCancelFtm(SUnsavedChanges, [Caption]) of
+      yncYes: CanClose := SaveChanges;
+      yncNo: CanClose := CancelChanges;
+      yncCancel: CanClose := False;
+    end;
+  end;
 end;
 
 procedure TFrmMDIChild.FormCreate(Sender: TObject);
@@ -73,8 +123,21 @@ begin
   inherited;
 end;
 
-procedure TFrmMDIChild.OnDataNotification(AData: TDataNotification);
+function TFrmMDIChild.SaveChanges: Boolean;
+var
+  vResult: Boolean;
 begin
+  vResult := True;
+  ForEachSubcomponent<TOraQuery>(
+    procedure(AQuery: TOraQuery)
+    begin
+      if vResult and AQuery.CurrentRecordIsModified then
+      begin
+        AQuery.Post;
+        vResult := not AQuery.CurrentRecordIsModified;
+      end;
+    end);
+  Result := vResult
 end;
 
 procedure TFrmMDIChild.SetValidator(const Value: TDevExpressVisualValidator);
@@ -87,6 +150,20 @@ begin
   OraErrorProcessor.ShowOracleException(E);
 end;
 
+function TFrmMDIChild.UnsavedChangesExists: Boolean;
+var
+  vResult: Boolean;
+begin
+  vResult := False;
+  ForEachSubcomponent<TOraQuery>(
+    procedure(AQuery: TOraQuery)
+    begin
+      if not vResult then
+        vResult := AQuery.CurrentRecordIsModified();
+    end);
+  Result := vResult;
+end;
+
 procedure TFrmMDIChild.UpdateCaption(const ACaption: string);
 begin
   Caption := ACaption;
@@ -97,6 +174,4 @@ initialization
   FArmCounter := 0;
 
 end.
-
-
 

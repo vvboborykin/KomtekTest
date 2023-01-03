@@ -4,8 +4,7 @@ inherited FrmMDIChild: TFrmMDIChild
   ShowHint = True
   Visible = True
   OnClose = FormClose
-  ExplicitWidth = 320
-  ExplicitHeight = 240
+  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 21
 end

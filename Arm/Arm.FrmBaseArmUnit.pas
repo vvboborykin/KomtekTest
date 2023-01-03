@@ -99,10 +99,15 @@ type
     imlTab: TcxImageList;
     qryDocumentDOCNUM: TFloatField;
     viewDocumentsDOCNUM: TcxGridDBColumn;
+    lgrSpravGridButtons: TdxLayoutGroup;
+    btnRefreshDocumentList: TcxButton;
+    dxLayoutItem6: TdxLayoutItem;
+    actRefreshDocumentList: TAction;
     procedure actCancelHumanExecute(Sender: TObject);
     procedure actCreateDocumentExecute(Sender: TObject);
     procedure actCreateHumanExecute(Sender: TObject);
     procedure actEditDocumentExecute(Sender: TObject);
+    procedure actRefreshDocumentListExecute(Sender: TObject);
     procedure actRefreshHumanListExecute(Sender: TObject);
     procedure actSaveHumanExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -145,7 +150,7 @@ implementation
 uses
   MainFormUnit, Lib.ComponentHelperUnit, DbLib.DataSetHelperUnit, AppDataUnit,
   Search.OraQueryEngineUnit, Arm.CreateDocumentParamsUnit,
-  Arm.DocumentFormFactoryUnit;
+  Arm.DocumentFormFactoryUnit, VCL.WindowsDialogsUnit;
 
 resourcestring
   SDateMaxError = 'Дата не может быть больше текущей';
@@ -178,12 +183,12 @@ begin
   inherited;
   if qryHuman.State <> dsBrowse then
   begin
-    case MessageDlg(SConfirmSaveHuman, mtWarning, [mbYes, mbNo, mbCancel], 0) of
-      mrYes:
+    case AskYesNoCancel(SConfirmSaveHuman) of
+      yncYes:
         qryHuman.Post;
-      mrNo:
+      yncNo:
         qryHuman.Cancel;
-      mrCancel:
+      yncCancel:
         Exit;
     end;
   end;
@@ -191,6 +196,7 @@ begin
   // активируем закладку - редактор человека
   lgrDetails.ItemIndex := 0;
   qryHuman.Append;
+  edSURNAME.SetFocus;
 end;
 
 procedure TFrmBaseArm.actEditDocumentExecute(Sender: TObject);
@@ -200,6 +206,12 @@ begin
   begin
     DocumentFormFactory.EditDocument(qryDocumentID.AsVariant);
   end;
+end;
+
+procedure TFrmBaseArm.actRefreshDocumentListExecute(Sender: TObject);
+begin
+  inherited;
+  qryDocument.CloseOpen;
 end;
 
 procedure TFrmBaseArm.actRefreshHumanListExecute(Sender: TObject);

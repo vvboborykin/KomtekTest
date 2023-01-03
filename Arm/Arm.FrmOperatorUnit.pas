@@ -6,7 +6,7 @@
 * Created: 27.12.2022 22:26:59
 * Copyright (C) 2022 Боборыкин В.В. (bpost@yandex.ru)
 *******************************************************}
-unit Arm.frmOperatorUnit;
+unit Arm.FrmOperatorUnit;
 
 interface
 
@@ -47,12 +47,10 @@ type
     btnCreateDocument: TcxButton;
     dxLayoutItem5: TdxLayoutItem;
     viewDocumentsBtn: TcxGridDBColumn;
-    lgrSpravToolbar: TdxLayoutGroup;
     btnCreateDocument1: TcxButton;
-    dxLayoutItem6: TdxLayoutItem;
-    cxButton2: TcxButton;
-    dxLayoutItem7: TdxLayoutItem;
-    procedure actCreateHumanExecute(Sender: TObject);
+    btnOpenDocument: TcxButton;
+    litCreateDocumentButton: TdxLayoutItem;
+    litOpenDocumentButton: TdxLayoutItem;
     procedure grdHumansEnter(Sender: TObject);
     procedure lgrDetailsTabChanging(Sender: TObject; ANewTabIndex: Integer; var
         Allow: Boolean);
@@ -69,12 +67,6 @@ uses
   DbLib.DataSetHelperUnit, AppDataUnit;
 
 {$R *.dfm}
-
-procedure TFrmOperator.actCreateHumanExecute(Sender: TObject);
-begin
-  inherited;
-  edSURNAME.SetFocus;
-end;
 
 procedure TFrmOperator.grdHumansEnter(Sender: TObject);
 begin

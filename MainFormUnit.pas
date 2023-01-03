@@ -12,6 +12,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Generics.Collections,
   FrmMDIChildUnit, DataNotificationUnit, DevExpressOptionsUnit,
   Lib.SubscriptionUnit, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, BaseFormUnit, cxGraphics, cxControls, cxLookAndFeels,
@@ -61,10 +62,12 @@ type
     procedure ArmMruListClick(Sender: TObject);
     procedure dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
       ASkinName: string);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   strict private
     FShowFirstTime: Boolean;
+    procedure CloseAllMdiChildren;
     procedure ShowArmSelectorAfterDelay(ADelayTimeMs: Integer);
   private
   strict protected
@@ -115,11 +118,36 @@ begin
   vForm.Show;
 end;
 
+procedure TMainForm.CloseAllMdiChildren;
+var
+  vFormList: TList<TForm>;
+  I: Integer;
+begin
+  vFormList := TList<TForm>.Create;
+  try
+    // дубликат списка MDI детей необходим для итерации по списку
+    // без его изменений при закрытии MDI форм
+    for I := 0 to MDIChildCount-1 do
+      vFormList.Add(MDIChildren[I]);
+    for I := 0 to vFormList.Count-1 do
+      vFormList[I].Close;
+  finally
+    vFormList.Free;
+  end;
+end;
+
 procedure TMainForm.dxSkinChooserGalleryItem1SkinChanged(Sender: TObject; const
   ASkinName: string);
 begin
   inherited;
   DevExpressOptions.SetSkinName(ASkinName);
+end;
+
+procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  inherited;
+  CloseAllMdiChildren();
+  CanClose := MDIChildCount = 0;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);

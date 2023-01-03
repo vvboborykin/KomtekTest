@@ -18,6 +18,7 @@ inherited frmBaseArm: TfrmBaseArm
       Width = 1004
       Height = 80
       BevelOuter = bvNone
+      Color = 15790320
       ParentBackground = False
       TabOrder = 0
     end
@@ -25,7 +26,7 @@ inherited frmBaseArm: TfrmBaseArm
       Left = 17
       Top = 167
       Width = 1004
-      Height = 232
+      Height = 182
       TabOrder = 3
       object viewHumans: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
@@ -80,58 +81,52 @@ inherited frmBaseArm: TfrmBaseArm
       end
     end
     object edSURNAME: TcxDBTextEdit [2]
-      Left = 157
-      Top = 458
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'SURNAME'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 4
+      Visible = False
       Width = 843
     end
     object edFIRSTNAME: TcxDBTextEdit [3]
-      Left = 157
-      Top = 497
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'FIRSTNAME'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 5
+      Visible = False
       Width = 843
     end
     object edPATRNAME: TcxDBTextEdit [4]
-      Left = 157
-      Top = 536
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'PATRNAME'
       DataBinding.DataSource = dsHumans
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       Style.TransparentBorder = False
       TabOrder = 6
+      Visible = False
       Width = 843
     end
     object edBIRTHDATE: TcxDBDateEdit [5]
-      Left = 157
-      Top = 575
+      Left = 10000
+      Top = 10000
       Hint = #1044#1072#1090#1072' '#1088#1086#1078#1076#1077#1085#1080#1103' '#1087#1072#1094#1080#1077#1085#1090#1072
       AutoSize = False
       DataBinding.DataField = 'BIRTHDATE'
       DataBinding.DataSource = dsHumans
       Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       Style.TransparentBorder = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 7
+      Visible = False
       Height = 29
       Width = 121
     end
@@ -144,12 +139,11 @@ inherited frmBaseArm: TfrmBaseArm
       TabOrder = 2
     end
     object grdDocuments: TcxGrid [7]
-      Left = 10000
-      Top = 10000
+      Left = 36
+      Top = 460
       Width = 966
       Height = 238
-      TabOrder = 9
-      Visible = False
+      TabOrder = 10
       object viewDocuments: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         ScrollbarAnnotations.CustomAnnotations = <>
@@ -206,34 +200,35 @@ inherited frmBaseArm: TfrmBaseArm
         '300'
         '1000')
       Properties.OnEditValueChanged = cbbLimitPropertiesEditValueChanged
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       Style.TransparentBorder = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 1
       Text = '10'
       Height = 34
       Width = 77
     end
     object edCREATETS: TcxDBDateEdit [9]
-      Left = 400
-      Top = 575
+      Left = 10000
+      Top = 10000
       DataBinding.DataField = 'CREATETS'
       DataBinding.DataSource = dsHumans
       Properties.Kind = ckDateTime
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       Style.TransparentBorder = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 8
+      Visible = False
       Width = 203
     end
+    object btnRefreshDocumentList: TcxButton [10]
+      Left = 36
+      Top = 415
+      Width = 131
+      Height = 35
+      Action = actRefreshDocumentList
+      TabOrder = 9
+    end
     inherited lgrRoot: TdxLayoutGroup
-      ItemIndex = 1
+      ItemIndex = 2
     end
     object layFind: TdxLayoutItem
       Parent = lgrRoot
@@ -260,6 +255,7 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrWorkArea
       AlignHorz = ahClient
       ButtonOptions.Buttons = <>
+      ItemIndex = 1
       LayoutDirection = ldTabbed
       ShowBorder = False
       Index = 2
@@ -287,7 +283,7 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrHumanInfo
       CaptionOptions.Text = #1060#1072#1084#1080#1083#1080#1103
       Control = edSURNAME
-      ControlOptions.OriginalHeight = 29
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 121
       ControlOptions.ShowBorder = False
       Index = 0
@@ -296,7 +292,7 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrHumanInfo
       CaptionOptions.Text = #1048#1084#1103
       Control = edFIRSTNAME
-      ControlOptions.OriginalHeight = 29
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 121
       ControlOptions.ShowBorder = False
       Index = 1
@@ -305,7 +301,7 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrHumanInfo
       CaptionOptions.Text = #1054#1090#1095#1077#1089#1090#1074#1086
       Control = edPATRNAME
-      ControlOptions.OriginalHeight = 29
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 121
       ControlOptions.ShowBorder = False
       Index = 2
@@ -353,7 +349,7 @@ inherited frmBaseArm: TfrmBaseArm
       ControlOptions.OriginalHeight = 238
       ControlOptions.OriginalWidth = 250
       ControlOptions.ShowBorder = False
-      Index = 0
+      Index = 1
     end
     object litPeopleMaxCount: TdxLayoutItem
       Parent = lgrHumanGridButtons
@@ -371,7 +367,7 @@ inherited frmBaseArm: TfrmBaseArm
       AlignHorz = ahLeft
       CaptionOptions.Text = #1044#1072#1090#1072' '#1074#1085#1077#1089#1077#1085#1080#1103
       Control = edCREATETS
-      ControlOptions.OriginalHeight = 29
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 203
       ControlOptions.ShowBorder = False
       Index = 1
@@ -385,6 +381,24 @@ inherited frmBaseArm: TfrmBaseArm
       Parent = lgrRoot
       CaptionOptions.Text = 'Separator'
       Index = 1
+    end
+    object lgrSpravGridButtons: TdxLayoutGroup
+      Parent = lgrDocuments
+      CaptionOptions.Text = 'New Group'
+      ButtonOptions.Buttons = <>
+      LayoutDirection = ldHorizontal
+      ShowBorder = False
+      Index = 0
+    end
+    object dxLayoutItem6: TdxLayoutItem
+      Parent = lgrSpravGridButtons
+      CaptionOptions.Text = 'cxButton3'
+      CaptionOptions.Visible = False
+      Control = btnRefreshDocumentList
+      ControlOptions.OriginalHeight = 35
+      ControlOptions.OriginalWidth = 131
+      ControlOptions.ShowBorder = False
+      Index = 0
     end
   end
   object qryHuman: TOraQuery
@@ -551,6 +565,11 @@ inherited frmBaseArm: TfrmBaseArm
       ImageIndex = 5
       OnExecute = actEditDocumentExecute
     end
+    object actRefreshDocumentList: TAction
+      Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+      ImageIndex = 0
+      OnExecute = actRefreshDocumentListExecute
+    end
   end
   object iml24: TcxImageList
     SourceDPI = 96
@@ -560,7 +579,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 904
     Top = 176
     Bitmap = {
-      494C0101060018005C0018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106001800680018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000003000000001002000000000000048
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1349,7 +1368,7 @@ inherited frmBaseArm: TfrmBaseArm
     Left = 664
     Top = 416
     Bitmap = {
-      494C0101020008002C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800380010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000001C0F025C9B550BD9D575

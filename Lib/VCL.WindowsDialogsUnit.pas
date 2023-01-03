@@ -64,8 +64,7 @@ function ShowDialogFmt(AErrorText: String; AParams: array of const;
   ATitleText: String; AButtons: Cardinal): Integer;
 begin
   Result := MessageBox(0, PWideChar(Format(AErrorText, AParams)),
-    PWideChar(GetDialogTitile(ATitleText)),
-    MB_OK + MB_ICONERROR + MB_DEFBUTTON1);
+    PWideChar(GetDialogTitile(ATitleText)), AButtons);
 end;
 
 procedure ShowErrorFmt(AErrorText: String; AParams: array of const);
@@ -116,7 +115,7 @@ function AskYesNoCancelFtm(AInfoText: String; AParams: array of const):
     TYesNoCancel;
 begin
   Result := TYesNoCancel(ShowDialogFmt(AInfoText, AParams, SConfirmation,
-    MB_YESNO + MB_DEFBUTTON1 + MB_ICONQUESTION));
+    MB_YESNOCANCEL  + MB_DEFBUTTON1 + MB_ICONQUESTION));
 end;
 
 function AskYesNoCancel(AInfoText: String): TYesNoCancel;

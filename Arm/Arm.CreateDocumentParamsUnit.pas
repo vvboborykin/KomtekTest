@@ -19,6 +19,10 @@ type
     FHumanId: Variant;
     procedure SetHumanId(const Value: Variant);
   public
+    /// <summary>TCreateDocumentParams.HumanId
+    /// Идентификатор записи БД о человеке для которого создается документ
+    /// </summary>
+    /// type:Variant
     property HumanId: Variant read FHumanId write SetHumanId;
   end;
 

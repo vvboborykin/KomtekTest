@@ -28,30 +28,37 @@ type
     /// Итератор по записям DataSet
     /// </summary>
     /// <param name="AProc"> (TProc) Процедура выполняемая для записей</param>
-    /// <param name="ADisableControls"> (Boolean) Отключать обновление визуальных
+
+      /// <param name="ADisableControls"> (Boolean) Отключать обновление визуальных
     /// компоненов подключенных к DataSet</param>
     /// <param name="AFilter"> (TFunc<Boolean>) Предикат отфильтровывающий
     /// обрабатываемые записи</param>
-    /// <param name="ABreaker"> (TFunc<Boolean>) Предикат прерывания итерации</param>
+
+      /// <param name="ABreaker"> (TFunc<Boolean>) Предикат прерывания итерации</param>
     procedure ForEachRecord(AProc: TProc; ADisableControls: Boolean = True;
       AFilter: TFunc<Boolean> = nil; ABreaker: TFunc<Boolean> = nil);
     /// <summary>TDataSetHelper.ForEachField
     /// Итератор по полям DataSet
     /// </summary>
-    /// <param name="AProc"> (TProc<TField>) Процедура выполняемая для полей</param>
-    /// <param name="AFilter"> (TFunc<TField, Boolean>) Предикат отфильтровывающий
+
+      /// <param name="AProc"> (TProc<TField>) Процедура выполняемая для полей</param>
+
+      /// <param name="AFilter"> (TFunc<TField, Boolean>) Предикат отфильтровывающий
     /// обрабатываемые поля</param>
     /// <param name="ABreaker"> (TFunc<TField, Boolean>) Предикат прерывания
     /// итерации</param>
     procedure ForEachField(AProc: TProc<TField>; AFilter: TFunc<TField, Boolean>
       = nil; ABreaker: TFunc<TField, Boolean> = nil);
     /// <summary>TDataSetHelper.PostIfNeeded
-    /// Зафиксировать изменения в DataSet если он в режиме вставки или редактирования
+
+      /// Зафиксировать изменения в DataSet если он в режиме вставки или редактирования
     /// </summary>
     procedure PostIfNeeded;
     procedure CancelIfNeeded;
+    function CurrentRecordIsModified: Boolean;
     /// <summary>TDataSetHelper.EditIfNeeded
-    /// Перевести DataSet в режим редактирования если он уже не находится в этом режиме
+
+      /// Перевести DataSet в режим редактирования если он уже не находится в этом режиме
     /// </summary>
     procedure EditIfNeeded;
     /// <summary>TDataSetHelper.WithRestoreRecno
@@ -59,6 +66,7 @@ type
     /// </summary>
     /// <param name="AProc"> (TProc) Процедура для выполнения</param>
     procedure WithRestoreRecno(AProc: TProc);
+
   end;
 
   EDataSetIsNotActive = class(Exception)
@@ -91,6 +99,25 @@ begin
         EnableControls;
       end;
     end);
+end;
+
+function TDataSetHelper.CurrentRecordIsModified: Boolean;
+var
+  I: Integer;
+begin
+  Result := Active and (State <> dsBrowse);
+  if Result then
+  begin
+    for I := 0 to FieldCount - 1 do
+    begin
+      if (Fields[I].FieldKind = fkData)
+        and (Fields[I].OldValue <> Fields[I].NewValue) then
+      begin
+        Result := True;
+        Break;
+      end;
+    end;
+  end;
 end;
 
 procedure TDataSetHelper.EditIfNeeded;

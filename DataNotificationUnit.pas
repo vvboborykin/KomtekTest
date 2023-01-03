@@ -15,7 +15,7 @@ uses
 
 type
   /// <summary>TDataNotification
-  /// Сообщение для доставки
+  /// Сообщение оповещения об изменении данных БД
   /// </summary>
   TDataNotification = class abstract
   private
@@ -27,7 +27,7 @@ type
   end;
 
   /// <summary>TTableDataNotification
-  /// Сообщение об изменении данных таблицы
+  /// Сообщение об изменении данных таблицы БД
   /// </summary>
   TTableDataNotification = class abstract(TDataNotification)
   private
@@ -39,7 +39,7 @@ type
   end;
 
   /// <summary>TRecordDataNotification
-  /// Сообщение об изменении записи таблицы
+  /// Сообщение об изменении записи таблицы БД
   /// </summary>
   TRecordDataNotification = class abstract(TTableDataNotification)
   private
@@ -50,12 +50,21 @@ type
     property RecordId: Variant read FRecordId write SetRecordId;
   end;
 
+  /// <summary>TDeleteRecordDataNotification
+  /// Событие удаления записи таблицы БД
+  /// </summary>
   TDeleteRecordDataNotification = class(TRecordDataNotification)
   end;
 
+  /// <summary>TInsertRecordDataNotification
+  /// Событие создания новой записи таблицы БД
+  /// </summary>
   TInsertRecordDataNotification = class(TRecordDataNotification)
   end;
 
+  /// <summary>TUpdateRecordDataNotification
+  /// Событие изменения записи таблицы БД
+  /// </summary>
   TUpdateRecordDataNotification = class(TRecordDataNotification)
   end;
 

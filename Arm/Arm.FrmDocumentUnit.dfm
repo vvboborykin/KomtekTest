@@ -83,6 +83,7 @@ inherited FrmDocument: TFrmDocument
       Properties.ReadOnly = True
       Style.Color = 14024703
       Style.HotTrack = False
+      Style.TextColor = clNavy
       Style.TransparentBorder = False
       TabOrder = 0
       Width = 899
@@ -1045,7 +1046,7 @@ inherited FrmDocument: TFrmDocument
     Left = 672
     Top = 8
     Bitmap = {
-      494C010102000800400018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800480018001800FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000600000001800000001002000000000000024
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14310,7 +14311,7 @@ inherited FrmDocument: TFrmDocument
       PrinterPage.PageSize.Y = 297000
       PrinterPage._dxMeasurementUnits_ = 0
       PrinterPage._dxLastMU_ = 2
-      ReportDocument.CreationDate = 44928.618273032410000000
+      ReportDocument.CreationDate = 44929.639916550930000000
       PixelsPerInch = 96
       BuiltInReportLink = True
     end

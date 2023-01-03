@@ -15,6 +15,9 @@ uses
   Arm.CreateDocumentParamsUnit;
 
 type
+  /// <summary>TDocumentFormFactory
+  /// Фабрика редактора документов
+  /// </summary>
   TDocumentFormFactory = class
   public
     /// <summary>TDocumentFormFactory.CreateDocument
@@ -30,6 +33,11 @@ type
     procedure EditDocument(ADocumentId: Variant);
   end;
 
+/// <summary>procedure DocumentFormFactory
+/// Снглтон TDocumentFormFactory
+/// </summary>
+/// <returns> TDocumentFormFactory
+/// </returns>
 function DocumentFormFactory: TDocumentFormFactory;
 
 implementation
@@ -52,14 +60,14 @@ end;
 
 procedure TDocumentFormFactory.CreateDocument(AParams: TCreateDocumentParams);
 begin
-  if (AParams.HumanId = null) then
+  if  VarIsNull(AParams.HumanId) or VarIsEmpty(AParams.HumanId)  then
     raise Exception.Create(SInvalidHuman);
   TFrmDocument.CreateNewDocument(AParams);
 end;
 
 procedure TDocumentFormFactory.EditDocument(ADocumentId: Variant);
 begin
-  if ADocumentId = null then
+  if VarIsNull(ADocumentId) or VarIsEmpty(ADocumentId) then
     raise Exception.Create(SInvalidDoc);
   TFrmDocument.EditDocument(ADocumentId);
 end;
