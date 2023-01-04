@@ -34,7 +34,7 @@ uses
   dxPSCompsProvider, dxPSFillPatterns, dxPSEdgePatterns, dxPSPDFExportCore,
   dxPSPDFExport, cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
   dxPScxPageControlProducer, dxPSRichEditControlLnk, dxPScxEditorProducers,
-  dxPScxExtEditorProducers, dxPSCore;
+  dxPScxExtEditorProducers, dxPSCore, dxSkinXmas2008Blue;
 
 type
   /// <summary>TFrmDocument

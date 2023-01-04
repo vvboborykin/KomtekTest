@@ -16,7 +16,7 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2019Colorful,
   cxClasses, dxLayoutContainer, dxLayoutControl, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
-  dxSkinOffice2019DarkGray, dxSkinOffice2019White;
+  dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinXmas2008Blue;
 
 type
   /// <summary>TLayoutForm

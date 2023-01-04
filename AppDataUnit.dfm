@@ -1,6 +1,7 @@
 object AppData: TAppData
   OldCreateOrder = True
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 218
   Width = 470
   object sesMain: TOraSession
@@ -11,7 +12,10 @@ object AppData: TAppData
     Server = '192.168.0.10:1521:XE'
     Connected = True
     ConnectDialog = dlgConnect
+    AfterConnect = sesMainAfterConnect
+    BeforeConnect = sesMainBeforeConnect
     OnError = sesMainError
+    OnConnectionLost = sesMainConnectionLost
     Left = 24
     Top = 16
     EncryptedPassword = '8EFFCEFF88FFCDFFBAFFDCFFADFFDBFF'

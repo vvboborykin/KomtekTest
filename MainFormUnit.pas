@@ -12,7 +12,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Generics.Collections,
+  System.Generics.Collections, Logging.AppLogger,
   FrmMDIChildUnit, DataNotificationUnit, DevExpressOptionsUnit,
   Lib.SubscriptionUnit, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, BaseFormUnit, cxGraphics, cxControls, cxLookAndFeels,
@@ -21,7 +21,7 @@ uses
   Vcl.ImgList, cxImageList, cxClasses, dxRibbon, Vcl.StdActns, dxRibbonGallery,
   dxSkinChooserGallery, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White, Arm.FrmBaseArmUnit, dxBarExtItems;
+  dxSkinOffice2019White, Arm.FrmBaseArmUnit, dxBarExtItems, dxSkinXmas2008Blue;
 
 type
   TMainForm = class(TBaseForm)
@@ -129,6 +129,7 @@ begin
     // без его изменений при закрытии MDI форм
     for I := 0 to MDIChildCount-1 do
       vFormList.Add(MDIChildren[I]);
+
     for I := 0 to vFormList.Count-1 do
       vFormList[I].Close;
   finally

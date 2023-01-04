@@ -15,16 +15,31 @@ uses
   LoggerPro, System.IOUtils;
 
 /// <summary>procedure Log
-/// Глобальная служба ведения протокола приложения
+/// Глобальная служба ведения протокола работы приложения
 /// </summary>
 /// <returns> ILogWriter
 /// </returns>
 function Log: ILogWriter;
 
+resourcestring
+  SApplication = 'Программа';
+  SDatabase = 'База данных';
+
+
 implementation
 
 uses
   LoggerPro.FileAppender, Lib.CommandLineServiceUnit, TypInfo;
+
+const
+  SLogLevelParamName = 'LogLevel';
+  SLogsFolderParamName = 'LogsFolder';
+  SLogMaxFileSizeInKiloByteParamName = 'LogMaxFileSizeInKiloByte';
+  SLogMaxBackupFileCountParamName = 'LogMaxBackupFileCount';
+  SDebugLogLevel = 'DEBUG';
+  SInfoLogLevel = 'INFO';
+  SErrorLogLevel = 'ERROR';
+  SWarningLogLevel = 'WARNING';
 
 var
   FLog: ILogWriter;
@@ -37,14 +52,14 @@ var
   aLogsFolder: string;
 begin
   aMaxBackupFileCount := CommandLineService
-    .GetIntegerValue('LogMaxBackupFileCount',
+    .GetIntegerValue(SLogMaxBackupFileCountParamName,
       TLoggerProFileAppenderBase.DEFAULT_MAX_BACKUP_FILE_COUNT);
 
   aMaxFileSizeInKiloByte := CommandLineService
-    .GetintegerValue('LogMaxFileSizeInKiloByte',
+    .GetintegerValue(SLogMaxFileSizeInKiloByteParamName,
       TLoggerProFileAppenderBase.DEFAULT_MAX_FILE_SIZE_KB);
 
-  aLogsFolder := CommandLineService.GetValue('LogsFolder',
+  aLogsFolder := CommandLineService.GetValue(SLogsFolderParamName,
     TPath.Combine(TPath.GetHomePath,
       TPath.GetFileNameWithoutExtension(ParamStr(0))));
 
@@ -55,10 +70,32 @@ begin
     aMaxFileSizeInKiloByte, aLogsFolder);
 end;
 
+function GetLogLevelFromCommandLine: TLogType;
+var
+  vLogLevel: String;
+begin
+  Result := TLogType.Debug;
+  vLogLevel := CommandLineService.GetValue(SLogLevelParamName, SDebugLogLevel);
+  if AnsiSameText(vLogLevel, SDebugLogLevel) then
+    Result := TLogType.Debug
+  else
+  if AnsiSameText(vLogLevel, SInfoLogLevel) then
+    Result := TLogType.Info
+  else
+  if AnsiSameText(vLogLevel, SWarningLogLevel) then
+    Result := TLogType.Warning
+  else
+  if AnsiSameText(vLogLevel, SErrorLogLevel) then
+    Result := TLogType.Error
+  else;
+end;
+
+
 function Log: ILogWriter;
 begin
   if (FLog = nil) then
-    FLog := BuildLogWriter([CreateFileAppender]);
+    FLog := BuildLogWriter([CreateFileAppender], nil,
+      GetLogLevelFromCommandLine());
 
   Result := FLog;
 end;

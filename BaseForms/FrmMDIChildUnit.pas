@@ -18,7 +18,7 @@ uses
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
   dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
   cxClasses, dxLayoutContainer, dxLayoutControl,
-  VCL.DbEditorsVisualValidatorUnit;
+  VCL.DbEditorsVisualValidatorUnit, dxSkinXmas2008Blue;
 
 type
   /// <summary>TFrmMDIChild

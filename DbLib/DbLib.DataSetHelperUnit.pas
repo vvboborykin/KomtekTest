@@ -18,6 +18,22 @@ type
   /// Расширение функциональности TDataSet
   /// </summary>
   TDataSetHelper = class helper for TDataSet
+  private
+    /// <summary>TDataSetHelper.FieldValueChanged
+    /// Проверить изменено ли значение поля при редактировании набора данных
+    /// </summary>
+    /// <returns> Boolean
+    /// </returns>
+    /// <param name="AField"> (TField) </param>
+    function FieldValueChanged(AField: TField): Boolean;
+    /// <summary>TDataSetHelper.VarArrayEquals
+    /// Проверить тождественность двух одномерных массивов Variant
+    /// </summary>
+    /// <returns> Boolean
+    /// </returns>
+    /// <param name="vOldValue"> (Variant) </param>
+    /// <param name="vNewValue"> (Variant) </param>
+    function VarArrayEquals(vOldValue, vNewValue: Variant): Boolean;
   public
     /// <summary>TDataSetHelper.CloseOpen
     /// Закрыть и открыть DataSet с восстановлением текущей записи
@@ -31,8 +47,7 @@ type
     /// компоненов подключенных к DataSet</param>
     /// <param name="AFilter"> (TFunc<Boolean>) Предикат отфильтровывающий
     /// обрабатываемые записи</param>
-
-      /// <param name="ABreaker"> (TFunc<Boolean>) Предикат прерывания итерации</param>
+    /// <param name="ABreaker"> (TFunc<Boolean>) Предикат прерывания итерации</param>
     procedure ForEachRecord(AProc: TProc; ADisableControls: Boolean = True;
       AFilter: TFunc<Boolean> = nil; ABreaker: TFunc<Boolean> = nil);
     /// <summary>TDataSetHelper.ForEachField
@@ -49,7 +64,15 @@ type
     /// Зафиксировать изменения в DataSet если он в режиме вставки или редактирования
     /// </summary>
     procedure PostIfNeeded;
+    /// <summary>TDataSetHelper.CancelIfNeeded
+    /// Отказ от изменений в текущей записи DataSet (если они были сделаны0
+    /// </summary>
     procedure CancelIfNeeded;
+    /// <summary>TDataSetHelper.CurrentRecordIsModified
+    /// Проверить внесены ли изменения в текущую запись DataSet
+    /// </summary>
+    /// <returns> Boolean
+    /// </returns>
     function CurrentRecordIsModified: Boolean;
     /// <summary>TDataSetHelper.EditIfNeeded
     /// Перевести DataSet в режим редактирования если он уже не находится в этом режиме
@@ -98,13 +121,12 @@ function TDataSetHelper.CurrentRecordIsModified: Boolean;
 var
   I: Integer;
 begin
-  Result := Active and (State <> dsBrowse);
-  if Result then
+  Result := False;
+  if Active and (State <> dsBrowse) then
   begin
     for I := 0 to FieldCount - 1 do
     begin
-      if (Fields[I].FieldKind = fkData)
-        and (Fields[I].OldValue <> Fields[I].NewValue) then
+      if (Fields[I].FieldKind = fkData) and FieldValueChanged(Fields[I]) then
       begin
         Result := True;
         Break;
@@ -117,6 +139,24 @@ procedure TDataSetHelper.EditIfNeeded;
 begin
   if State = dsBrowse then
     Edit;
+end;
+
+function TDataSetHelper.FieldValueChanged(AField: TField): Boolean;
+var
+  vNewValue: Variant;
+  vOldValue: Variant;
+begin
+  vOldValue := AField.OldValue;
+  vNewValue := AField.NewValue;
+  if (VarType(vOldValue) = VarType(vNewValue)) then
+  begin
+    if VarIsArray(vNewValue) then
+      Result := not VarArrayEquals(vOldValue, vNewValue)
+    else
+      Result := (vOldValue <> vNewValue);
+  end
+  else
+    Result := True;
 end;
 
 procedure TDataSetHelper.ForEachField(AProc: TProc<TField>; AFilter: TFunc<
@@ -181,6 +221,25 @@ procedure TDataSetHelper.PostIfNeeded;
 begin
   if State <> dsBrowse then
     Post;
+end;
+
+function TDataSetHelper.VarArrayEquals(vOldValue, vNewValue: Variant): Boolean;
+var
+  vNewLen: Integer;
+  vNewP: Pointer;
+  vOldLen: Integer;
+  vOldP: Pointer;
+begin
+  vOldLen := VarArrayHighBound(vOldValue, 1) - VarArrayLowBound(vOldValue, 1) + 1;
+  vNewLen := VarArrayHighBound(vNewValue, 1) - VarArrayLowBound(vNewValue, 1) + 1;
+  vOldP := VarArrayLock(vOldValue);
+  vNewP := VarArrayLock(vNewValue);
+  try
+    Result := (vOldLen = vNewLen) and CompareMem(vOldP, vNewP, vNewLen);
+  finally
+    VarArrayUnlock(vOldValue);
+    VarArrayUnlock(vNewValue);
+  end;
 end;
 
 procedure TDataSetHelper.WithRestoreRecno(AProc: TProc);
