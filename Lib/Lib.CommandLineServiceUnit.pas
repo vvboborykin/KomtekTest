@@ -34,6 +34,16 @@ type
     /// <param name="ADefaultValue"> (string) Значение возвращаемое если параметр не
     /// задан</param>
     function GetValue(AName, ADefaultValue: string): String;
+    /// <summary>TCommandLineService.GetIntegerValue
+    /// Получить значение целочисленного параметра. При переданном нецелочисленном
+    /// значении параметра выбрасывает Exception
+    /// </summary>
+    /// <returns> Integer
+    /// </returns>
+    /// <param name="AName"> (string) Имя параметра</param>
+    /// <param name="ADefaultValue"> (Integer) Значение возвращаемое по умолчанию, если
+    /// параметр не был передан в командной строке</param>
+    function GetIntegerValue(AName: string; ADefaultValue: Integer): Integer;
     /// <summary>TCommandLineService.SwitchExists
     /// Определить задан ли в командной строке ключ
     /// </summary>
@@ -60,10 +70,23 @@ type
     function ValueExists(AParameterName: string): Boolean;
   end;
 
+  function CommandLineService: TCommandLineService;
+
 implementation
+
+resourcestring
+  SParamIsNotInt = 'Переданный параметр %s="%s" не является целым числом';
 
 const
   SParameterExpr = '(\S+)\s*\=\s*\"?(.*)\"?';
+
+var
+  FCommandLineService: TCommandLineService;
+
+  function CommandLineService: TCommandLineService;
+  begin
+    Result := FCommandLineService;
+  end;
 
 constructor TCommandLineService.Create;
 begin
@@ -82,6 +105,16 @@ function TCommandLineService.GetValue(AName, ADefaultValue: string): String;
 begin
   if not TryGetValue(AName, Result) then
     Result := ADefaultValue;
+end;
+
+function TCommandLineService.GetIntegerValue(AName: string; ADefaultValue:
+    Integer): Integer;
+var
+  vStrValue: String;
+begin
+  vStrValue := GetValue(AName, IntToStr(ADefaultValue));
+  if not TryStrToInt(vStrValue, Result) then
+    raise Exception.CreateFmt(SParamIsNotInt, [AName, vStrValue]);
 end;
 
 procedure TCommandLineService.ParseParameters;
@@ -113,5 +146,9 @@ begin
   Result := FValues.ContainsKey(AParameterName);
 end;
 
+initialization
+  FCommandLineService := TCommandLineService.Create;
+finalization
+  FCommandLineService.Free;
 end.
 

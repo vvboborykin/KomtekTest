@@ -37,7 +37,12 @@ uses
   OraErrorProcessorUnit in 'OraErrorProcessorUnit.pas',
   VCL.WindowsDialogsUnit in 'Lib\VCL.WindowsDialogsUnit.pas',
   Lib.SubscriptionUnit in 'Lib\Lib.SubscriptionUnit.pas',
-  Lib.ThreadSafeObjectUnit in 'Lib\Lib.ThreadSafeObjectUnit.pas';
+  Lib.ThreadSafeObjectUnit in 'Lib\Lib.ThreadSafeObjectUnit.pas',
+  LoggerPro in 'Logging\LoggerPro.pas',
+  LoggerPro.FileAppender in 'Logging\LoggerPro.FileAppender.pas',
+  LoggerPro.GlobalLogger in 'Logging\LoggerPro.GlobalLogger.pas',
+  Logging.AppLogger in 'Logging\Logging.AppLogger.pas',
+  ThreadSafeQueueU in 'Logging\ThreadSafeQueueU.pas';
 
 {$R *.res}
 
